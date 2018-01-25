@@ -1,0 +1,28 @@
+img{
+    width:300px;
+    height: 350px;
+    /*border-radius: 20%;*/
+    margin-left: 30px;
+    margin-bottom:20px;
+}
+a{
+    text-decoration: none;
+}
+body{
+    background-color: linen;
+}
+#sec1{
+    text-align: right;
+}
+#sec1>img{
+    height:60px;
+    width:60px;
+    border-radius:50%;
+}
+span{
+    color: #d58512;
+    position: relative;
+    bottom:36px;
+    left: 20px;
+
+}

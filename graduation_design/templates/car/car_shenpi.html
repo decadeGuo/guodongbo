@@ -1,0 +1,44 @@
+{% extends "car/car_index.html" %}
+{% load staticfiles %}
+{% block content %}
+    <style>
+        #tou{width: 80%;margin: auto}
+    #message{margin-top: 3%;padding: 10px;
+    border: 1px solid green;font-size: 2rem;border-radius: 20px;box-shadow: 2px 2px 1px green;
+    }
+    #yijian{width: 80%;border: 1px solid blue;border-radius: 10px;}
+    </style>
+<div id="tou">
+{% if error %}
+    <div id="message" class="a">
+        暂无需要审批的内容
+    </div>
+    <a href="/car/index/"><button  style="margin-left: 1%;margin-top: 10%" type="button" class="btn btn-default btn-lg">返回上一级</button></a>
+{% else %}
+<div id="message" class="a">
+        申请用车资料卡<br>
+        姓名：{{ name }} <br>
+        时间：{{ time1 }}—{{ time2 }} <br>
+        原因：{{ resign }} <br>
+        到达地点：{{ where }} &nbsp;乘车人数：{{ num }} <br>
+        车辆型号：{{ car_name }} <br>
+        车牌号：{{ car_card }} <br>
+        开车人：{{ siji }} <br>
+        审批人/组长：{{ shenpi }}
+    </div>
+<div id="message" class="a">
+    <form action="/car/apply/res/?id={{ id }}" method="post">
+        意见：<input id="yijian" type="text" name="yijian"><br>
+        审核结果：
+        <button type="submit" name="but" value="1" class="btn btn-primary btn-lg">同意</button>
+        <button type="submit" name="but" value="2"  class="btn btn-warning btn-lg">不同意</button>
+        <button type="submit" name="but" value="0"  class="btn btn-info btn-lg">搁置</button>
+    </form>
+    </div>
+    <br>
+    <a href="/car/index/" style="margin-left: 1%"><button type="button" class="btn btn-default btn-lg">返回上一级</button></a>
+{% endif %}
+</div>
+
+
+{% endblock %}

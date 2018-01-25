@@ -1,0 +1,36 @@
+{% extends "index.html" %}
+{% load staticfiles %}
+{% block right %}
+{% block content %}
+    <style>
+        #main{width: 80%;margin: auto;margin-top: 5%}
+        .car_index{margin: auto;text-align: center;margin-top: 2%;}
+        button{font-size: 3rem;padding: 10px 40px;border-radius: 10px;font-weight: bold;position: relative}
+        .xin{width:22px;height: 22px;font-size: 1.5rem;position: absolute;top:6%;right: 6%;background-color: red;border-radius: 50%;color: white }
+    </style>
+    <div id="main">
+    <p class="car_index a"><a href="/car/car_apply/"><button>申请用车</button></a></p>
+    {% if apply_num > 0 %}
+    <p class="car_index a"><a href="/car/car_apply/ing/"><button>申请记录<span class="xin">{{ apply_num }}</span></button></a></p>
+    {% else %}
+        <p class="car_index a"><a href="/car/car_apply/ing/"><button>申请记录</button></a></p>
+    {% endif %}
+    <p class="car_index a"><a href="/car/car_apply/logs/"><button>用车记录</button></a></p>
+    {% if user_type < 3 %}
+    <p class="car_index a" style="color: gray"><button disabled>用车审批(无权限)</button></p>
+    {% else %}
+        {% if shenpi_num > 0 %}
+            <p class="car_index a"><a href="/car/car_apply/shenpi/"><button>用车审批 <span  class="xin">{{ shenpi_num }}</span></button></a></p>
+        {% else %}
+            <p class="car_index a"><a href="/car/car_apply/shenpi/"><button>用车审批</button></a></p>
+        {% endif %}
+    {% endif %}
+    </div>
+
+{% endblock %}
+<script src="{% static 'js/jquery.js' %}"></script>
+<script>
+    $('.left_c').removeClass('active');
+    $('#car').addClass('active');
+</script>
+{% endblock %}

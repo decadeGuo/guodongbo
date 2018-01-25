@@ -1,0 +1,149 @@
+{% load staticfiles %}
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width, user-scalable=no" name="viewport">
+		<title>人员管理</title>
+        <link rel="shortcut icon" href="{% static '/images/logo.png' %}" type="image/png">
+        <link rel="stylesheet" type="text/css" href="{% static 'style/public.css' %}" />
+        <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+{#        <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">#}
+        <style>
+            a{color:dodgerblue }
+            p{margin: 0}
+        .a{font-family: '楷体';}
+        #header{color: dodgerblue;font-size: 3.5em;height:120px;background-color: snow;position: relative;box-shadow: 1px 1px 3px gray}
+        #logo{width: 100px;height: 110px;margin-left: 20%;padding-top:10px}
+        #title{float: right;text-align: left;width: 60%;}
+        .t{color: blue}
+        #right{width: 80%;
+{#            border: 1px solid red;#}
+            height: calc(100% - 120px);overflow: auto;background-color: ghostwhite;position: relative}
+        #left{ width: 20%;padding-top: 20px;position: relative;float: left;
+{#            border: 1px solid black;#}
+            height: calc(100% - 120px);background-color: gainsboro;color: dodgerblue}
+        .left_c{width: 100%;height: 100%;font-size: 2.5rem;display: flex;justify-content: center;
+                    align-items: center; }
+        .tip{height: calc(80% / 6);}
+        .left_c:hover{background-color: ghostwhite;border-bottom-left-radius: 20px;border-top-left-radius: 20px;cursor: pointer}
+
+        .active {background-color: ghostwhite;border-bottom-left-radius: 20px;border-top-left-radius: 20px;}
+        a:hover{text-decoration:none;}
+    </style>
+	</head>
+
+	<body>
+        <header id="header" class="a">
+            <p id="title"><span style="line-height: 120px">智能管理系统</span></p>
+
+            <p ><img id="logo" src="{% static 'images/logo2.png' %}" alt=""></p>
+{#            <p style="width: 25%;height: 110px;font-size: 2rem;position: absolute;top: 0;right: 1px;color: black;">#}
+{#                <br>#}
+{#                姓名：<span class="t">{{ name }}</span> 职位：<span class="t">{{ position }}</span><br>#}
+{#                部门：<span class="t">{{ department }}</span> 操作：<a href="/auth/login/out/">安全退出</a>#}
+{#                <br>上次登录时间: <span> {{ time|date:'Y/m/d H:i' }}</span>#}
+{#            </p>#}
+            <p style="width: 25%;height: 110px;font-size: 2rem;position: absolute;top: 0;right: 1px;color: black;">
+                <br>
+                姓名：<span class="t" id="name"></span> 职位：<span class="t" id="position1"></span><br>
+                部门：<span class="t" id="depart"></span> 操作：<a href="/auth/login/out/" id="caozuo"></a>
+                <br>登录时间: <span id="time"> </span>
+            </p>
+        </header>
+        <section id="left">
+            {% block left %}
+            <div class="a tip"><a href="/?type=1">
+                <p class="left_c active" id="index" style="width: 95%;margin-left:5%;"><b>首&#x3000;页</b></p></a>
+            </div>
+            <div class="a tip"><a href="/car/index/">
+                <p class="left_c" id="car" style="width: 95%;margin-left:5%;"><b>用&#x3000;车</b></p>
+            </a></div>
+            <div class="a tip"><p class="left_c"  style="width: 95%;margin-left:5%;"><b>请&#x3000;假</b></p></div>
+            <div class="a tip"><p class="left_c" style="width: 95%;margin-left:5%;"><b>会&#x3000;议</b></p></div>
+            <div class="a tip"><p class="left_c" style="width: 95%;margin-left:5%;"><b>论&#x3000;坛</b></p></div>
+            <div class="a tip"><a href="/other/index/">
+                <p class="left_c" id="other" style="width: 95%;margin-left:5%;"><b>其&#x3000;他</b></p>
+            </a></div>
+            {% endblock %}
+            <p class="a" style="position: absolute;bottom: 25px;right: 25px;color: black">总经理：郭东波   2018@Decade</p>
+            <p class="a" style="position: absolute;bottom: 5px;right: 25px;color: black">&#x3000;&#x3000;&#x3000;&#x3000;版本号:V1.1.2</p>
+        </section>
+        <section id="right">
+        {% block right %}
+            <div style="font-size: 2rem;margin-top: 5%;margin-left: 15%;width: 70%;">
+                <span>欢迎来到XXX公司首页&#x3000;&#x3000;本页显示我公司日常规章制度</span>
+                <br>每天坚持完成阅读规章制度，从自我做起  完成阅读的同时&#x3000;也是您本日签到的时间<br>
+            一：每日必须在规定时间内正常签到（9：00--9：30）不正常签到者扣除绩效五分 <br>
+            二：请假、会议、用车等，必须走正规的管理流程（即在本站提交相关事件） <br>
+            三：论坛为员工抒发自己感情的地方，您可以发布除不健康内容外的其他所有内容；违者扣五分 <br>
+            四：您的等级与职位直属部门领导管理，我们会按照公平工正公开的模式对 员工等级与职位进行相应调整 <br>
+            五：加班模式为模式调休，当月内没有调休的加班清零。 <br>
+            六：依着得体大方，注重公司形象<br><br>
+            <p style="text-align: center"><button id="but" type="button" class="btn btn-default btn-lg">我已完成阅读/签到</button></p>
+
+            </div>
+
+        {% endblock %}
+        </section>
+
+
+		<script src="{% static 'js/jquery.js' %}" type="text/javascript" charset="utf-8"></script>
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <script>
+{#            var sessionid = {{ sessionid }}#}
+{#                alert(sessionid);#}
+            settings = {
+                url:"/user/info/",
+                type:"POST",
+{#                data:{"sessionid":sessionid},#}
+                success:function(data){
+                    $('#caozuo').html('安全退出');
+                    $('#name').html(data.data.name);
+                    $('#position1').html(data.data.position1);
+                    $('#depart').html(data.data.department);
+                    $('#time').html(data.data.time1);
+                }
+            };
+            $.ajax(settings);
+{#            $('#but').click(function () {#}
+{#                $.get(#}
+{#                  '/user/info/',#}
+{#                  function (data) {#}
+{#                    console.log(data.data);#}
+{#                     $('#caozuo').html('安全退出');#}
+{#                    $('#name').html(data.data.name);#}
+{#                    $('#position1').html(data.data.position1);#}
+{#                    $('#depart').html(data.data.department);#}
+{#                    $('#time').html(data.data.time1);#}
+{#                  }#}
+{#              )#}
+{#            })#}
+        </script>
+
+{#      <script>#}
+{#   $(function(){#}
+{#       setInterval("getTime()",1000)#}
+{#   });#}
+{#   function checkTime(i)#}
+{#    {#}
+{#    if (i<10)#}
+{#    {i="0" + i}#}
+{#    return i#}
+{#    }#}
+{#   function getTime(){#}
+{#       var myDate=new Date();#}
+{#       var date=myDate.toLocaleDateString();#}
+{#       var hours=myDate.getHours();#}
+{#       var minutes=myDate.getMinutes();#}
+{#       var seconds=myDate.getSeconds();#}
+{#       hours=checkTime(hours);#}
+{#       minutes=checkTime(minutes);#}
+{#       seconds=checkTime(seconds);#}
+{#       $("#showDate").html(date+" "+hours+":"+minutes+":"+seconds)#}
+{#   }#}
+{#   </script>#}
+	</body>
+
+</html>

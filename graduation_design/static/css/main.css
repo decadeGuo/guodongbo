@@ -1,0 +1,135 @@
+html {
+    height: 100%;
+}
+
+body {
+    min-height: 100%;
+    height: auto !important;
+    position: relative;
+    padding-top: 70px;
+    padding-bottom: 60px;
+}
+
+/* 导航 */
+.navbar .navbar-form .input-group-btn{
+    position: relative;
+    top: -1px;
+}
+
+.page-footer {
+    width: 100%;
+    padding: 15px;
+    position: absolute;
+    bottom: 0;
+    background-color: #f3f3f3;
+    color: #888;
+}
+
+.page-footer p {
+    margin-bottom: 0;
+}
+
+.label-warning .glyphicon {
+    position: relative;
+    top: 2px;
+}
+
+/* 搜索 */
+.form-right .input-group-btn{
+  position: relative;
+  top: -1px;
+}
+/* 提问问题按钮 */
+.add-question {
+  margin-top: 21px;
+}
+
+
+/* 右边关键字 */
+.keywords .label {
+  font-size: 100%;
+  font-weight: normal;
+  line-height: 1.9em;
+  cursor: pointer;
+}
+
+/* 问题列表 */
+.question .keys{
+  margin-top: 3px;
+  margin-bottom: 8px;
+}
+.question .time{
+  color: #999;
+}
+
+.pagination>.active>a,
+.pagination>.active>span {
+    z-index: 3;
+    color: #777;
+    background-color: #eee;
+    border-color: #ddd;
+    cursor: default;
+}
+
+.pagination>li>a {
+    color: #777;
+}
+
+.c-888 {
+    color: #888;
+}
+
+.input-group-btn {
+    top: -1px;
+}
+
+.input-group-btn .btn {
+    height: 34px;
+}
+
+/* 登录页面 */
+
+.signin form {
+    max-width: 330px;
+    padding: 15px;
+    margin: 50px auto;
+}
+
+.signin form h2 {
+    font-size: 22px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.signin form .form-control {
+    position: relative;
+    height: auto;
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.signin form .form-control:focus {
+    z-index: 2;
+}
+
+.signin form input[type="text"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.signin form input[type="password"] {
+    margin-bottom: 20px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.signin .logo {
+    text-align: center;
+    padding-bottom: 30px;
+}
+
+.signin .logo img {
+    width: 180px;
+}

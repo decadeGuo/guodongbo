@@ -1,0 +1,93 @@
+{% extends "car/car_index.html" %}
+{% load staticfiles %}
+{% block content %}
+    <style>
+        #car_content{width: 60%;height: 95%;margin: auto;}
+        #dead{font-size: 3rem;margin-top: 20px;}
+        .list{margin-top: 10px;font-size: 2rem;}
+        .btn{margin-left: 2%}
+        input{background-color: ghostwhite;border: 1px solid lightskyblue;border-radius: 6px;}
+        input:hover{border: 1px solid blue}
+        #resign{width: 40%;height: 50px}
+        select{background-color:ghostwhite;border: 1px solid lightskyblue;border-radius: 6px;width: 20%;height: 30px;text-align: center }
+        select:hover{border: 1px solid blue}
+        .xing{color: red}
+    </style>
+    <form action="/car/applying/" method="post">
+        {% csrf_token %}
+		<div id="car_content">
+            <div id="dead" class="a">
+                ☆ <b>用车申请</b></div>
+            <form action="">
+            <div class="a list">
+              <label for="begain" >● 开始时间</label>
+              <input type="date" name="begain" required id="begain" >
+                <span class="xing">*</span>
+            </div>
+            <div class="a list">
+              <label for="end" >● 结束时间</label>
+              <input type="date" name="end" required id="end" >
+                <span class="xing">*</span>
+            </div>
+            <div class="a list">
+              <label for="resign" >● 用车原因</label>
+              <input type="text" name="resign" maxlength="200"   required id="resign" >
+                <span class="xing">*</span>
+            </div>
+            <div class="a list">
+              <label for="peo_num" >● 人数</label>
+              <input type="number" name="peo_num" maxlength="10" required id="peo_num" >
+                <span class="xing">*</span>
+            </div>
+            <div class="a list">
+              <label for="where" >● 到达地点</label>
+              <input type="text" name="where" required id="where" >
+                <span class="xing">*</span>
+            </div>
+            <div class="a list">
+              <label for="apply_peo" >● 申请人</label>
+
+              <input type="text" name="apply_peo" disabled required id="apply_peo" value="{{ user.first_name }}" >
+            </div>
+            <div class="a list">
+              <label >● 开车人</label>
+              <select name="siji">
+						<option>请选择</option>
+                        {% for i in users %}
+                        <option value="{{ i.id }}">{{ i.first_name }}({{ i.depart }})</option>
+                        {% endfor %}
+              </select>
+                <span class="xing">*</span>
+            </div>
+            <div class="a list">
+              <label >● 可用车辆</label>
+              <select name="car_type">
+						<option>请选择</option>
+                        {% for i in cars %}
+                        <option value="{{ i.id }}">{{ i.name }} ({{ i.card }})</option>
+                        {% endfor %}
+              </select>
+                <span class="xing">*</span>
+            </div>
+            <div class="a list">
+              <label >● 审批人</label>
+              <select name="shenpi">
+						<option>请选择</option>
+                        {% for i in shenpi %}
+                        <option value="{{ i.id }}">{{ i.first_name }}({{ i.depart }}组长)</option>
+                        {% endfor %}
+              </select>
+                <span class="xing">*</span>
+            </div>
+                <br>
+            <button type="submit" class="btn btn-primary btn-lg">提交审核</button>
+{#            <a href="/car/car_apply/res/"><button type="button" class="btn btn-primary btn-lg">提交审核</button></a>#}
+            <a href="/car/index/"><button type="button" class="btn btn-primary btn-lg">返回</button></a>
+            </form>
+        <div class="tip" style="margin-top: 2%;">温馨提示：带<span class="xing">*</span>的内容不能为空</div>
+        {% if error %}
+             <div class="tip" style="margin-top: 2%;color: red">{{ error }}</div>
+        {% endif %}
+		</div>
+        </form>
+{% endblock %}

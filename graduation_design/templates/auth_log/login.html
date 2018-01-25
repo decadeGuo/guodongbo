@@ -1,0 +1,62 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>人员管理</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="shortcut icon" href="{% static '/images/logo.png' %}" type="image/png">
+    <style>
+        .a{font-family: '楷体';}
+        #header{color: dodgerblue;font-size: 3.5em;height:120px;line-height:120px;text-align: center;background-color: snow}
+        #foo{font-size: 1em;color: #2b669a;margin-top: 150px;text-align: right;margin-bottom: 50px;margin-right: 80px;}
+        #login{font-size: 2em;color:black;margin-top: 20px; }
+        form{margin-top: 20px;}
+        .tip{margin-top: 10px;}
+        .error{color: red}
+    </style>
+</head>
+<body>
+    <header id="header" class="a">欢迎使用智能管理系统</header>
+    {% block content %}
+    <div id="login" class="a col-sm-offset-4">身份认证中...</div>
+        <form class="form-horizontal" role="form" method="post" action="/auth/index/">
+          <div class="form-group" style="margin-right:0px">
+            <label for="firstname" class="col-sm-4 control-label">账号</label>
+            <div class="col-sm-5">
+              <input type="text" name="name" class="form-control" required id="firstname" placeholder="请输入账号">
+            </div>
+          </div>
+          <div class="form-group" style="margin-right:0px">
+            <label for="lastname" class="col-sm-4 control-label">密码</label>
+            <div class="col-sm-5">
+              <input type="password" name="password" class="form-control" minlength="8" required id="lastname" placeholder="请输入密码">
+            </div>
+          </div>
+          <div class="form-group" style="margin-right:0px">
+            <div class="col-sm-offset-4 col-sm-8">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox">请记住我
+                </label>
+              </div>
+            </div>
+          </div>
+            {% if error %}
+            <div class="col-sm-offset-4 col-sm-8 error">{{ error }}</div>
+            {% endif %}
+          <div class="form-group" style="margin-right:0px">
+            <div class="col-sm-offset-4 col-sm-6">
+              <button type="submit" class="btn btn-default">登录</button>
+            </div>
+          </div>
+        </form>
+    <div class="col-sm-offset-4 col-sm-8 tip">没有账号？？ <a href="/auth/login/register/?type=1">注册</a></div>
+    <div class="col-sm-offset-4 col-sm-8 tip">如果忘记密码，请 <a href="/auth/login/find/psw/?type=1">修改密码</a></div>
+    <div class="col-sm-offset-4 col-sm-8 tip">温馨提示：如果您对本站有好的意见或建议，请在论坛区留下您的足迹</div>
+    {% endblock %}
+    <div id="foo"> 总经理：郭东波 English name：Decade &nbsp;电话：17737465627 </div>
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+</body>
+</html>

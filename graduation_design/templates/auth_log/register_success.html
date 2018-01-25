@@ -1,0 +1,43 @@
+
+{% extends "auth_log/login.html" %}
+{% load staticfiles %}
+{% block content %}
+<style>
+#suc{text-align: center;font-size: 2em;margin-top: 30px;font-family: '楷体'}
+p{margin: 20px auto;text-align: center}
+</style>
+    {% if status %}
+    <p><img src="{% static '/images/f-pass.png' %}" alt=""></p>
+    {% else %}
+    <p><img src="{% static '/images/f-miss.png' %}" alt=""></p>
+    {% endif %}
+<div id="suc">
+    {% if status %}
+    <span>恭喜你！注册成功！</span><br>
+    <span id="s">3</span>S后跳转至登录页...
+    <a href="/" id="a">点此手动跳转</a>
+    {% else %}
+    <span>亲！发生错误啦！-_-</span><br>
+    <span id="s">3</span>S后跳转至注册页...
+    <a href="/auth/login/register/" id="a">点此手动跳转</a>
+    {% endif %}
+</div>
+<script src="{% static 'js/jquery.js' %}"></script>
+<script>
+        function dianji(){
+                var num=2;
+                name = setInterval(function() {
+                 $("#s").html(num);// 你倒计时显示的地方元素
+                    num--;
+                   if(num<0){
+{#                    clearInterval(name); // 清除倒计时#}
+                       var a = document.getElementById('a');
+                       a.click()
+                        }
+                    }, 1000);
+                    }
+        dianji()
+</script>
+
+
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "others/other_index.html" %}
+{% load staticfiles %}
+{% block content %}
+    <style>
+        #serch{margin-top: 10px;padding-left: 5%}
+        .lab{border: 1px deepskyblue solid;border-radius: 5px;background-color: ghostwhite;height: 26px;}
+        #ser{border: 1px deepskyblue solid;border-radius: 5px;width: 40%;background-color: ghostwhite;height: 26px;}
+        #but{margin-left: 3%;width: 15%;}
+        #ser:hover{border: 1px blue solid}
+    </style>
+<section style="width: 94%;margin: auto;">
+<div id="serch" class="a">
+    <form action="">
+              <select name="search" class="lab">
+                  <option value="1">员工编号</option>
+                  <option value="2">姓名</option>
+                  <option value="3">部门</option>
+                  <option value="4">职位</option>
+                  <option value="5">级别</option>
+                  <option value="6">电话</option>
+              </select>
+        <input type="text" required name="search" id="ser" placeholder="输入搜索内容（可模糊搜索哦）">
+        <button type="submit" id="but" class="lab">搜索</button>
+        <span class="a" style="color: orangered">搜索错误，请选择正确组合</span>
+    </form>
+</div>
+
+
+
+
+
+</section>
+
+{% endblock %}

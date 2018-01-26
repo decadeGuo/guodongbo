@@ -31,3 +31,10 @@ def user_info(request):
     data = dict(id=user.id,name=user.first_name,sex=sex,phone=user.phone,part=user.depart,position=user.position,
                 level=user.user_type,idcard=user.id_card ,adress=adress)
     return render(request,'others/user_info/user_info.html',context=data)
+def user_manage(request):
+    """
+    员工管理首页
+    :param request:
+    :return:
+    """
+    return render(request,'others/user_info/user_manage.html')

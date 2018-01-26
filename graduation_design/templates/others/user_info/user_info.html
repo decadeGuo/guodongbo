@@ -1,7 +1,34 @@
 {% extends "others/other_index.html" %}
 {% load staticfiles %}
 {% block content %}
+    <style>
+        #a{width: 70%;margin: auto;margin-top: 5%;position: relative}
+        #b{font-size: 3rem}
+        #c{margin-top: 10px;}
+    .a1{
+        {#border: 1px red solid;#}
+        font-size: 2rem;margin-top: 15px;
+    }
+    .btn{width: 200px;margin-top: 15px;}
+    </style>
+<div id="a">
 
+    <div id="b" class="a"><b>个人资料</b></div>
+    <div id="c" class="a">提示：个人资料无法修改！如果您的资料显示不正确，请及时联系管理员进行更正</div>
+<p class="a a1">员工号：<span>{{ id }}</span></p>
+<p class="a a1">姓名：<span>{{ name }}</span></p>
+<p class="a a1">性别：<span>{{ sex }}</span></p>
+<p class="a a1">电话：<span>{{ phone }}</span></p>
+<p class="a a1">部门：<span>{{ part }}</span></p>
+<p class="a a1">职位：<span>{{ position }}</span></p>
+<p class="a a1">级别：<span>{{ level }}</span></p>
+<p class="a a1">身份证号：<span>{{ idcard }}</span></p>
+<p class="a a1">家庭住址：<span>{{ adress }}</span></p>
+<a href="/other/index/"><button type="button" class="btn btn-primary btn-lg">返回</button></a>
+
+
+
+</div>
 
 
 

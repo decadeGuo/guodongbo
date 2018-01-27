@@ -1,7 +1,7 @@
 #coding:utf-8
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-
+from auth_log.models import User
 from comment.ajax import ajax_ok
 import time
 import datetime
@@ -27,4 +27,15 @@ def info(request):
     time1 = time.strftime("%Y/%m/%d %H:%M", user.last_login.timetuple())  # 上课时间
     data = dict(name=user.first_name, uid=user.id, position1=position,
                 department=department, level=user.user_type, time1=time1)
+    return ajax_ok(data)
+@csrf_exempt
+def info_2(request):
+    uid = request.POST.get('uid')
+    user = User.objects.get(id=uid)
+    position = user.position if user.position else u'暂无职位'
+    department = user.depart if user.depart else u'暂无部门'
+    phone = user.phone
+    data = dict(name=user.first_name, uid=user.id, position1=position,
+                department=department, level=user.user_type,
+                phone=phone)
     return ajax_ok(data)

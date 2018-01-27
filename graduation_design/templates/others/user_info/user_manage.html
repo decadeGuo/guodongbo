@@ -2,33 +2,224 @@
 {% load staticfiles %}
 {% block content %}
     <style>
-        #serch{margin-top: 10px;padding-left: 5%}
-        .lab{border: 1px deepskyblue solid;border-radius: 5px;background-color: ghostwhite;height: 26px;}
-        #ser{border: 1px deepskyblue solid;border-radius: 5px;width: 40%;background-color: ghostwhite;height: 26px;}
-        #but{margin-left: 3%;width: 15%;}
-        #ser:hover{border: 1px blue solid}
+        #serch {
+            margin-top: 10px;
+            {#padding-left: 5%#}
+            position: relative;
+        }
+
+        .lab {
+            border: 1px deepskyblue solid;
+            border-radius: 5px;
+            background-color: ghostwhite;
+            height: 26px;
+        }
+
+        #ser {
+            border: 1px deepskyblue solid;
+            border-radius: 5px;
+            width: 40%;
+            background-color: ghostwhite;
+            height: 26px;
+        }
+
+        .but {
+            margin-left: 3%;
+            width: 15%;
+        }
+
+        #ser:hover {
+            border: 1px blue solid
+        }
+
+        #neirong {
+            margin-top: 10px;
+        }
+
+        .table {
+        }
+
+        th, td {
+            text-align: center;
+        }
+
+        .table-bordered th,
+        .table-bordered td {
+            border: 1px solid deepskyblue !important;
+        }
+        #myModal2 input{background-color: ghostwhite;border: 1px solid lightskyblue;border-radius: 6px;margin-top: 1%}
+        #myModal2 input:hover{border: 1px solid blue}
+        #myModal2 select{background-color:ghostwhite;border: 1px solid lightskyblue;border-radius: 6px;text-align: center;margin-top: 1% }
+        #myModal2 select:hover{border: 1px solid blue}
+    .list{margin-top: 10px;margin-left:25%;font-size: 2rem;}
     </style>
-<section style="width: 94%;margin: auto;">
-<div id="serch" class="a">
-    <form action="">
-              <select name="search" class="lab">
-                  <option value="1">员工编号</option>
-                  <option value="2">姓名</option>
-                  <option value="3">部门</option>
-                  <option value="4">职位</option>
-                  <option value="5">级别</option>
-                  <option value="6">电话</option>
-              </select>
-        <input type="text" required name="search" id="ser" placeholder="输入搜索内容（可模糊搜索哦）">
-        <button type="submit" id="but" class="lab">搜索</button>
-        <span class="a" style="color: orangered">搜索错误，请选择正确组合</span>
-    </form>
+
+    <section style="width: 94%;margin: auto;">
+        <div id="serch" class="a">
+            <form action="" method="post" >
+                <select name="search" class="lab">
+                    <option value="1">员工编号</option>
+                    <option value="2">姓名</option>
+                    <option value="3">部门</option>
+                    <option value="4">职位</option>
+                    <option value="5">级别</option>
+                    <option value="6">电话</option>
+                </select>
+                <input type="text" required name="search" id="ser" placeholder="输入搜索内容（可模糊搜索哦）">
+                <button type="submit"  class="but lab">搜索</button>
+                <p style="position: absolute;right: 1%;top:0">
+                <button type="button" class="lab"><a href="">刷新</a></button>
+                <button type="button" class="lab"><a href="/other/index/">返回上一级</a></button></p>
+                {% if error %}
+                <span class="a" style="color: orangered">搜索错误，请选择正确组合</span>
+                 {% else %}
+                    <span class="a" style="margin-left: 1%">郑州创恒实业有限公司@Decade</span>
+                {% endif %}
+            </form>
+        </div>
+        <div id="neirong">
+            <table class="table table-bordered table-striped table-hover a">
+
+                <thead>
+                <tr>
+                    <th>工号</th>
+                    <th>姓名</th>
+                    <th>性别</th>
+                    <th>部门</th>
+                    <th>职位</th>
+                    <th>级别</th>
+                    <th>电话</th>
+                    <th>登录次数</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for i in data %}
+                    <tr>
+                        <td>{{ i.id }}</td>
+                        <td>{{ i.name }}</td>
+                        <td>{{ i.sex }}</td>
+                        <td>{{ i.depart }}</td>
+                        <td>{{ i.position }}</td>
+                        <td>{{ i.level }}</td>
+                        <td>{{ i.phone }}</td>
+                        <td>{{ i.login_num }}</td>
+                        <td>{{ i.status }}</td>
+                        <td>
+                            <button name="{{ i.id }}" data-toggle="modal" data-target="#myModal2" class="update lab">修改</button>
+                            <button name="{{ i.id }}" data-toggle="modal" data-target="#myModal" class="del lab">删除</button>
+                            <button href="" name="{{ i.id }}" class="qiandao lab">签到详情</button>
+                        </td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+
+        {#<button type="submit" class="btn btn-primary btn-lg">提交审核</button>#}
+
+    </section>
+{#  删除模态框  #}
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+    style="margin-top: 20%">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel" style="text-align: center">是否删除?</h4>
+            </div>
+            <div class="modal-footer" style="text-align: center">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary"><a href="" style="color: white">确定</a></button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
 </div>
+    {#  修改模态框  #}
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+    style="margin-top: 10%">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel" style="text-align: center">修改信息</h4>
+            </div>
+            <form action="/other/user/manage/update/" method="post" style="margin-top: 10px; ">
+                <div class="a list">
+              <label for="nam" >姓名：</label>
+              <input type="text" name="name" required id="nam" value="123">
 
+            </div>
+            <input type="text" name="id" required id="id"  value="" style="display: none">
+            <div class="a list">
+              <label for="phone" >电话：</label>
+              <input type="number" name="phone"  required id="phone" value="">
 
+            </div>
+            <div class="a list">
+              <label for="depart" >部门：</label>
+              <select name="depart">
+						<option value="0" id="d"></option>
+                        {% for i in all_d %}
+                        <option value="{{ i.id }}">{{ i.name }}</option>
+                        {% endfor %}
+              </select>
+            </div>
+                <div class="a list">
+              <label for="position" >职位：</label>
+              <select name="position">
+						<option value="0" id="p"></option>
+                        {% for i in all_p %}
+                        <option value="{{ i.id }}">{{ i.name }}</option>
+                        {% endfor %}
+              </select>
+            </div>
+                <div class="a list">
+              <label for="level" >级别：</label>
+              <select name="level">
+                  <option id="level"></option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+              </select>
+            </div>
+            <div class="modal-footer" style="text-align: center;margin-top: 20px;">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="submit" class="btn btn-primary">确定</button>
+            </div>
+            </form>
 
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<script src="{% static 'js/jquery.js' %}"></script>
+<script>
 
-
-</section>
-
+    $('.update').each(function () {
+        $(this).click(function () {
+            var uid = $(this).attr('name');
+            settings = {
+                url:"/user/info/other/",
+                type:"POST",
+                data:{"uid":uid},
+                success:function(data){
+                    $('#phone').val(data.data.phone);
+                    $('#nam').val(data.data.name);
+                    $('#p').html('当前职位：'+data.data.position1);
+                    $('#d').html('当前部门：'+data.data.department);
+                    $('#level').html(data.data.level);
+                    $('#id').val(uid);
+                }
+            };
+            $.ajax(settings);
+        })})
+</script>
 {% endblock %}

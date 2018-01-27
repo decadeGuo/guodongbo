@@ -24,6 +24,7 @@ urlpatterns = [
     url(r'^$',index.index),
     url(r'^auth/',include('auth_log.urls')),
     url(r'^car/', include('use_car.urls')),
-    url(r'^user/info/',index.info),
+    url(r'^user/info/$',index.info),
+    url(r'^user/info/other/$',index.info_2),
     url(r'^other/',include('other.urls')),
 ]+ static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)

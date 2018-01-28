@@ -31,7 +31,7 @@
 
         .active {background-color: ghostwhite;border-bottom-left-radius: 20px;border-top-left-radius: 20px;}
         a:hover{text-decoration:none;}
-            #dibu{position: absolute;bottom: 0;left: 20%;width: 100%;background-color: snow}
+            #dibu{position: fixed;bottom: 0;left:20%;width:calc(100% - 120px);background-color: gray; color: white}
     </style>
 	</head>
 
@@ -87,10 +87,11 @@
             </div>
 
         {% endblock %}
+        <div id="dibu" class="a"> <span style="margin-left: 10%" >如果您有好的意见或建议，请在评论区留言并@超级管理员
+            。意见采纳后奖励绩效五分。郭总电话：17737465627。系统持续升级中...</span></div>
         </section>
 
-        <div id="dibu"> <span style="margin-left: 5%">如果您有好的意见或建议，请在评论区留言并@超级管理员
-            。意见采纳后奖励绩效五分。郭总电话：17737465627。系统持续升级中...</span></div>
+
 		<script src="{% static 'js/jquery.js' %}" type="text/javascript" charset="utf-8"></script>
         <script src="{% static 'js/bootstrap.min.js' %}"></script>
         <script>

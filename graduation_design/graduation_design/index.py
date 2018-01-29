@@ -39,4 +39,8 @@ def info_2(request):
     data = dict(name=user.first_name, uid=user.id, position1=position,
                 department=department, level=user.user_type,adress=adress,
                 phone=phone)
+
     return ajax_ok(data)
+@csrf_exempt
+def not_fond(request):
+    return render(request,'404.html')

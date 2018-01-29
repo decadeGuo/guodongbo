@@ -13,12 +13,16 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url, include
+from django.conf.urls import url, include,handler404
 from django.contrib import admin
 from django.views.static import serve
 
 from graduation_design import index, settings
 from django.conf.urls.static import static
+# handler404 = "index.not_fond"
+# handler500 = "index.not_fond"
+
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$',index.index),
@@ -27,4 +31,5 @@ urlpatterns = [
     url(r'^user/info/$',index.info),
     url(r'^user/info/other/$',index.info_2),
     url(r'^other/',include('other.urls')),
+
 ]+ static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)

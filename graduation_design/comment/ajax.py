@@ -4,7 +4,7 @@ import json
 from django.http import HttpResponse
 import time
 
-def ajax_ok(data,message='',status='ok'):
+def ajax_ok(data='',message='',status='ok'):
     """
 
     :param data:

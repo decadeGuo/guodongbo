@@ -96,8 +96,13 @@ def register(request):
         name = post.get('firstname')
         phone = post.get('phone')
         id_card = post.get('idcard')
+        if User.objects.filter(id_card=id_card).exists():
+            request.session['error'] = u'该身份证已被注册'
+            return redirect('/auth/login/register/?type=1')
         sex = post.get('sex')
-        User.objects.create(username=username,password=psw,first_name=name,phone=phone,id_card=int(id_card),sex=int(sex))
+        adres = post.get('adress')
+        User.objects.create(username=username,password=psw,first_name=name,phone=phone,id_card=int(id_card),sex=int(sex),
+                            adress=adres)
         # return ajax_ok(dict(a=username,b=name,c=phone,d=id_card,e=sex))
         return render(request, 'auth_log/register_success.html',context={"status":True})
     else:
@@ -144,3 +149,17 @@ def find_psw(request):
         return render(request, 'auth_log/find_psw.html', context={"type": 33, "status": True})
     else:
         return render(request, 'auth_log/find_psw.html', context={ "type": 11})
+def manyusers():
+    list = []
+    for i in range(20):
+        username='tiyan0%02d'%i
+        psw = 'ty111111'
+        name = '体验用户'
+        phone = '177374656%02d'%i
+        sex = 1
+        id_card = 412827199406123012
+        data = User(username=username, password=psw, first_name=name, phone=phone, id_card=int(id_card),
+                        sex=int(sex))
+        list.append(data)
+    User.objects.bulk_create(list)
+# manyusers()

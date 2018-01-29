@@ -33,8 +33,8 @@ def car_apply(request):
     user = request.user
     # all_tongyi = UserCarDetail.objects.filter(status=1).all() # 所有已同意的审批
     cars = CarInfo.objects.filter(status=1).all()   # 所有可用车辆
-    users = User.objects.filter(user_type__lt=4).all()  # 司机
-    shenpi = User.objects.filter(user_type=3).all()     # 审批人  组长
+    users = User.objects.filter(user_type__lt=4,status=1).all()  # 司机
+    shenpi = User.objects.filter(user_type=3,status=1).all()     # 审批人  组长
     return render(request,'car/car_apply.html',context={"user":user,"cars":cars,"users":users,"shenpi":shenpi,"error":error})
 def car_apply_res(request):
     """
@@ -71,7 +71,7 @@ def car_applying(request):
     shenpi = User.objects.filter(id=obj[0].shenpi_id).last().first_name
     time1, time2, time3 = time_(obj[0])
     data = dict(name=obj[0].user.first_name, where=obj[0].toplace, car_name=obj[0].car.name, car_card=obj[0].car.card, siji=siji,
-                resign=obj[0].resign
+                resign=obj[0].resign,all_num=total_page,current=page
                 ,time=time3, shenpi=shenpi, status=int(obj[0].status),id=obj[0].id,page=page,total_page=total_page,time1=time1,time2=time2)
     return render(request,'car/car_applying.html',context=data)
 def car_logs(request):

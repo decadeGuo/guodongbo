@@ -7,7 +7,7 @@ from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 from auth_log.models import User,Depatment,Position
-from comment.ajax import time_,Struct
+from comment.ajax import time_, Struct, ajax_ok
 from use_car.models import CarInfo, UserCarDetail
 def index(request):
     """
@@ -57,33 +57,48 @@ def user_manage(request):
     return render(request,'others/user_info/user_manage.html',context=data)
 @csrf_exempt
 def user_manage_update(request):
-    """修改员工信息"""
-    post = request.POST
-    id = int(post.get('id'))
-    name = post.get('name').encode('utf8')
-    phone = int(post.get('phone'))
-    position = post.get('position')
-    depart = post.get('depart')
-    level = int(post.get('level'))
-    # print id,position,depart
-    p_id = int(position)
-    d_id = int(depart)
-    if p_id == 0 and d_id != 0:
-        d_name = Depatment.objects.filter(pk=d_id).last().name.encode('utf8')
-        User.objects.filter(pk=id).update(first_name=name, phone=phone, user_type=level, d_id=d_id,
-                                          depart=d_name)
-    elif p_id == 0 and d_id == 0:
-        User.objects.filter(pk=id).update(first_name=name, phone=phone, user_type=level)
-    elif p_id != 0 and d_id == 0:
-        p_name = Position.objects.filter(pk=p_id).last().name.encode('utf8')
-        User.objects.filter(pk=id).update(first_name=name, phone=phone, user_type=level, p_id=p_id,
-                                          position=p_name)
+    """修改员工信息 返回模板
+    删除用ajax请求
+
+    """
+    if request.method == 'POST':
+        post = request.POST
+        id = int(post.get('id'))
+        name = post.get('name').encode('utf8')
+        phone = int(post.get('phone'))
+        position = post.get('position')
+        depart = post.get('depart')
+        level = int(post.get('level'))
+        # print id,position,depart
+        p_id = int(position)
+        d_id = int(depart)
+        adress = post.get('adress')
+        if p_id == 0 and d_id != 0:
+            d_name = Depatment.objects.filter(pk=d_id).last().name.encode('utf8')
+            User.objects.filter(pk=id).update(first_name=name, phone=phone, user_type=level, d_id=d_id,
+                                              depart=d_name,adress=adress)
+        elif p_id == 0 and d_id == 0:
+            User.objects.filter(pk=id).update(first_name=name, phone=phone, user_type=level,adress=adress)
+        elif p_id != 0 and d_id == 0:
+            p_name = Position.objects.filter(pk=p_id).last().name.encode('utf8')
+            User.objects.filter(pk=id).update(first_name=name, phone=phone, user_type=level, p_id=p_id,
+                                              position=p_name,adress=adress)
+        else:
+            d_name = Depatment.objects.filter(pk=d_id).last().name.encode('utf8')
+            p_name = Position.objects.filter(pk=p_id).last().name.encode('utf8')
+            User.objects.filter(pk=id).update(first_name=name, phone=phone, user_type=level, p_id=p_id,d_id=d_id,
+                                                  position=p_name,depart=d_name,adress=adress)
+        return redirect('/other/user/manage/')
     else:
-        d_name = Depatment.objects.filter(pk=d_id).last().name.encode('utf8')
-        p_name = Position.objects.filter(pk=p_id).last().name.encode('utf8')
-        User.objects.filter(pk=id).update(first_name=name, phone=phone, user_type=level, p_id=p_id,d_id=d_id,
-                                          position=p_name,depart=d_name)
-    return redirect('/other/user/manage/')
+        type = int(request.GET.get('type'))
+        uid = request.GET.get('uid')
+        print type ,uid
+        if type == 1:   # type 1 删除 2 返回签到信息
+            User.objects.filter(pk=uid).update(status=-1)
+        return ajax_ok()
+
+
+
 
 
 

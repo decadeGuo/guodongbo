@@ -12,7 +12,7 @@
         .ok{background-color: green}
         .fild{background-color: red}
         .ing{background-color: orange}
-    #message{float: right;width: 50%;
+    #message{float: right;width: 50%;padding-left: 1%;
     border: 1px solid green;font-size: 2rem;border-radius: 20px;box-shadow: 2px 2px 1px green;
     }
     .btn{margin-top: 2%;margin-left: 5%}
@@ -24,6 +24,7 @@
     {% else %}
     <div id="tou">
     <div id="message" class="a">
+        数量： <span>{{ current }}/{{ all_num }}</span><br>
         申请编号： <span>{{ id }}</span><br>
         姓名：{{ name }} <br>
         用车原因：{{ resign }} <br>

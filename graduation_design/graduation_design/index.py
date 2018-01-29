@@ -35,7 +35,8 @@ def info_2(request):
     position = user.position if user.position else u'暂无职位'
     department = user.depart if user.depart else u'暂无部门'
     phone = user.phone
+    adress = user.adress
     data = dict(name=user.first_name, uid=user.id, position1=position,
-                department=department, level=user.user_type,
+                department=department, level=user.user_type,adress=adress,
                 phone=phone)
     return ajax_ok(data)

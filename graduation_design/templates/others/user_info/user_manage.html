@@ -54,7 +54,7 @@
     .list{margin-top: 10px;margin-left:25%;font-size: 2rem;}
     </style>
 
-    <section style="width: 94%;margin: auto;">
+    <section style="width: 94%;margin: auto;margin-bottom: 3%">
         <div id="serch" class="a">
             <form action="" method="post" >
                 <select name="search" class="lab">
@@ -132,14 +132,14 @@
             </div>
             <div class="modal-footer" style="text-align: center">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary"><a href="" style="color: white">确定</a></button>
+                <button type="button" id="del" class="btn btn-primary"><a style="color: white">确定</a></button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
     {#  修改模态框  #}
 <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
-    style="margin-top: 8%">
+    style="margin-top: 6%">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -191,6 +191,11 @@
                   <option value="9">9</option>
               </select>
             </div>
+            <div class="a list">
+              <label for="adress" >地址：</label>
+              <input type="text" name="adress"  id="adress" value="">
+
+            </div>
             <div class="modal-footer" style="text-align: center;margin-top: 20px;">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                 <button type="submit" class="btn btn-primary">确定</button>
@@ -216,10 +221,27 @@
                     $('#p').html('当前职位：'+data.data.position1);
                     $('#d').html('当前部门：'+data.data.department);
                     $('#level').html('当前级别：'+data.data.level);
+                    $('#adress').html(data.data.adress);
                     $('#id').val(uid);
                 }
             };
             $.ajax(settings);
+        })});
+    $('.del').each(function () {
+        $(this).click(function () {
+            var uid = $(this).attr('name');
+            settings = {
+                url:"/other/user/manage/update/",
+                type:"GET",
+                data:{"uid":uid,"type":1},
+                success:function(data){
+                    window.location.reload();
+                }
+            };
+            $('#del').click(function () {
+                $.ajax(settings);
+            });
+
         })})
 </script>
 {% endblock %}

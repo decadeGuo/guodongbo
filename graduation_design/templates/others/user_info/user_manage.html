@@ -56,22 +56,35 @@
 
     <section style="width: 94%;margin: auto;margin-bottom: 3%">
         <div id="serch" class="a">
-            <form action="" method="post" >
+            <form action="/other/user/manage/" method="post" >
                 <select name="search" class="lab">
+                    {% if value == 2 %}
+                        <option value="1">员工编号</option><option value="2" selected>姓名</option><option value="3">部门</option><option value="4">职位</option><option value="5">级别</option><option value="6">电话</option>
+                    {% elif value == 3 %}
+                        <option value="1">员工编号</option><option value="2">姓名</option><option value="3" selected>部门</option><option value="4">职位</option><option value="5">级别</option><option value="6">电话</option>
+                    {% elif value == 4 %}
+                        <option value="1">员工编号</option><option value="2">姓名</option><option value="3">部门</option><option value="4" selected>职位</option><option value="5">级别</option><option value="6">电话</option>
+                    {% elif value == 5 %}
+                        <option value="1">员工编号</option><option value="2">姓名</option><option value="3">部门</option><option value="4">职位</option><option value="5" selected>级别</option><option value="6">电话</option>
+                    {% elif value == 6 %}
+                        <option value="1">员工编号</option><option value="2">姓名</option><option value="3">部门</option><option value="4">职位</option><option value="5">级别</option><option value="6" selected>电话</option>
+
+                    {% else %}
                     <option value="1">员工编号</option>
                     <option value="2">姓名</option>
                     <option value="3">部门</option>
                     <option value="4">职位</option>
                     <option value="5">级别</option>
-                    <option value="6">电话</option>
+                    <option value="6">电话</option>{% endif %}
                 </select>
-                <input type="text" required name="search" id="ser" placeholder="输入搜索内容（可模糊搜索哦）">
+                <input type="text"  name="search_txt" id="ser" required placeholder="输入搜索内容（可模糊搜索哦）" value="{{ content }}">
                 <button type="submit"  class="but lab">搜索</button>
-                <p style="position: absolute;right: 1%;top:0">
+                <p style="position: absolute;right: 0;top:0">
+                    {{ p_num }}人
                 <button type="button" class="lab"><a href="">刷新</a></button>
                 <button type="button" class="lab"><a href="/other/index/">返回上一级</a></button></p>
                 {% if error %}
-                <span class="a" style="color: orangered">搜索错误，请选择正确组合</span>
+                <span class="a" style="color: orangered">{{ error }}</span>
                  {% else %}
                     <span class="a" style="margin-left: 1%">郑州创恒实业有限公司</span>
                 {% endif %}
@@ -109,7 +122,7 @@
                         <td>
                             <button name="{{ i.id }}" data-toggle="modal" data-target="#myModal2" class="update lab">修改</button>
                             <button name="{{ i.id }}" data-toggle="modal" data-target="#myModal" class="del lab">删除</button>
-                            <button href="" name="{{ i.id }}" class="qiandao lab">签到详情</button>
+                            <button href="" name="{{ i.id }}" data-toggle="modal" data-target="#myModal3" class="qiandao lab">签到详情</button>
                         </td>
                     </tr>
                 {% endfor %}
@@ -130,6 +143,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel" style="text-align: center">是否删除?</h4>
             </div>
+
             <div class="modal-footer" style="text-align: center">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                 <button type="button" id="del" class="btn btn-primary"><a style="color: white">确定</a></button>
@@ -150,13 +164,11 @@
                 <div class="a list">
               <label for="nam" >姓名：</label>
               <input type="text" name="name" required id="nam" value="123">
-
             </div>
             <input type="text" name="id" required id="id"  value="" style="display: none">
             <div class="a list">
               <label for="phone" >电话：</label>
               <input type="number" name="phone"  required id="phone" value="">
-
             </div>
             <div class="a list">
               <label for="depart" >部门：</label>
@@ -202,6 +214,21 @@
             </div>
             </form>
 
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+    style="margin-top: 6%;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel" style="text-align: center"> 当月签到详情</h4>
+            </div>
+
+            <div class="modal-footer" style="text-align: center">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>

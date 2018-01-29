@@ -51,7 +51,7 @@
         <entry file="file://$PROJECT_DIR$/templates/others/user_info/user_manage.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="108">
-              <caret line="246" column="50" lean-forward="true" selection-start-line="246" selection-start-column="50" selection-end-line="246" selection-end-column="50" />
+              <caret line="246" column="50" selection-start-line="246" selection-start-column="50" selection-end-line="246" selection-end-column="50" />
               <folding>
                 <element signature="e#1450#1499#0#HTML" expanded="true" />
                 <element signature="e#2125#2167#0#HTML" expanded="true" />
@@ -919,7 +919,7 @@
     <entry file="file://$PROJECT_DIR$/templates/others/user_info/user_manage.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
-          <caret line="246" column="50" lean-forward="true" selection-start-line="246" selection-start-column="50" selection-end-line="246" selection-end-column="50" />
+          <caret line="246" column="50" selection-start-line="246" selection-start-column="50" selection-end-line="246" selection-end-column="50" />
           <folding>
             <element signature="e#1450#1499#0#HTML" expanded="true" />
             <element signature="e#2125#2167#0#HTML" expanded="true" />

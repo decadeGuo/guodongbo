@@ -105,8 +105,7 @@ def user_manage_update(request):
         phone = int(post.get('phone'))
         position = post.get('position')
         depart = post.get('depart')
-        level = int(post.get('level'))
-        # print id,position,depart
+        level = post.get('level').split('：')[-1]
         p_id = int(position)
         d_id = int(depart)
         adress = post.get('adress')
@@ -129,7 +128,28 @@ def user_manage_update(request):
     else:
         type = int(request.GET.get('type'))
         uid = request.GET.get('uid')
-        print type, uid
+
         if type == 1:  # type 1 删除 2 返回签到信息
             User.objects.filter(pk=uid).update(status=-1)
         return ajax_ok()
+
+def ziyuan(request):
+    """
+    资源管理首页
+    :param request:
+    :return:
+    """
+    all_p = Position.objects.filter(status=1).all()
+    all_d = Depatment.objects.filter(status=1).all()
+    return render(request,'others/user_info/ziyuan.html',context={"all_p":all_p,"all_d":all_d})
+
+
+
+
+
+
+
+
+
+
+

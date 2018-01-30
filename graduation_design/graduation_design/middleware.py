@@ -2,6 +2,7 @@
 import datetime
 import logging
 
+from django.shortcuts import render
 from django.utils.deprecation import MiddlewareMixin
 
 from comment.ajax import ajax_fail
@@ -36,3 +37,16 @@ class MyMiddleware(MiddlewareMixin):
             # logging.log.error("process_response1:%s" % e)
             pass
         return response
+    def process_exception(self, request, exception):
+        """
+        功能说明:view函数抛出异常处理
+        -------------------------------
+        修改人     修改时间
+        --------------------------------
+        徐威      2013-07-17
+        """
+
+
+        if request.method == "POST":
+            return render(request,'404.html')
+        return render(request,'404.html')

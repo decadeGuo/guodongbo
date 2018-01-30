@@ -11,3 +11,7 @@ urlpatterns = [
     url(r'^ziyuan/$',views.ziyuan),     # 资源管理页面
 
 ]
+urlpatterns += [
+    url(r'^ziyuan/add/$',views.add_d_p),     # 新增职位部门
+    url(r'^ziyuan/update/$',views.status),     # 更改部门职位状态
+]

@@ -27,6 +27,7 @@
         .d {
             width: 30%;
             margin-left: 2%;
+            margin-bottom: 2%;
             display: inline-block;
             background-color: lightgray;
         }
@@ -90,8 +91,14 @@
                 </a>
                 <div class="f">
                     {% for i in all_d %}
-                        <li class="list-group-item">{{ i.name }} <span name="d,{{ i.id }}" data-toggle="modal"
-                                                                       data-target="#myModal" class="remove">禁用</span>
+                        <li class="list-group-item">{{ i.name }}
+                            {% if i.status == 1 %}
+                            <span name="d,{{ i.id }}" data-toggle="modal" data-target="#myModal"
+                                                                                class="remove">禁用</span>
+                            {% else %}
+                            <span name="d,{{ i.id }}" data-toggle="modal" data-target="#myModal"
+                                                                                class="remove">启用</span>
+                            {% endif %}
                         </li>
                     {% endfor %}
                 </div>
@@ -105,9 +112,16 @@
                 </a>
                 <div class="f">
                     {% for i in all_p %}
-                        <li href="#" class="list-group-item">{{ i.name }} <span name="p,{{ i.id }}" data-toggle="modal"
-                                                                                data-target="#myModal"
-                                                                                class="remove">禁用</span></li>
+                        <li href="#" class="list-group-item">{{ i.name }}
+                            {% if i.status == 1 %}
+                            <span name="p,{{ i.id }}" data-toggle="modal" data-target="#myModal"
+                                                                                class="remove">禁用</span>
+                            {% else %}
+                            <span name="p,{{ i.id }}" data-toggle="modal" data-target="#myModal"
+                                                                                class="remove">启用</span>
+                            {% endif %}
+                        </li>
+
                     {% endfor %}
                 </div>
                 <p class=" addr" name="2" data-toggle="modal" data-target="#myModal2" style="color: white">新增</p>
@@ -131,21 +145,21 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel" style="text-align: center">是否禁用?</h4>
+                    <h4 class="modal-title" id="myModalLabel" style="text-align: center">是否禁用/启用?</h4>
                 </div>
 
                 <form action="" method="post" style="margin-top: 10px; ">
 
                     <div class="a list">
                         <label for="adress">输出管理员密码：</label>
-                        <input type="password" name="psw" id="adress" value="">
+                        <input type="password" name="psw" id="psw" value="">
                     </div>
-                    {% if error %}
-                        <p style="text-align: center">123456789</p>
-                    {% endif %}
+
+                    <p style="text-align: center" id="error"></p>
+
                     <div class="modal-footer" style="text-align: center;margin-top: 20px;">
                         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                        <button type="button" class="btn btn-primary">确定</button>
+                        <button type="button" id="yes" class="btn btn-primary">确定</button>
                     </div>
                 </form>
             </div><!-- /.modal-content -->
@@ -161,7 +175,7 @@
                     <h4 class="modal-title" id="myModalLabel" style="text-align: center">新增项目</h4>
                 </div>
 
-                <form action="" method="post" style="margin-top: 10px; ">
+                <form action="/other/ziyuan/add/" method="post" style="margin-top: 10px; ">
                     <div class="a list">
                         <label for="lastname">类型</label>
                         <div style="display: inline-block; margin-left: 20px;">
@@ -184,7 +198,7 @@
                                 <input type="radio" name="status" class="radio" id="optionsRadios3" value="1" checked> 是
                             </label>
                             <label class="radio-inline ">
-                                <input type="radio" name="status" class="radio" id="optionsRadios4" value="2"> 否
+                                <input type="radio" name="status" class="radio" id="optionsRadios4" value="0"> 否
                             </label>
                         </div>
                     </div>
@@ -201,12 +215,21 @@
     </div>
     <script src="{% static 'js/jquery.js' %}"></script>
     <script>
-        $('.remove').each(function () {
-            $(this).click(function () {
-                var id = $(this).attr('name');
-                {#alert(id)#}
-            })
+
+        $('#yes').click(function () {
+            var tid = $(this).attr('name');
+            var psw = $('#psw').value();
+            settings = {
+            url:"/user/info/other/",
+            type:"POST",
+            data:{"tid":tid,"psw":psw},
+            success:function(data){
+
+            }
+        };
+        $.ajax(settings);
         });
+
         $('.addr').each(function () {
             $(this).click(function () {
                 var name = $(this).attr('name');

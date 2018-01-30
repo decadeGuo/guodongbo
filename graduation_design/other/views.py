@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from django.contrib.auth.hashers import check_password
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
 from django.shortcuts import render, redirect
@@ -139,16 +140,49 @@ def ziyuan(request):
     :param request:
     :return:
     """
-    all_p = Position.objects.filter(status=1).all()
-    all_d = Depatment.objects.filter(status=1).all()
+    all_p = Position.objects.filter(status__gte=0).all().order_by('-status')
+    all_d = Depatment.objects.filter(status__gte=0).all().order_by('-status')
     return render(request,'others/user_info/ziyuan.html',context={"all_p":all_p,"all_d":all_d})
 
+@csrf_exempt
+def add_d_p(request):
+    """
+    新增部门--职位
+    :param request:
+    :return:
+    """
+    post = request.POST
+    type = int(post.get('type'))
+    title = post.get('title')
+    status = int(post.get('status'))
+    if type == 1:
+        Depatment.objects.create(name=title,status=status)
+    else:
+        Position.objects.create(name=title,status=status)
 
+    return redirect('/other/ziyuan/')
+@csrf_exempt
+def status(request):
+    """
+    部门项目的禁用与启用
+    :param request:
+    :return:
+    """
+    post = request.POST
+    type = post.get('type')
+    psw = post.get('psw')
+    status = int(post.get('status'))
 
-
-
-
-
+    password = request.user.password        # 验证管理员密码
+    res = check_password(psw,password)
+    if not res:
+        return ajax_ok(data={"error":u'密码输出错误'})
+    type = type.split(',')
+    if type[0] == 'P':
+        Position.objects.filter(pk=type[-1]).update(status=status)
+    else:
+        Depatment.objects.filter(pk=type[-1]).update(status=status)
+    return ajax_ok()
 
 
 

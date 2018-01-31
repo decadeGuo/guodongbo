@@ -93,10 +93,10 @@
                     {% for i in all_d %}
                         <li class="list-group-item">{{ i.name }}
                             {% if i.status == 1 %}
-                            <span name="d,{{ i.id }}" data-toggle="modal" data-target="#myModal"
+                            <span name="1{{ i.id }}" data-toggle="modal" data-target="#myModal"
                                                                                 class="remove">禁用</span>
                             {% else %}
-                            <span name="d,{{ i.id }}" data-toggle="modal" data-target="#myModal"
+                            <span name="1{{ i.id }}" data-toggle="modal" data-target="#myModal"
                                                                                 class="remove">启用</span>
                             {% endif %}
                         </li>
@@ -114,10 +114,10 @@
                     {% for i in all_p %}
                         <li href="#" class="list-group-item">{{ i.name }}
                             {% if i.status == 1 %}
-                            <span name="p,{{ i.id }}" data-toggle="modal" data-target="#myModal"
+                            <span name="2{{ i.id }}" data-toggle="modal" data-target="#myModal"
                                                                                 class="remove">禁用</span>
                             {% else %}
-                            <span name="p,{{ i.id }}" data-toggle="modal" data-target="#myModal"
+                            <span name="2{{ i.id }}" data-toggle="modal" data-target="#myModal"
                                                                                 class="remove">启用</span>
                             {% endif %}
                         </li>
@@ -148,20 +148,20 @@
                     <h4 class="modal-title" id="myModalLabel" style="text-align: center">是否禁用/启用?</h4>
                 </div>
 
-                <form action="" method="post" style="margin-top: 10px; ">
+                <div style="margin-top: 10px; ">
 
                     <div class="a list">
                         <label for="adress">输出管理员密码：</label>
-                        <input type="password" name="psw" id="psw" value="">
+                        <input type="password" name="psw" id="psw" required>
                     </div>
 
-                    <p style="text-align: center" id="error"></p>
+                    <p style="text-align: center;color: red;" id="error"></p>
 
                     <div class="modal-footer" style="text-align: center;margin-top: 20px;">
                         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                         <button type="button" id="yes" class="btn btn-primary">确定</button>
                     </div>
-                </form>
+                </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal -->
     </div>
@@ -215,16 +215,29 @@
     </div>
     <script src="{% static 'js/jquery.js' %}"></script>
     <script>
-
+        $('.remove').each(function () {
+           $(this) .click(function () {
+               var name = $(this).attr('name');
+               $('#yes').attr('name',name)
+           })
+        });
         $('#yes').click(function () {
             var tid = $(this).attr('name');
-            var psw = $('#psw').value();
+            var psw = $('#psw').val();
+            if (psw == ''){
+                $('#error').html('请输入密码');
+                return null
+            }
             settings = {
-            url:"/user/info/other/",
+            url:"/other/ziyuan/update/",
             type:"POST",
             data:{"tid":tid,"psw":psw},
             success:function(data){
-
+                if (data.data.status == 1){
+                    window.location.reload();
+                }else{
+                    $('#error').html(data.data.error);
+                }
             }
         };
         $.ajax(settings);

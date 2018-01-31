@@ -169,20 +169,24 @@ def status(request):
     :return:
     """
     post = request.POST
-    type = post.get('type')
-    psw = post.get('psw')
-    status = int(post.get('status'))
 
+    type = post.get('tid')
+    psw = post.get('psw')
     password = request.user.password        # 验证管理员密码
     res = check_password(psw,password)
     if not res:
-        return ajax_ok(data={"error":u'密码输出错误'})
-    type = type.split(',')
-    if type[0] == 'P':
-        Position.objects.filter(pk=type[-1]).update(status=status)
+        return ajax_ok(data={"error":u'密码输入错误',"status":0})
+
+    if int(type[0]) == 2: # 参数混淆传递后台区分
+
+        p = Position.objects.filter(pk=type[1:]).last()
+        status = 1 if p.status == 0 else 1
+        Position.objects.filter(pk=p.id).update(status=status)
     else:
-        Depatment.objects.filter(pk=type[-1]).update(status=status)
-    return ajax_ok()
+        d = Depatment.objects.filter(pk=type[1:]).last()
+        status = 1 if d.status == 0 else 1
+        Depatment.objects.filter(pk=d.id).update(status=status)
+    return ajax_ok(data={"error":u'',"status":1})
 
 
 

@@ -9,9 +9,10 @@ urlpatterns = [
     url(r'^user/manage/$',views.user_manage),     # 员工原理
     url(r'^user/manage/update/$',views.user_manage_update),     # 信息更改
     url(r'^ziyuan/$',views.ziyuan),     # 资源管理页面
+    url(r'^car/manage/$',views.car_manage),     # 资源管理页面
 
 ]
 urlpatterns += [
     url(r'^ziyuan/add/$',views.add_d_p),     # 新增职位部门
-    url(r'^ziyuan/update/$',views.status),     # 更改部门职位状态
+    url(r'^ziyuan/update/$',views.status),   # 更改部门职位状态
 ]

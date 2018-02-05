@@ -42,10 +42,10 @@
         th, td {
             text-align: center;
         }
-
+        th{text-align: center;background-color: deepskyblue;color: white}
         .table-bordered th,
         .table-bordered td {
-            border: 1px solid deepskyblue !important;
+            border: 1px solid grey !important;
         }
         #myModal2 input{background-color: ghostwhite;border: 1px solid lightskyblue;border-radius: 6px;margin-top: 1%}
         #myModal2 input:hover{border: 1px solid blue}
@@ -81,8 +81,8 @@
                 <button type="submit"  class="but lab">搜索</button>
                 <p style="position: absolute;right: 0;top:0">
                     {{ p_num }}人
-                <button type="button" class="lab"><a href="">刷新</a></button>
-                <button type="button" class="lab"><a href="/other/index/">返回上一级</a></button></p>
+                <button type="button" class="lab" style="background-color: darkblue;border: none"><a href="" style="color: white">刷新</a></button>
+                <button type="button" class="lab" style="background-color: darkblue;border: none"><a href="/other/index/" style="color: white">返回上一级</a></button></p>
                 {% if error %}
                 <span class="a" style="color: orangered">{{ error }}</span>
                  {% else %}
@@ -144,7 +144,7 @@
                 <h4 class="modal-title" id="myModalLabel" style="text-align: center">是否删除?</h4>
             </div>
 
-            <div class="modal-footer" style="text-align: center">
+            <div style="text-align: center;margin-top: 15px;margin-bottom: 15px;">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                 <button type="button" id="del" class="btn btn-primary"><a style="color: white">确定</a></button>
             </div>

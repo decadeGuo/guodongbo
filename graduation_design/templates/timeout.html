@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>会话过期</title>
+</head>
+<style>
+    body{
+        background-image: url("{% static 'images/timeout.jpg' %}");
+        background-size: 100%;
+    }
+    #a1{font-size: 4rem;margin: auto;text-align: center;margin-top: 10%}
+    #a2{font-size: 3rem;text-align: center}
+    a{}
+</style>
+<body>
+<div id="a1" class="a">
+    您刚睡醒（会话过期了哦）
+</div>
+<div id="a2" class="a">
+    还是<a href="/">重新登录</a>吧
+</div>
+</body>
+</html>

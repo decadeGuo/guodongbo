@@ -25,7 +25,7 @@ class MyMiddleware(MiddlewareMixin):
             user = request.user
             uid = user.id if user else 0
             if not uid:
-                return ajax_fail( error=u'会话过期')
+                return render(request,'timeout.html')
     def process_response(self, request, response):
         """解决跨域请求"""
         try:
@@ -34,7 +34,7 @@ class MyMiddleware(MiddlewareMixin):
             response["Access-Control-Allow-Headers"] = "Origin, X-Requested-With, Content-Type, Accept"
             response["Access-Control-Max-Age"] = "1728000"
         except Exception, e:
-            # logging.log.error("process_response1:%s" % e)
+            logging.log.error("process_response1:%s" % e)
             pass
         return response
     # def process_exception(self, request, exception):

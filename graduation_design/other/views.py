@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
+import time
 from django.contrib.auth.hashers import check_password
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
@@ -193,7 +193,26 @@ def status(request):
             status = 1
         Depatment.objects.filter(pk=d.id).update(status=status)
     return ajax_ok(data={"error":u'',"status":1})
-
-
+def car_manage(request):
+    """
+    用车管理页面
+    多功能合一
+    ｔｙｐｅ 1　删除　２　禁用　３启用　４新增　０　首页
+    """
+    type = int(request.GET.get('type',0))
+    if type == 0:
+        cars = CarInfo.objects.filter().values('id','name','card','num','status','add_time')
+        data = []
+        for i in cars:
+            row = Struct()
+            row.id=i.get('id')
+            row.name=i.get('name')
+            row.card=i.get('card')
+            row.status='可用' if i.get('status') == 1 else '已被占用' if i.get('status') == 2 else '不可用'
+            row.num=i.get('num')
+            row.use_num = UserCarDetail.objects.filter(car_id=row.id).count()
+            row.add_time = time.strftime("%Y/%m/%d", time.gmtime(i.get('add_time') + 60*60*8))
+            data.append(row)
+        return render(request,'others/user_info/car_manage.html',context={"data":data,"car_num":len(data)})
 
 

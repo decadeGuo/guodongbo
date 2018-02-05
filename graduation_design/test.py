@@ -8,4 +8,7 @@ c = time.gmtime(b)
 # print c
 # print d
 # print time.strptime(a,'%Y/%m/%d %H:%M:%S')
-print time.strftime("%Y/%m/%d %H:%M", time.gmtime(b))
+# print time.strftime("%Y/%m/%d %H:%M", time.gmtime(b))
+
+
+print int(397/60.0)

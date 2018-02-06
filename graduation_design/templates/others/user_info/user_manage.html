@@ -119,11 +119,18 @@
                         <td>{{ i.phone }}</td>
                         <td>{{ i.login_num }}</td>
                         <td>{{ i.status }}</td>
+                        {% if user_type >= 3 %}
                         <td>
+{#                            <button name="{{ i.id }}" class="update lab">加好友</button>#}
                             <button name="{{ i.id }}" data-toggle="modal" data-target="#myModal2" class="update lab">修改</button>
                             <button name="{{ i.id }}" data-toggle="modal" data-target="#myModal" class="del lab">删除</button>
                             <button href="" name="{{ i.id }}" data-toggle="modal" data-target="#myModal3" class="qiandao lab">签到详情</button>
                         </td>
+                         {% else %}
+                            <td>
+                            <span name="{{ i.id }}" >———</span>
+                            </td>
+                        {% endif %}
                     </tr>
                 {% endfor %}
 
@@ -200,7 +207,6 @@
                   <option value="6">6</option>
                   <option value="7">7</option>
                   <option value="8">8</option>
-                  <option value="9">9</option>
               </select>
             </div>
             <div class="a list">

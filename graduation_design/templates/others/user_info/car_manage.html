@@ -2,18 +2,19 @@
 {% load staticfiles %}
 {% block content %}
     <style>
-    #serch {
+        #serch {
             margin-top: 10px;
-            {#padding-left: 5%#}
-            position: relative;
+        {#padding-left: 5%#} position: relative;
         }
-    .lab {
+
+        .lab {
             border: 1px deepskyblue solid;
             border-radius: 5px;
             background-color: ghostwhite;
             height: 26px;
         }
-    #ser {
+
+        #ser {
             border: 1px deepskyblue solid;
             border-radius: 5px;
             width: 40%;
@@ -29,47 +30,78 @@
         #ser:hover {
             border: 1px blue solid
         }
+
         #neirong {
             margin-top: 10px;
         }
+
         td {
             text-align: center;
         }
-        th{text-align: center;background-color: deepskyblue;color: white}
+
+        th {
+            text-align: center;
+            background-color: deepskyblue;
+            color: white
+        }
+
         .table-bordered th,
         .table-bordered td {
             border: 1px solid white !important;
         }
-    .list{margin-top: 10px;margin-left:25%;font-size: 2rem;}
-    #myModal4 input{background-color: ghostwhite;border: 1px solid lightskyblue;border-radius: 6px;margin-top: 1%}
-        #myModal4 input:hover{border: 1px solid blue}
+
+        .list {
+            margin-top: 10px;
+            margin-left: 25%;
+            font-size: 2rem;
+        }
+
+        #myModal4 input {
+            background-color: ghostwhite;
+            border: 1px solid lightskyblue;
+            border-radius: 6px;
+            margin-top: 1%
+        }
+
+        #myModal4 input:hover {
+            border: 1px solid blue
+        }
     </style>
-<section style="width: 94%;margin: auto;margin-bottom: 3%">
+    <section style="width: 94%;margin: auto;margin-bottom: 3%">
         <div id="serch" class="a">
-            <form action="/other/user/manage/" method="post" >
+            <form action="/other/car/manage/" method="post">
                 <select name="search" class="lab">
                     {% if value == 2 %}
-                        <option value="1">车辆编号</option><option value="2" selected>车辆型号</option><option value="3">车牌号</option>
+                        <option value="1">车辆编号</option>
+                        <option value="2" selected>车辆型号</option>
+                        <option value="3">车牌号</option>
                     {% elif value == 3 %}
-                        <option value="1">车辆编号</option><option value="2">车辆型号</option><option value="3" selected>车牌号</option>
+                        <option value="1">车辆编号</option>
+                        <option value="2">车辆型号</option>
+                        <option value="3" selected>车牌号</option>
                     {% else %}
-                    <option value="1">车辆编号</option>
-                    <option value="2">车辆型号</option>
-                    <option value="3">车牌号</option>
+                        <option value="1">车辆编号</option>
+                        <option value="2">车辆型号</option>
+                        <option value="3">车牌号</option>
                     {% endif %}
                 </select>
-                <input type="text"  name="search_txt" id="ser" required placeholder="输入搜索内容（可模糊搜索哦）" value="{{ content }}">
-                <button type="submit"  class="but lab">搜索</button>
+                <input type="text" name="search_txt" id="ser" required placeholder="输入搜索内容（可模糊搜索哦）"
+                       value="{{ content }}">
+                <button type="submit" class="but lab">搜索</button>
 
                 <p style="position: absolute;right: 0;top:0;color: orangered">
                     总数：{{ car_num }}辆&nbsp;
-                <button type="button" data-toggle="modal" data-target="#myModal4"  class="lab" style="background-color: deepskyblue;border: none;color: white;">
-                    <b>&nbsp;&nbsp;新&nbsp;增&nbsp;车&nbsp;辆&nbsp;&nbsp;</b></button>
-                <button type="button" class="lab" style="background-color: darkblue;border: none"><a href="" style="color: white">刷新</a></button>
-                <button type="button" class="lab" style="background-color: darkblue;border: none"><a href="/other/index/" style="color: white">返回上一级</a></button></p>
+                    <button type="button" data-toggle="modal" data-target="#myModal4" class="lab"
+                            style="background-color: deepskyblue;border: none;color: white;">
+                        <b>&nbsp;&nbsp;新&nbsp;增&nbsp;车&nbsp;辆&nbsp;&nbsp;</b></button>
+                    <button type="button" class="lab" style="background-color: darkblue;border: none"><a href=""style="color: white">刷新</a>
+                    </button>
+                    <button type="button" class="lab" style="background-color: darkblue;border: none"><a
+                            href="/other/index/" style="color: white">返回上一级</a></button>
+                </p>
                 {% if error %}
-                <span class="a" style="color: orangered">{{ error }}</span>
-                 {% else %}
+                    <span class="a" style="color: orangered">{{ error }}</span>
+                {% else %}
                     <span class="a" style="margin-left: 1%"></span>
                 {% endif %}
             </form>
@@ -94,16 +126,22 @@
                         <td>{{ i.id }}</td>
                         <td>{{ i.name }}</td>
                         <td>{{ i.card }}</td>
-                        <td>{{ i.num }}</td>
+                        <td>{{ i.num }}人</td>
                         <td>{{ i.status }}</td>
                         <td>{{ i.use_num }}</td>
                         <td>{{ i.add_time }}</td>
-                        <td>{% if i.status == '不可用' %}
-                            <button name="{{ i.id }}" data-toggle="modal" data-target="#myModal2" class="update lab">启用</button>
-                            {% else %}
-                            <button name="{{ i.id }}" data-toggle="modal" data-target="#myModal３" class="update lab">禁用</button>
-                            {% endif %}
-                            <button name="{{ i.id }}" data-toggle="modal" data-target="#myModal" class="del lab">删除</button>
+                        <td>
+                            {% if i.status == '不可用' %}
+                            <button name="{{ i.id }}" data-toggle="modal" data-target="#myModal2" class="update lab">
+                                启用
+                            </button>
+                        {% else %}
+                            <button name="{{ i.id }}" data-toggle="modal" data-target="#myModal３" class="update lab">
+                                禁用
+                            </button>
+                        {% endif %}
+                            <button name="{{ i.id }}" data-toggle="modal" data-target="#myModal" class="del lab">删除
+                            </button>
                         </td>
                     </tr>
                 {% endfor %}
@@ -112,56 +150,56 @@
             </table>
 
         </div>
-</section>
-{#  删除模态框  #}
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
-    style="margin-top: 10%">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel" style="text-align: center">是否删除?</h4>
-            </div>
+    </section>
+{#      删除模态框  #}
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+         style="margin-top: 10%">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel" style="text-align: center">是否删除?</h4>
+                </div>
 
-            <div style="text-align: center;margin-top: 15px;margin-bottom: 15px;">
-                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" id="del" class="btn btn-primary"><a style="color: white">确定</a></button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal -->
-</div>
-<div class="modal fade" id="myModal２" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
-    style="margin-top: 10%">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel" style="text-align: center">是否启用?</h4>
-            </div>
+                <div style="text-align: center;margin-top: 15px;margin-bottom: 15px;">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" id="del" class="btn btn-primary"><a style="color: white">确定</a></button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+    <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+         style="margin-top: 10%">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel" style="text-align: center">是否启用?</h4>
+                </div>
 
-            <div style="text-align: center;margin-top: 15px;margin-bottom: 15px;">
-                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" id="del" class="btn btn-primary"><a style="color: white">确定</a></button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal -->
-</div>
+                <div style="text-align: center;margin-top: 15px;margin-bottom: 15px;">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" id="qiyong" class="btn btn-primary"><a style="color: white">确定</a></button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
     <div class="modal fade" id="myModal３" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
-    style="margin-top: 10%">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel" style="text-align: center">是否禁用?</h4>
-            </div>
+         style="margin-top: 10%">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel" style="text-align: center">是否禁用?</h4>
+                </div>
 
-            <div style="text-align: center;margin-top: 15px;margin-bottom: 15px;">
-                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" id="del" class="btn btn-primary"><a style="color: white">确定</a></button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal -->
-</div>
+                <div style="text-align: center;margin-top: 15px;margin-bottom: 15px;">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" id="jinyong" class="btn btn-primary"><a style="color: white">确定</a></button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
     {#  新增页面  #}
     <div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
          style="margin-top: 10%">
@@ -174,15 +212,18 @@
 
                 <form action="/other/car/manage/?type=4" method="post" style="margin-top: 10px; ">
                     <div class="a list">
-                        <label for="lastname">型号:</label>
+                        <label for="name">型号:</label>
 
-                        <input type="text" name="type" required value="">
-
+                        <input type="text" name="name" required value="">
 
                     </div>
                     <div class="a list">
-                        <label for="adress">牌照：</label>
-                        <input type="text" name="title" required id="adress" value="">
+                        <label for="card">牌照：</label>
+                        <input type="text" name="card" required id="card" value="">
+                    </div>
+                    <div class="a list">
+                        <label for="zaizhong">载重（人）：</label>
+                        <input type="text" name="zaizhong" required id="zaizhong" value="">
                     </div>
                     <div class="a list">
                         <label for="lastname">是否启用</label>
@@ -195,15 +236,64 @@
                             </label>
                         </div>
                     </div>
-                        {% if error %}
-                            <p style="text-align: center"></p>
-                        {% endif %}
-                        <div class="modal-footer" style="text-align: center;margin-top: 20px;">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                            <button type="submit" class="btn btn-primary">确定</button>
-                        </div>
+                    {% if error %}
+                        <p style="text-align: center"></p>
+                    {% endif %}
+                    <div class="modal-footer" style="text-align: center;margin-top: 20px;">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="submit" class="btn btn-primary">确定</button>
+                    </div>
                 </form>
             </div><!-- /.modal-content -->
         </div><!-- /.modal -->
     </div>
+
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script>
+        $('.update').each(function () {
+
+            $(this).click(function () {
+                var uid = $(this).attr('name');
+                $('#jinyong').click(function () {
+                    settings = {
+                    url: "/other/car/manage/?type=2",
+                    type: "POST",
+                    data: {"id": uid},
+                    success: function (data) {
+                        window.location.reload();
+                    }
+                };
+                    $.ajax(settings);
+                });
+                $('#qiyong').click(function () {
+                    settings = {
+                    url: "/other/car/manage/?type=3",
+                    type: "POST",
+                    data: {"id": uid},
+                    success: function (data) {
+                        window.location.reload();
+                    }
+                };
+                    $.ajax(settings);
+                });
+
+            })
+        });
+        $('.del').each(function () {
+            $(this).click(function () {
+                var uid = $(this).attr('name');
+                settings = {
+                    url: "/other/car/manage/?type=1",
+                    type: "POST",
+                    data: {"id": uid},
+                    success: function (data) {
+                        window.location.reload();
+                    }
+                };
+                $('#del').click(function () {
+                    $.ajax(settings);
+                });
+            })
+        })
+    </script>
 {% endblock %}

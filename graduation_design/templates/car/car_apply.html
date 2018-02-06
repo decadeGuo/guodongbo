@@ -4,7 +4,7 @@
     <style>
         #car_content{width: 60%;height: 95%;margin: auto;}
         #dead{font-size: 3rem;margin-top: 20px;}
-        .list{margin-top: 10px;font-size: 2rem;}
+        .list{margin-top: 10px;font-size: 2rem;margin-left: 3%}
         .btn{margin-left: 2%}
         input{background-color: ghostwhite;border: 1px solid lightskyblue;border-radius: 6px;}
         input:hover{border: 1px solid blue}
@@ -12,7 +12,9 @@
         select{background-color:ghostwhite;border: 1px solid lightskyblue;border-radius: 6px;width: 20%;height: 30px;text-align: center }
         select:hover{border: 1px solid blue}
         .xing{color: red}
+
     </style>
+
     <form action="/car/applying/" method="post">
         {% csrf_token %}
 		<div id="car_content">

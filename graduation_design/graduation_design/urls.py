@@ -31,5 +31,6 @@ urlpatterns = [
     url(r'^user/info/$',index.info),
     url(r'^user/info/other/$',index.info_2),
     url(r'^other/',include('other.urls')),
+    url(r'^leave/',include('leave.urls')),
 
 ]+ static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)

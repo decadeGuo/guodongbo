@@ -1,0 +1,72 @@
+{% extends "leave/leave_index.html" %}
+{% load staticfiles %}
+{% block content %}
+    <style>
+        #leave_content{width: 60%;height: 95%;margin: auto;}
+        #dead{font-size: 3rem;margin-top: 20px;}
+        .list{margin-top: 10px;font-size: 2rem;margin-left: 3%}
+        .btn{margin-left: 2%}
+        input{background-color: ghostwhite;border: 1px solid lightskyblue;border-radius: 6px;}
+        input:hover{border: 1px solid blue}
+        #resign{width: 40%;height: 50px}
+        select{background-color:ghostwhite;border: 1px solid lightskyblue;border-radius: 6px;width: 29%;height: 30px;text-align: center }
+        select:hover{border: 1px solid blue}
+        .xing{color: red}
+
+    </style>
+
+    <form action="/leave/applying/" method="post">
+        {% csrf_token %}
+		<div id="leave_content">
+            <div id="dead" class="a">
+                ☆ <b>请假申请</b></div>
+            <form action="">
+            <div class="a list">
+              <label for="begain" >● 开始时间：</label>
+              <input type="date" name="begain" required id="begain" >
+                <span class="xing">*</span>
+            </div>
+            <div class="a list">
+              <label for="end" >● 结束时间：</label>
+              <input type="date" name="end" required id="end" >
+                <span class="xing">*</span>
+            </div>
+            <div class="a list">
+              <label for="days" >● 请假天数：</label>
+              <input type="text" name="days" maxlength="200"   required id="days" >
+                <span class="xing">*</span>
+            </div>
+            <div class="a list">
+              <label for="resign" >● 请假原因：</label>
+              <input type="text" name="resign" maxlength="200"   required id="resign" >
+                <span class="xing">*</span>
+            </div>
+
+            <div class="a list">
+              <label for="apply_peo" >● 申请人：</label>
+
+              <input type="text" name="apply_peo" disabled required id="apply_peo" value="{{ user.first_name }}" >
+            </div>
+
+            <div class="a list">
+              <label >● 审批人：</label>
+              <select name="shenpi">
+						<option>请选择</option>
+                        {% for i in shenpi %}
+                        <option value="{{ i.id }}">{{ i.first_name }}({{ i.depart }}组长)</option>
+                        {% endfor %}
+              </select>
+                <span class="xing">*</span>
+            </div>
+                <br>
+
+            <a href="/leave/leave_apply/res/"><button type="button" class="btn btn-primary btn-lg">提交审核</button></a>
+            <a href="/leave/index/"><button type="button" class="btn btn-primary btn-lg">返回</button></a>
+            </form>
+        <div class="tip" style="margin-top: 2%;">温馨提示：带<span class="xing">*</span>的内容不能为空</div>
+        {% if error %}
+             <div class="tip" style="margin-top: 2%;color: red">{{ error }}</div>
+        {% endif %}
+		</div>
+        </form>
+{% endblock %}

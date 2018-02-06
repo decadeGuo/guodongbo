@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'auth_log',
-    'use_car'
+    'use_car',
+    'leave'
 ]
 AUTH_USER_MODEL = "auth_log.User"
 # AUTH_PROFILE_MODULE = 'one.Profile'

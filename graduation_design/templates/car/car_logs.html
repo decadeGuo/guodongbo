@@ -27,7 +27,7 @@
     <div class="a" style="font-size: 3rem;margin: 20px;margin-left: 10%;font-weight: bold">用车记录
     </div>
     {% if not data %}
-        <div class="a" style="font-size: 3rem;margin: 20px;margin-left: 10%;font-weight: bold">无用车记录
+        <div class="a" style="font-size: 3rem;margin: 20px;margin-left: 10%;font-weight: bold">无用车记录</div>
     {% endif %}
     {% for i in data %}
         {% if i.status == 1 %}
@@ -58,8 +58,8 @@
                     <span style="margin-left: 10%">审批结果：<span style="color: red">不同意</span></span>
                     <span style="margin-left: 10%">意见：{{ i.yijian }}</span></p>
             </div>
+        {% else %}
         {% endif %}
     {% endfor %}
-
 
 {% endblock %}

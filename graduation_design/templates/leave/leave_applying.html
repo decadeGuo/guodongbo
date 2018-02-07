@@ -1,0 +1,81 @@
+{% extends "leave/leave_index.html" %}
+{% load staticfiles %}
+{% block content %}
+    <style>
+    #tou{width: 70%;margin: auto;margin-top: 5%}
+        .z{font-size: 2rem;border: 2px double green;width: 40%;text-align: center;border-radius: 10px;
+            font-weight: bold;height: 60px;line-height: 60px;position: relative;}
+        .zx{height: 30px;font-weight: bold;text-align: center;width: 40%;}
+        .s1{border-radius: 50%;width: 60px;height: 60px;
+            position: absolute;top:-20px;right: -25px;
+            font-size: 3rem;color: white}
+        .ok{background-color: green}
+        .fild{background-color: red}
+        .ing{background-color: orange}
+    #message{float: right;width: 50%;padding: 1%;
+    border: 1px solid green;font-size: 2rem;border-radius: 20px;box-shadow: 2px 2px 1px grey;
+    }
+    .btn{margin-top: 2%;margin-left: 5%}
+    </style>
+    {% if not message %}
+         <div class="a z " style="margin: auto;margin-top: 3%">没有申请记录
+            <a href="/leave/index/" style="margin: auto" ><div class="a z" style="width: 100%">返回上一级</div></a>
+            </div>
+    {% else %}
+    <div id="tou">
+    <div id="message" class="a">
+        数量： <span>{{ page }}/{{ all_num }}</span><br>
+        请假编号： <span>{{ id }}</span><br>
+        姓名：{{ name }} <br>
+        原因：{{ resign }} <br>
+        时间：<span style="font-size: 2rem">{{ time1 }}—{{ time2 }}</span> <br>
+
+        审批人/组长：{{ shenpi }}
+    </div>
+        {% if status == 0 %}
+            <div class="a z">申请已提交
+             <span class="ok s1">√</span>
+             </div> <p class="zx"></p>
+            <div class="a z">{{ shenpi|truncatewords:3 }}审批中
+            <span class="ing s1">…</span>
+            </div> <p class="zx"></p>
+            <div class="a z ">审批完成!
+            <span class="ing s1">…</span>
+            </div> <p class="zx"></p>
+        {% elif status == 1 %}
+            <div class="a z">申请已提交
+             <span class="ok s1">√</span>
+             </div> <p class="zx"></p>
+            <div class="a z">{{ shenpi }}已同意
+            <span class="ok s1">√</span>
+            </div> <p class="zx"></p>
+            <div class="a z ">审批完成!
+            <span class="ok s1">√</span>
+            </div> <p class="zx"></p>
+         {% else %}
+            <div class="a z">申请已提交
+             <span class="ok s1">√</span>
+             </div> <p class="zx"></p>
+            <div class="a z">{{ shenpi }}未同意
+            <span class="fild s1">X</span>
+            </div> <p class="zx"></p>
+            <div class="a z ">审批完成!
+            <span class="fild s1">X</span>
+            </div> <p class="zx"></p>
+        {% endif %}
+    <a href="/leave/index/" ><div class="a z">返回上一级</div></a>
+    {% if page == 1 %}
+        <a href="#"><button type="button" disabled class="btn btn-default btn-lg">没有了</button></a>
+    {% else %}
+        <a href="/leave/leave_apply/ing/?page={{ page|add:-1 }}"><button type="button" class="btn btn-default btn-lg">上一条</button></a>
+    {% endif %}
+
+    {% if page < total_page %}
+    <a href="/leave/leave_apply/ing/?page={{ page|add:1 }}"><button type="button" class="btn btn-default btn-lg">下一条</button></a>
+    {% else %}
+    <a href="/leave/leave_apply/ing/?page={{ page }}"><button type="button" disabled  class="btn btn-default btn-lg">没有了</button></a>
+    {% endif %}
+    </div>
+    {% endif %}
+
+{% endblock %}

@@ -52,9 +52,12 @@ class Struct(dict):
 
     def __hash__(self):
         return id(self)
-def time_(i):
+def time_(i,time_3=False):
     TO = 60*60*8
     time1 = time.strftime("%Y/%m/%d", time.gmtime(i.begain_time + TO))  # 开始时间
     time2 = time.strftime("%Y/%m/%d", time.gmtime(i.end_time + TO))  # 结束时间
     time3 = time.strftime("%Y/%m/%d %H:%M", time.gmtime(i.add_time + TO))  # 结束时间
-    return time1,time2,time3
+    if time_3:
+        return time1,time2,time3
+    else:
+        return time1,time2

@@ -6,11 +6,11 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
-# Create your views here.
+
 from auth_log.models import User, Depatment, Position
 from comment.ajax import time_, Struct, ajax_ok
 from leave.models import LeaveDetail
-from use_car.models import CarInfo, UserCarDetail
+
 
 
 def index(request):
@@ -36,22 +36,85 @@ def leave_apply(request):
     error = request.session.get('error')
     request.session['error'] = ''
     user = request.user
-    # all_tongyi = UserCarDetail.objects.filter(status=1).all() # 所有已同意的审批
+    # all_tongyi = UserleaveDetail.objects.filter(status=1).all() # 所有已同意的审批
 
     shenpi = User.objects.filter(user_type=3,status=1,d_id=user.d_id).all()     # 审批人  组长
     return render(request,'leave/leave_apply.html',context={"user":user,"shenpi":shenpi,"error":error})
 def leave_apply_res(request):
     """
-    用车申请结果页面
+    请假申请结果页面
     :param request:
     :return:
     """
     user = request.user
-    usercar = LeaveDetail.objects.filter(user=user).last()
-    name = User.objects.filter(id=usercar.shenpi_id).last().first_name
+    userleave = LeaveDetail.objects.filter(user=user).last()
+    name = User.objects.filter(id=userleave.shenpi_id).last().first_name
     return render(request,'leave/leave_apply_result.html',context={"name":name})
 
-
+def leave_applying(request):
+    """
+    申请进度页面
+    :param request:
+    :return:
+    """
+    user = request.user
+    page = int(request.GET.get('page',1))
+    objs = LeaveDetail.objects.filter(user_id=user.id).all().order_by('-id')
+    if not objs:
+        return render(request, 'leave/leave_applying.html', context={"message":1})
+    paginator = Paginator(objs, 1)  # 实例化分页对象，每页展示1条记录 **耗时一秒左右**
+    total_page = paginator.num_pages  # 总页数
+    try:
+        obj = paginator.page(page).object_list  # 获取某页对应的记录
+    except PageNotAnInteger:
+        page = 1
+        obj = paginator.page(page).object_list  # 如果页面不是整数，取第一页的记录
+    except EmptyPage:
+        page = paginator.num_pages
+        obj = paginator.page(paginator.num_pages).object_list  # 如果页码太大， 取最后一页记录
+    shenpi = User.objects.filter(id=obj[0].sp_id).last().first_name
+    time1, time2 = time_(obj[0],True)
+    data = dict(name=obj[0].user.first_name,
+                resign=obj[0].resign,all_num=total_page
+                ,shenpi=shenpi, status=int(obj[0].status),id=obj[0].id,page=page,total_page=total_page,time1=time1,time2=time2)
+    return render(request,'leave/leave_applying.html',context=data)
+def leave_logs(request):
+    """
+    申请记录页面
+    :param request:
+    :return:
+    """
+    uid = request.user.id
+    all = LeaveDetail.objects.filter(Q(user_id=uid)|Q(siji=uid)).all().order_by('-id')
+    data = []
+    for i in all:
+        siji = User.objects.filter(id=i.siji).last().first_name
+        shenpi = User.objects.filter(id=i.shenpi_id).last().first_name
+        time1,time2,time3 = time_(i)
+        yijian = i.yijian if i.yijian else ''
+        data.append(dict(name=i.user.first_name,time1=time1,time2=time2, where=i.toplace,time=time3,
+                         status=int(i.status),leave_name=i.leave.name,num=i.peo_num,siji=siji,shenpi=shenpi,yijian=yijian,
+                         resign=i.resign,leave_leaved=i.leave.leaved))
+    return render(request,'leave/leave_logs.html',context={"data":data})
+def shenpi(request):
+    """
+    审批页面
+    :param request:
+    :return:
+    """
+    uid = request.user.id
+    my_sp = LeaveDetail.objects.filter(shenpi_id=uid,status=0,update_time=0).first()    # 每次审批一个
+    if not my_sp:
+        my_sp = LeaveDetail.objects.filter(shenpi_id=uid, status=0,update_time__gt=0).first()
+        if not my_sp:
+            return render(request, 'leave/leave_shenpi.html',context={"error":1})
+    siji = User.objects.filter(id=my_sp.siji).last().first_name
+    shenpi = User.objects.filter(id=my_sp.shenpi_id).last().first_name
+    time1, time2, time3 = time_(my_sp)
+    data=dict(id=my_sp.id,name=my_sp.user.first_name,time1=time1,time2=time2,siji=siji,shenpi=shenpi,num=my_sp.peo_num,
+              resign=my_sp.resign,
+              where=my_sp.toplace,leave_name=my_sp.leave.name,leave_leaved=my_sp.leave.leaved)
+    return render(request,'leave/leave_shenpi.html',context=data)
 
 
 

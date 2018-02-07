@@ -19,7 +19,7 @@ def index(request):
     :return:
     """
     user_type = int(request.user.user_type)
-    return render(request, 'leave/leave_index.html',context={"user_type":user_type})
+    return render(request, 'others/other_index.html',context={"user_type":user_type})
 
 
 def user_info(request):

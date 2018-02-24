@@ -86,7 +86,7 @@ def car_logs(request):
     for i in all:
         siji = User.objects.filter(id=i.siji).last().first_name
         shenpi = User.objects.filter(id=i.shenpi_id).last().first_name
-        time1,time2,time3 = time_(i)
+        time1,time2,time3 = time_(i,True)
         yijian = i.yijian if i.yijian else ''
         data.append(dict(name=i.user.first_name,time1=time1,time2=time2, where=i.toplace,time=time3,
                          status=int(i.status),car_name=i.car.name,num=i.peo_num,siji=siji,shenpi=shenpi,yijian=yijian,

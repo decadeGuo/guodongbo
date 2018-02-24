@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 import time
+from cgitb import html
+
 from django.contrib.auth.hashers import check_password
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
@@ -85,17 +87,18 @@ def leave_logs(request):
     :return:
     """
     uid = request.user.id
-    all = LeaveDetail.objects.filter(Q(user_id=uid)|Q(siji=uid)).all().order_by('-id')
+    all = LeaveDetail.objects.filter(user_id=uid).all().order_by('-id')
     data = []
     for i in all:
-        siji = User.objects.filter(id=i.siji).last().first_name
         shenpi = User.objects.filter(id=i.shenpi_id).last().first_name
         time1,time2,time3 = time_(i)
         yijian = i.yijian if i.yijian else ''
         data.append(dict(name=i.user.first_name,time1=time1,time2=time2, where=i.toplace,time=time3,
-                         status=int(i.status),leave_name=i.leave.name,num=i.peo_num,siji=siji,shenpi=shenpi,yijian=yijian,
-                         resign=i.resign,leave_leaved=i.leave.leaved))
-    return render(request,'leave/leave_logs.html',context={"data":data})
+                         status=int(i.status),leave_name=i.leave.name,num=i.peo_num,shenpi=shenpi,yijian=yijian,
+                         resign=i.resign,leave_leaved=i.leave.leaved,
+                         ))
+    a = '<p style="color:red;">test</p>'
+    return render(request,'leave/leave_logs.html',context={"data":data,"test":a})
 def shenpi(request):
     """
     审批页面

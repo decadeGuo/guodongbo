@@ -120,7 +120,60 @@ def shenpi(request):
     return render(request,'leave/leave_shenpi.html',context=data)
 
 
+@csrf_exempt
+def user_leave_apply(request):
+    """
+    处理用车申请
+    :param request:
+    :return:
+    虽然前段做了空白值处理，后台也要再处理一次防止报错
+    """
+    post = request.POST
+    begain_time = post.get('begain','')
+    end_time = post.get('end','')
+    resign = post.get('resign','')
+    try:# 防止输入天数为中文
+        days = float(post.get('days'))
+    except:
+        request.session['error'] = u'请正确输入请假天数'
+        return redirect('/leave/leave_apply/')
 
+    apply_peo = post.get('apply_peo','')   # 暂时用不到的字段
+    
+    
+    shenpi = int(post.get('shenpi',''))
+    if not shenpi:
+        request.session['error'] = u'请选择审批人'
+        return redirect('/leave/leave_apply/')
+    # print begain_time,end_time,resign,peo_num,where,apply_peo,siji,leave_id,shenpi
+    begain_time = int(time.mktime(time.strptime(begain_time,'%Y-%m-%d')))   # 将时间转化为时间错
+    end_time = int(time.mktime(time.strptime(end_time,'%Y-%m-%d')))
+    if begain_time < int(time.time()):
+        request.session['error'] = u'时间选择错误'
+        return redirect('/leave/leave_apply/')
+    if end_time < begain_time:
+        request.session['error'] = u'时间区间选择错误'
+        return redirect('/leave/leave_apply/')
+
+
+    LeaveDetail.objects.create(user=request.user,resign=resign,begain_time=begain_time,end_time=end_time,
+                               days=days,apply_peo=apply_peo,
+                                 shenpi_id=shenpi,status=0,add_time=int(time.time()))
+    return redirect('/leave/leave_apply/res/')
+@csrf_exempt
+def apply_res(request):
+    """
+    处理审批
+    :param request: 
+    :return: 
+    """
+    post = request.POST
+    # print post
+    id = int(request.GET.get('id','0'))
+    yijian = post.get('yijian','')
+    status = post.get('but')
+    LeaveDetail.objects.filter(pk=id).update(status=status,yijian=yijian,update_time=int(time.time()))
+    return redirect('/leave/leave_apply/shenpi/')
 
 
 

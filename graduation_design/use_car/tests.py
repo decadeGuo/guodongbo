@@ -21,22 +21,12 @@ def user_car_apply(request):
     """
     post = request.POST
     begain_time = post.get('begain','')
-    if not begain_time:
-        request.session['error'] = u'请选择开始时间'
-        return redirect('/car/car_apply/')
     end_time = post.get('end','')
-    if not end_time:
-        request.session['error'] = u'请选择结束时间'
-        return redirect('/car/car_apply/')
     resign = post.get('resign','')
-    if not resign:
-        request.session['error'] = u'申请原因不能为空'
-        return redirect('/car/car_apply/')
+
     peo_num = int(post.get('peo_num',0))
     where = post.get('where','')
-    if not where:
-        request.session['error'] = u'到达地点不能为空'
-        return redirect('/car/car_apply/')
+
     apply_peo = post.get('apply_peo','')   # 暂时用不到的字段
     siji = int(post.get('siji',''))
     if not siji:

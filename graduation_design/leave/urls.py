@@ -13,7 +13,7 @@ urlpatterns = [
 
 ]
 urlpatterns += [
-    # url(r'^applying/$',tests.user_leave_apply),     # 申请提交
-    # url(r'^apply/res/$',tests.apply_res),     # 申请提交
+    url(r'^applying/$',views.user_leave_apply),     # 申请提交
+    url(r'^apply/res/$',views.apply_res),     # 申请提交
 
 ]

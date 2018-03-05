@@ -23,12 +23,12 @@
             <form action="">
             <div class="a list">
               <label for="begain" >● 开始时间：</label>
-              <input type="date" name="begain" required id="begain" >
+              <input type="date" name="begain_time" required id="begain" >
                 <span class="xing">*</span>
             </div>
             <div class="a list">
               <label for="end" >● 结束时间：</label>
-              <input type="date" name="end" required id="end" >
+              <input type="date" name="end_time" required id="end" >
                 <span class="xing">*</span>
             </div>
             <div class="a list">
@@ -51,7 +51,7 @@
             <div class="a list">
               <label >● 审批人：</label>
               <select name="shenpi">
-						<option>请选择</option>
+						<option value="0">请选择</option>
                         {% for i in shenpi %}
                         <option value="{{ i.id }}">{{ i.first_name }}({{ i.depart }}组长)</option>
                         {% endfor %}
@@ -60,7 +60,7 @@
             </div>
                 <br>
 
-            <a href="/leave/leave_apply/res/"><button type="button" class="btn btn-primary btn-lg">提交审核</button></a>
+            <button type="submit" class="btn btn-primary btn-lg">提交审核</button>
             <a href="/leave/index/"><button type="button" class="btn btn-primary btn-lg">返回</button></a>
             </form>
         <div class="tip" style="margin-top: 2%;">温馨提示：带<span class="xing">*</span>的内容不能为空</div>

@@ -69,7 +69,7 @@ def car_applying(request):
         obj = paginator.page(paginator.num_pages).object_list  # 如果页码太大， 取最后一页记录
     siji = User.objects.filter(id=obj[0].siji).last().first_name
     shenpi = User.objects.filter(id=obj[0].shenpi_id).last().first_name
-    time1, time2, time3 = time_(obj[0])
+    time1, time2, time3 = time_(obj[0],True)
     data = dict(name=obj[0].user.first_name, where=obj[0].toplace, car_name=obj[0].car.name, car_card=obj[0].car.card, siji=siji,
                 resign=obj[0].resign,all_num=total_page,current=page
                 ,time=time3, shenpi=shenpi, status=int(obj[0].status),id=obj[0].id,page=page,total_page=total_page,time1=time1,time2=time2)

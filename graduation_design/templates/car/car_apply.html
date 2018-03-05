@@ -54,7 +54,7 @@
             <div class="a list">
               <label >● 开车人</label>
               <select name="siji">
-						<option>请选择</option>
+						<option value="0">请选择</option>
                         {% for i in users %}
                         <option value="{{ i.id }}">{{ i.first_name }}({{ i.depart }})</option>
                         {% endfor %}
@@ -64,7 +64,7 @@
             <div class="a list">
               <label >● 可用车辆</label>
               <select name="car_type">
-						<option>请选择</option>
+						<option value="0">请选择</option>
                         {% for i in cars %}
                         <option value="{{ i.id }}">{{ i.name }} ({{ i.card }})</option>
                         {% endfor %}
@@ -74,7 +74,7 @@
             <div class="a list">
               <label >● 审批人</label>
               <select name="shenpi">
-						<option>请选择</option>
+						<option value="0">请选择</option>
                         {% for i in shenpi %}
                         <option value="{{ i.id }}">{{ i.first_name }}({{ i.depart }}组长)</option>
                         {% endfor %}
@@ -83,7 +83,7 @@
             </div>
                 <br>
 
-            <a href="/car/car_apply/res/"><button type="button" class="btn btn-primary btn-lg">提交审核</button></a>
+            <button type="submit" class="btn btn-primary btn-lg">提交审核</button>
             <a href="/car/index/"><button type="button" class="btn btn-primary btn-lg">返回</button></a>
             </form>
         <div class="tip" style="margin-top: 2%;">温馨提示：带<span class="xing">*</span>的内容不能为空</div>

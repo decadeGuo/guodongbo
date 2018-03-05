@@ -106,9 +106,9 @@ def shenpi(request):
     :return:
     """
     uid = request.user.id
-    my_sp = LeaveDetail.objects.filter(shenpi_id=uid,status=0,update_time=0).first()    # 每次审批一个
+    my_sp = LeaveDetail.objects.filter(sp_id=uid,status=0,update_time=0).first()    # 每次审批一个
     if not my_sp:
-        my_sp = LeaveDetail.objects.filter(shenpi_id=uid, status=0,update_time__gt=0).first()
+        my_sp = LeaveDetail.objects.filter(sp_id=uid, status=0,update_time__gt=0).first()
         if not my_sp:
             return render(request, 'leave/leave_shenpi.html',context={"error":1})
     siji = User.objects.filter(id=my_sp.siji).last().first_name

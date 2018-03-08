@@ -27,14 +27,14 @@
             color: dodgerblue;
             box-shadow: 1px 1px 3px 3px black;
             font-size: 3.5em;
-            height: 120px;
+            height: 100px;
             background-color: snow;
             position: relative;
         }
 
         #logo {
-            width: 100px;
-            height: 110px;
+            width: 90px;
+            height: 90px;
             margin-left: 20%;
             padding-top: 10px
         }
@@ -51,7 +51,7 @@
 
         #right {
             width: 80%;
-        {#            border: 1px solid red;#} height: calc(100% - 120px);
+        {#            border: 1px solid red;#} height: calc(100% - 100px);
             overflow: auto;
             background-color: ghostwhite;
             position: relative
@@ -62,7 +62,7 @@
             padding-top: 20px;
             position: relative;
             float: left;
-        {#            border: 1px solid black;#} height: calc(100% - 120px);
+        {#            border: 1px solid black;#} height: calc(100% - 100px);
             background-color: gainsboro;
             color: dodgerblue
         }
@@ -110,7 +110,7 @@
 
 <body>
 <header id="header" class="a">
-    <p id="title"><span style="line-height: 120px">智能管理系统</span></p>
+    <p id="title"><span style="line-height: 100px"><b>智能管理系统</b></span></p>
 
     <p><img id="logo" src="{% static 'images/logo2.png' %}" alt=""></p>
     {#            <p style="width: 25%;height: 110px;font-size: 2rem;position: absolute;top: 0;right: 1px;color: black;">#}
@@ -119,8 +119,8 @@
     {#                部门：<span class="t">{{ department }}</span> 操作：<a href="/auth/login/out/">安全退出</a>#}
     {#                <br>上次登录时间: <span> {{ time|date:'Y/m/d H:i' }}</span>#}
     {#            </p>#}
-    <p style="width: 25%;height: 110px;font-size: 2rem;position: absolute;top: 0;right: 1px;color: black;">
-        <br>
+    <p style="width: 25%;height: 100px;font-size: 2rem;position: absolute;top: 10px;right: 1px;color: black;">
+
         姓名：<span class="t" id="name"></span> 职位：<span class="t" id="position1"></span><br>
         部门：<span class="t" id="depart"></span> 操作：<a href="/auth/login/out/" id="caozuo"></a>
         <br>登录时间: <span id="time"> </span>
@@ -143,12 +143,12 @@
             <p class="left_c" id="other" style="width: 95%;margin-left:5%;"><b>其&#x3000;他</b></p>
         </a></div>
     {% endblock %}
-    <p class="a" style="position: absolute;bottom: 25px;right: 25px;color: black">总经理：郭东波 2018@Decade</p>
-    <p class="a" style="position: absolute;bottom: 5px;right: 25px;color: black">&#x3000;&#x3000;&#x3000;&#x3000;版本号:V1.1.2</p>
+    <p  style="position: absolute;bottom: 25px;right: 25px;color: black">总经理：郭东波 2018@Decade</p>
+    <p  style="position: absolute;bottom: 5px;right: 25px;color: black">&#x3000;&#x3000;&#x3000;&#x3000;版本号:V1.1.2</p>
 </section>
 <section id="right">
     {% block right %}
-        <div style="font-size: 2rem;margin-top: 5%;margin-left: 15%;width: 70%;">
+        <div style="font-size: 1.5em;margin-top: 5%;margin-left: 15%;width: 70%;">
             <span>欢迎来到XXX公司首页&#x3000;&#x3000;本页显示我公司日常规章制度</span>
             <br>每天坚持完成阅读规章制度，从自我做起 完成阅读的同时&#x3000;也是您本日签到的时间<br>
             一：每日必须在规定时间内正常签到（9：00--9：30）不正常签到者扣除绩效五分 <br>
@@ -164,7 +164,7 @@
         </div>
 
     {% endblock %}
-    <div id="dibu" class="a"> <span style="margin-left: 10%">如果您有好的意见或建议，请在评论区留言并@超级管理员
+    <div id="dibu" > <span style="margin-left: 10%">如果您有好的意见或建议，请在评论区留言并@超级管理员
             。意见采纳后奖励绩效五分。郭总电话：17737465627。系统持续升级中...</span></div>
 </section>
 

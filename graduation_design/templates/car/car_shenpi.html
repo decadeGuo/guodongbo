@@ -6,7 +6,7 @@
     #message{margin-top: 3%;padding: 10px;
     border: 1px solid green;font-size: 2rem;border-radius: 20px;box-shadow: 2px 2px 1px green;
     }
-    #yijian{width: 80%;border: 1px solid blue;border-radius: 10px;}
+    #yijian{width: 80%;border: 1px solid blue;border-radius: 10px;margin-bottom: 10px}
     </style>
 <div id="tou">
 {% if error %}
@@ -18,6 +18,7 @@
 <div id="message" class="a">
         申请用车资料卡<br>
         姓名：{{ name }} <br>
+        部门：{{ depart }} <br>
         时间：{{ time1 }}—{{ time2 }} <br>
         原因：{{ resign }} <br>
         到达地点：{{ where }} &nbsp;乘车人数：{{ num }} <br>

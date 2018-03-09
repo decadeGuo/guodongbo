@@ -104,10 +104,11 @@ def shenpi(request):
         my_sp = UserCarDetail.objects.filter(shenpi_id=uid, status=0,update_time__gt=0).first()
         if not my_sp:
             return render(request, 'car/car_shenpi.html',context={"error":1})
+    depart = my_sp.user.depart
     siji = User.objects.filter(id=my_sp.siji).last().first_name
     shenpi = User.objects.filter(id=my_sp.shenpi_id).last().first_name
-    time1, time2, time3 = time_(my_sp)
+    time1, time2, time3 = time_(my_sp,True)
     data=dict(id=my_sp.id,name=my_sp.user.first_name,time1=time1,time2=time2,siji=siji,shenpi=shenpi,num=my_sp.peo_num,
-              resign=my_sp.resign,
+              resign=my_sp.resign,depart=depart,
               where=my_sp.toplace,car_name=my_sp.car.name,car_card=my_sp.car.card)
     return render(request,'car/car_shenpi.html',context=data)

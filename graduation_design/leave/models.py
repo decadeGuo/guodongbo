@@ -20,7 +20,7 @@ class LeaveDetail(models.Model):
     status = models.IntegerField(u'审批结果',default=0) # 0提交为同意　１　已同意　２　不同意　－１　删除
     remark = models.CharField(u'拒接原因',default='',max_length=200)
     update_time = models.IntegerField(default=0)
-
+    add_time = models.IntegerField(default=0)
     class Meta:
         db_table = 'leave_detail'
         verbose_name = u'请假详情表'

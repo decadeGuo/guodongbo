@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'auth_log',
     'use_car',
-    'leave'
+    'leave',
+    'meeting'
 ]
 AUTH_USER_MODEL = "auth_log.User"
 # AUTH_PROFILE_MODULE = 'one.Profile'

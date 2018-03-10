@@ -1,19 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="dataSourceStorageLocal">
-    <data-source name="ziyuan_px@192.168.6.222" uuid="0425b30c-3a1d-464a-89ef-50b57ff90e37">
-      <database-info product="MySQL" version="5.7.20" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.45 ( Revision: 9131eefa398531c7dc98776e8a3fe839e544c5b2 )">
-        <extra-name-characters>#@</extra-name-characters>
-        <identifier-quote-string>`</identifier-quote-string>
-      </database-info>
-      <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact" />
-      <secret-storage>master_key</secret-storage>
-      <user-name>root</user-name>
-      <introspection-schemas>*:information_schema</introspection-schemas>
-    </data-source>
-    <data-source name="@localhost" uuid="89f847b5-25ff-4ec0-bdad-b51d55d9ca07">
+    <data-source name="db.sqlite3" uuid="beea9b75-b644-4bb2-a447-63d782b94224">
       <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" />
       <secret-storage>master_key</secret-storage>
+      <auth-required>false</auth-required>
       <first-sync>true</first-sync>
     </data-source>
   </component>

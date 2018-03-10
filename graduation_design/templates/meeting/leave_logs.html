@@ -1,0 +1,61 @@
+{% extends "leave/leave_index.html" %}
+{% load staticfiles %}
+{% block content %}
+    <style>
+        .leave_logs {
+            width: 80%;
+            height: 150px;
+            margin-left: 10%;
+            border-radius: 20px;
+            margin-top: 20px;
+            position: relative
+        }
+
+        .ok {
+            border: 2px solid green;
+            box-shadow: 1px 1px 1px green
+        }
+
+        .fild {
+            border: 2px solid red;
+            box-shadow: 1px 1px 1px red
+        }
+    </style>
+    <div style="float: right;margin: 20px;margin-right: 10%;"><a href="/leave/index/" id="a">
+        <button type="button" class="btn btn-primary btn-lg">返回上一级</button>
+    </a></div>
+    <div class="a" style="font-size: 3rem;margin: 20px;margin-left: 10%;font-weight: bold">请假记录
+    </div>
+    {% if not data %}
+        <div class="a" style="font-size: 3rem;margin: 20px;margin-left: 10%;font-weight: bold">无审批完成记录</div>
+    {% endif %}
+    {% for i in data %}
+        {% if i.status == 1 %}
+            <div class="leave_logs ok">
+                <p style="margin:10px;margin-top: 15px;"> 申请人：{{ i.name }} <span
+                        style="margin-left: 10%;">请假时间：{{ i.time1 }}—{{ i.time2 }}</span>
+                     <span style="margin-left: 3%">{{ i.leave_leaved }}</span></p>
+                <p style="margin:10px;"> <span >申请时间:{{ i.time }}</span></p>
+                <p style="margin:10px;"> <span>请假原因：{{ i.resign }}</span></p>
+
+                <p style="margin:10px;"> 组长/审批人：{{ i.shenpi }}
+                    <span style="margin-left: 10%">审批结果：<span style="color: green">同意</span></span>
+                    <span style="margin-left: 10%">意见：{{ i.yijian }}</span></p>
+            </div>
+        {% elif i.status == 2 %}
+            <div class="leave_logs fild">
+                <p style="margin:10px;margin-top: 15px;"> 申请人：{{ i.name }} <span
+                        style="margin-left: 10%;">申请时间：{{ i.time1 }}—{{ i.time2 }}</span>
+                   <span style="margin-left: 3%">{{ i.leave_leaved }}</span></p>
+                <p style="margin:10px;"><span>申请时间:{{ i.time }}</span></p>
+                <p style="margin:10px;"> <span>请假原因：{{ i.resign }}</span></p>
+
+                <p style="margin:10px;"> 组长/审批人：{{ i.shenpi }}
+                    <span style="margin-left: 10%">审批结果：<span style="color: red">不同意</span></span>
+                    <span style="margin-left: 10%">意见：{{ i.yijian }}</span></p>
+            </div>
+        {% else %}
+        {% endif %}
+    {% endfor %}
+
+{% endblock %}

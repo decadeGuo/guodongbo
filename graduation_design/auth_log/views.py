@@ -45,6 +45,10 @@ def login_in(request):
             return render(request,'auth_log/login.html',context=dict(error=u'账号或者密码错误'))
     else:  # 普通账号登录
         user = authenticate(username=username, password=psw)  # 验证用户
+    if user and user.status == -1:
+        request.session['error'] = u'该账号已被删除，请联系管理员'
+        # return render(request,'auth_log/login.html',context=dict(error=u'账号或者密码错误'))
+        return redirect('/')
     if user:
         status = 2 if login_manner == 1 else 1
         User.objects.filter(pk=user.id).update(login_num=F('login_num')+1,login_status=status)

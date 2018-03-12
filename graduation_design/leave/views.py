@@ -132,7 +132,7 @@ def user_leave_apply(request):
     begain_time = post.get('begain_time')
     end_time = post.get('end_time')
     resign = post.get('resign','')
-    print begain_time,end_time,resign
+
     try:# 防止输入天数为中文
         days = float(post.get('days'))
     except:

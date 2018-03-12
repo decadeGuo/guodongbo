@@ -1,3 +1,4 @@
+#coding:utf-8
 """graduation_design URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -29,8 +30,9 @@ urlpatterns = [
     url(r'^auth/',include('auth_log.urls')),
     url(r'^car/', include('use_car.urls')),
     url(r'^user/info/$',index.info),
-    url(r'^user/info/other/$',index.info_2),
+    url(r'^user/info/other/$',index.info_2),    # 员工信息2，用于员工修改时，ajax请求
     url(r'^other/',include('other.urls')),
     url(r'^leave/',include('leave.urls')),
+    url(r'^meeting/',include('meeting.urls')),
 
 ]+ static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)

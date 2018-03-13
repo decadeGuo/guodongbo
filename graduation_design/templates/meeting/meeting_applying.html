@@ -1,4 +1,4 @@
-{% extends "leave/leave_index.html" %}
+{% extends "meeting/meeting_index.html" %}
 {% load staticfiles %}
 {% block content %}
     <style>
@@ -19,15 +19,17 @@
     </style>
     {% if message %}
          <div class="a z " style="margin: auto;margin-top: 3%">没有申请记录
-            <a href="/leave/index/" style="margin: auto" ><div class="a z" style="width: 100%">返回上一级</div></a>
+            <a href="/meeting/index/" style="margin: auto" ><div class="a z" style="width: 100%">返回上一级</div></a>
             </div>
     {% else %}
     <div id="tou">
     <div id="message" class="a">
         数量： <span>{{ page }}/{{ all_num }}</span><br>
-        请假编号： <span>{{ id }}</span><br>
+        申请编号： <span>{{ id }}</span><br>
         姓名：{{ name }} <br>
+        部门:{{ depart }}
         原因：{{ resign }} <br>
+        教师:{{ room }}
         时间：<span style="font-size: 2rem">{{ time1 }}—{{ time2 }}</span> <br>
 
         审批人/组长：{{ shenpi }}
@@ -63,17 +65,17 @@
             <span class="fild s1">X</span>
             </div> <p class="zx"></p>
         {% endif %}
-    <a href="/leave/index/" ><div class="a z">返回上一级</div></a>
+    <a href="/meeting/index/" ><div class="a z">返回上一级</div></a>
     {% if page == 1 %}
         <a href="#"><button type="button" disabled class="btn btn-default btn-lg">没有了</button></a>
     {% else %}
-        <a href="/leave/leave_apply/ing/?page={{ page|add:-1 }}"><button type="button" class="btn btn-default btn-lg">上一条</button></a>
+        <a href="/meeting/meeting_apply/ing/?page={{ page|add:-1 }}"><button type="button" class="btn btn-default btn-lg">上一条</button></a>
     {% endif %}
 
     {% if page < total_page %}
-    <a href="/leave/leave_apply/ing/?page={{ page|add:1 }}"><button type="button" class="btn btn-default btn-lg">下一条</button></a>
+    <a href="/meeting/meeting_apply/ing/?page={{ page|add:1 }}"><button type="button" class="btn btn-default btn-lg">下一条</button></a>
     {% else %}
-    <a href="/leave/leave_apply/ing/?page={{ page }}"><button type="button" disabled  class="btn btn-default btn-lg">没有了</button></a>
+    <a href="/meeting/meeting_apply/ing/?page={{ page }}"><button type="button" disabled  class="btn btn-default btn-lg">没有了</button></a>
     {% endif %}
     </div>
     {% endif %}

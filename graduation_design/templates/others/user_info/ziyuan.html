@@ -245,11 +245,15 @@
 
         $('.addr').each(function () {
             $(this).click(function () {
+                {#$('#optionsRadios5').attr('checked','False')#}
+                {#$('#optionsRadios6').attr('checked','False')#}
                 var name = $(this).attr('name');
-                if (name == 1){
-                    $('#optionsRadios5').attr('checked','True')
-                } else {
-                    $('#optionsRadios6').attr('checked','True')
+                if (name == '1'){
+                    $('#optionsRadios5').attr('checked','True');
+                    {#$('#optionsRadios6').attr('checked','False')#}
+                } else{
+                    $('#optionsRadios6').attr('checked','True');
+                    {#$('#optionsRadios5').attr('checked','False')#}
                 }
             })
         })

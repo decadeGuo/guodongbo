@@ -88,14 +88,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/other/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="384">
-              <caret line="330" column="48" lean-forward="false" selection-start-line="330" selection-start-column="48" selection-end-line="330" selection-end-column="48" />
+            <state relative-caret-position="954">
+              <caret line="195" column="22" lean-forward="false" selection-start-line="195" selection-start-column="22" selection-end-line="195" selection-end-column="22" />
               <folding>
                 <element signature="e#24#63#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ziyuan.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/templates/others/user_info/ziyuan.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="584">
+              <caret line="251" column="64" lean-forward="false" selection-start-line="251" selection-start-column="64" selection-end-line="251" selection-end-column="64" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -185,7 +195,6 @@
     <findStrings>
       <find>注销</find>
       <find>position1</find>
-      <find>position</find>
       <find>*</find>
       <find>#name</find>
       <find>id=&quot;name</find>
@@ -195,7 +204,12 @@
       <find>leave</find>
       <find>get_cars</find>
       <find>car</find>
+      <find>.remove</find>
+      <find>remove</find>
+      <find>yes</find>
       <find>MeetingRoom</find>
+      <find>position</find>
+      <find>depart</find>
     </findStrings>
     <replaceStrings>
       <replace>xing</replace>
@@ -248,7 +262,6 @@
         <option value="$PROJECT_DIR$/templates/meeting/meeting_apply.html" />
         <option value="$PROJECT_DIR$/templates/meeting/meeting_apply_result.html" />
         <option value="$PROJECT_DIR$/leave/views.py" />
-        <option value="$PROJECT_DIR$/templates/others/user_info/ziyuan.html" />
         <option value="$PROJECT_DIR$/templates/meeting/meeting_applying.html" />
         <option value="$PROJECT_DIR$/templates/meeting/meeting_logs.html" />
         <option value="$PROJECT_DIR$/templates/meeting/meeting_shenpi.html" />
@@ -258,6 +271,7 @@
         <option value="$PROJECT_DIR$/other/urls.py" />
         <option value="$PROJECT_DIR$/templates/others/other_index.html" />
         <option value="$PROJECT_DIR$/other/views.py" />
+        <option value="$PROJECT_DIR$/templates/others/user_info/ziyuan.html" />
       </list>
     </option>
   </component>
@@ -907,14 +921,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/others/user_info/ziyuan.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="82" column="34" lean-forward="false" selection-start-line="82" selection-start-column="34" selection-end-line="82" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="186">
@@ -1067,14 +1073,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/others/other_index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="29" column="16" lean-forward="false" selection-start-line="29" selection-start-column="16" selection-end-line="29" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/other/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="209">
@@ -1099,13 +1097,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/templates/others/other_index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="29" column="16" lean-forward="false" selection-start-line="29" selection-start-column="16" selection-end-line="29" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/other/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="330" column="48" lean-forward="false" selection-start-line="330" selection-start-column="48" selection-end-line="330" selection-end-column="48" />
+        <state relative-caret-position="954">
+          <caret line="195" column="22" lean-forward="false" selection-start-line="195" selection-start-column="22" selection-end-line="195" selection-end-column="22" />
           <folding>
             <element signature="e#24#63#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/others/user_info/ziyuan.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="584">
+          <caret line="251" column="64" lean-forward="false" selection-start-line="251" selection-start-column="64" selection-end-line="251" selection-end-column="64" />
+          <folding />
         </state>
       </provider>
     </entry>

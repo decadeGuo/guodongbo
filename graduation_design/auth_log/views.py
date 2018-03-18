@@ -49,7 +49,7 @@ def login_in(request):
         request.session['error'] = u'该账号已被删除，请联系管理员'
         # return render(request,'auth_log/login.html',context=dict(error=u'账号或者密码错误'))
         return redirect('/')
-    if user and user.depart == 0:
+    if user and user.d_id == 0:
         request.session['error'] = u'请联系相关人员分配部门'
         return redirect('/')
     if user:

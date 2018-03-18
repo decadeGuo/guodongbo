@@ -19,7 +19,7 @@
         {% csrf_token %}
 		<div id="leave_content">
             <div id="dead" class="a">
-                ☆ <b>教室申请</b></div>
+                ☆ <b>会议室申请</b></div>
             <form action="">
             <div class="a list">
               <label for="begain" >● 开始时间：</label>
@@ -38,7 +38,7 @@
                 <span class="xing">*</span>
             </div>
             <div class="a list">
-              <label >● 可用教室：</label>
+              <label >● 可用会议室：</label>
               <select name="shenpi">
 						<option value="0">请选择</option>
                         {% for i in rooms %}

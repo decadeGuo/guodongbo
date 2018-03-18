@@ -8,7 +8,7 @@ import datetime
 def index(request):
     """
     首页
-    error:首页专属错误信息
+    error:首页专属错误信息111
     type:0 未登录首页（跳转到登录页）  1 登陆后首页
     """
     type = int(request.GET.get('type',0))

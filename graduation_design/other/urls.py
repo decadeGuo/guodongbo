@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^user/manage/update/$',views.user_manage_update),     # 信息更改
     url(r'^ziyuan/$',views.ziyuan),     # 资源管理页面
     url(r'^car/manage/$',views.car_manage),     # 资源管理页面
+    url(r'^room/manage/$',views.room_manage),     # 教室管理
 
 ]
 urlpatterns += [

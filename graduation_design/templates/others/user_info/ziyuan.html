@@ -80,7 +80,7 @@
         <a href="/other/index/">
             <button type="button" class="btn btn-primary btn-lg" style="width: 200px;
             margin-top: 10px;
-            margin-bottom: 15px;">资源管理/返回
+            margin-bottom: 15px;">返回
             </button>
         </a>
 
@@ -245,11 +245,15 @@
 
         $('.addr').each(function () {
             $(this).click(function () {
+                {#$('#optionsRadios5').attr('checked','False')#}
+                {#$('#optionsRadios6').attr('checked','False')#}
                 var name = $(this).attr('name');
-                if (name == 1){
-                    $('#optionsRadios5').attr('checked','True')
-                } else {
-                    $('#optionsRadios6').attr('checked','True')
+                if (name == '1'){
+                    $('#optionsRadios5').attr('checked','True');
+                    {#$('#optionsRadios6').attr('checked','False')#}
+                } else{
+                    $('#optionsRadios6').attr('checked','True');
+                    {#$('#optionsRadios5').attr('checked','False')#}
                 }
             })
         })

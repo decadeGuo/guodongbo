@@ -10,7 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 from auth_log.models import User, Depatment, Position
 from comment.ajax import time_, Struct, ajax_ok
 from use_car.models import CarInfo, UserCarDetail
-
+from meeting.models import MeetingRoom,UserMeetRoom
 
 def index(request):
     """
@@ -284,8 +284,83 @@ def car_manage(request):
         status = post.get('status')
         CarInfo.objects.create(name=name,card=card,num=zaizhong,status=status,add_time=int(time.time()))
         return redirect('/other/car/manage/')
+def get_rooms(res):
+    data = []
+    for i in res:
+        row = Struct()
+        row.id = i.get('id')
+        row.name = i.get('name')
 
+        row.status = '可用' if i.get('status') == 1 else '已被占用' if i.get('status') == 2 else '不可用'
+        row.num = i.get('num')
+        row.use_num = UserMeetRoom.objects.filter(car_id=row.id).count()
+        row.add_time = time.strftime("%Y/%m/%d", time.gmtime(i.get('add_time') + 60 * 60 * 8))
+        data.append(row)
+    return data
 
+@csrf_exempt
+def room_manage(request):
+    """
+    用车管理页面
+    多功能合一
+    ｔｙｐｅ 1　删除　２　禁用　３启用　４新增　０　首页 5搜索
+    """
+    type = int(request.GET.get('type',0))
+    # status 0 禁用　１启用　２　正在使用　３删除
+    if type == 0:
+        if request.method == 'POST':
+            post = request.POST
+            search = int(post.get('search'))
 
+            search_text = post.get('search_txt')
+            try:
+                if search == 1:
+                    res = MeetingRoom.objects.filter(pk=int(search_text), status__gte=0).values('id', 'name', 'num',
+                                                                                            'status',
+                                                                                            'add_time').order_by(
+                        '-status')
+                elif search == 2:
+                    res = MeetingRoom.objects.filter(name__icontains=search_text, status__gte=0).values('id', 'name',
+                                                                                                    'num',
+                                                                                                    'status',
+                                                                                                    'add_time').order_by(
+                        '-status')
+                elif search == 3:
+                    res = MeetingRoom.objects.filter(card__contains=search_text, status__gte=0).values('id', 'name',
+                                                                                                   'num', 'status',
+                                                                                                   'add_time').order_by(
+                        '-status')
+            except:
+                request.session['error'] = '错误'
+                return redirect('/other/car/manage/')  # 搜索错误返回首页
+            data = get_rooms(res)
+            return render(request, 'others/user_info/room_manage.html',
+                          context={"data": data, "room_num": len(data),"value":search,"content":search_text})
+        else:
+            error = request.session['error']
+            request.session['error'] = ''
+            cars = MeetingRoom.objects.filter(status__gte=0).values('id','name','num','status','add_time').order_by('-status')
+            data = get_rooms(cars)
+            return render(request,'others/user_info/room_manage.html',context={"data":data,"room_num":len(data),"error":error})
+    if type == 1:
+
+        cid = int(request.POST.get('id'))
+        MeetingRoom.objects.filter(pk=cid).update(status=-1) # 删除
+        return ajax_ok()
+    if type == 2:
+        cid = int(request.POST.get('id'))
+        MeetingRoom.objects.filter(pk=cid).update(status=0)  # 禁用
+        return ajax_ok()
+    if type == 3:
+        cid = int(request.POST.get('id'))
+        MeetingRoom.objects.filter(pk=cid).update(status=1)  # 启用
+        return ajax_ok()
+    if type == 4:
+        post = request.POST
+        name = post.get('name')
+        zaizhong = post.get('zaizhong')
+        status = post.get('status')
+        MeetingRoom.objects.create(name=name,num=zaizhong,status=status,add_time=int(time.time()))
+        return redirect('/other/car/manage/')
 
 

@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, user-scalable=no" name="viewport">
     <title>人员管理</title>
-    <link rel="shortcut icon" href="{% static '/images/logo.png' %}" type="image/png">
+    <link rel="shortcut icon" href="{% static '/images/lysf2.png' %}" type="image/png">
     <link rel="stylesheet" type="text/css" href="{% static 'style/public.css' %}"/>
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
     {#        <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">#}
@@ -112,13 +112,8 @@
 <header id="header" class="a">
     <p id="title"><span style="line-height: 100px"><b>智能管理系统</b></span></p>
 
-    <p><img id="logo" src="{% static 'images/logo2.png' %}" alt=""></p>
-    {#            <p style="width: 25%;height: 110px;font-size: 2rem;position: absolute;top: 0;right: 1px;color: black;">#}
-    {#                <br>#}
-    {#                姓名：<span class="t">{{ name }}</span> 职位：<span class="t">{{ position }}</span><br>#}
-    {#                部门：<span class="t">{{ department }}</span> 操作：<a href="/auth/login/out/">安全退出</a>#}
-    {#                <br>上次登录时间: <span> {{ time|date:'Y/m/d H:i' }}</span>#}
-    {#            </p>#}
+{#    <p><img id="logo" src="{% static 'images/lysf.jpg' %}" alt=""></p>#}
+   <p><img id="logo" src="{% static 'images/logo2.png' %}" alt=""></p>
     <p style="width: 25%;height: 100px;font-size: 2rem;position: absolute;top: 10px;right: 1px;color: black;">
 
         姓名：<span class="t" id="name"></span> 职位：<span class="t" id="position1"></span><br>
@@ -138,7 +133,7 @@
             <p class="left_c" id="leave" style="width: 95%;margin-left:5%;">
             <b>请&#x3000;假</b></p></a></div>
         <div class="a tip"><a href="/meeting/index/">
-            <p class="left_c" id="meeting" style="width: 95%;margin-left:5%;"><b>教&#x3000;室</b></p></a></div>
+            <p class="left_c" id="meeting" style="width: 95%;margin-left:5%;"><b>会&#x3000;议</b></p></a></div>
         <div class="a tip"><a href="#">
             <p class="left_c" id="luntan" style="width: 95%;margin-left:5%;"><b>论&#x3000;坛</b></p></a></div>
         <div class="a tip"><a href="/other/index/">

@@ -2,6 +2,8 @@
 from __future__ import unicode_literals
 
 import time
+
+from django.db.models import Q
 from django.shortcuts import render, redirect
 
 from django.views.decorators.csrf import csrf_exempt
@@ -75,7 +77,12 @@ def user_meeting_apply(request):
     if end_time < begain_time:
         request.session['error'] = u'时间区间选择错误'
         return redirect('/meeting/meeting/apply/')
+    is_ok = UserMeetRoom.objects.filter(room_id=int(room), status=1, ).exclude(
+        Q(begain_time__gte=end_time) | Q(end_time__lte=begain_time)).exists()  # 查找该车有没有被其他人占用
 
+    if is_ok:
+        request.session['error'] = u'该房间在该时间内已被占用'
+        return redirect('/meeting/meeting/apply/')
 
     UserMeetRoom.objects.create(user=request.user,resign=resign,begain_time=begain_time,end_time=end_time,
                                shenpi_id=shenpi,room_id=room,

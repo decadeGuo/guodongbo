@@ -1,0 +1,17 @@
+{% extends "index.html" %}
+{% load staticfiles %}
+{% block right %}
+论坛首页
+
+
+
+
+
+
+
+<script src="{% static 'js/jquery.js' %}"></script>
+<script>
+    $('.left_c').removeClass('active');
+    $('#forum').addClass('active');
+</script>
+{% endblock %}

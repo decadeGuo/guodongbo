@@ -11,8 +11,5 @@ urlpatterns = [
     url(r'^meeting/apply/logs/$', views.meeting_logs),  # 申请日志
     url(r'^meeting/apply/shenpi/$', views.shenpi),  # 教室审批页
     url(r'^meeting/apply_res/$', views.apply_res),  # 教室审批结果
-    # url(r'^user/manage/update/$',views.user_manage_update),     # 信息更改
-    # url(r'^ziyuan/$',views.ziyuan),     # 资源管理页面
-    # url(r'^car/manage/$',views.car_manage),     # 资源管理页面
 
 ]

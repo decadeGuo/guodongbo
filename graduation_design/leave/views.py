@@ -10,7 +10,7 @@ from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 
 from auth_log.models import User, Depatment, Position
-from comment.ajax import time_, Struct, ajax_ok, get_shenpi
+from comment.ajax import time_, Struct, ajax_ok, get_shenpi, get_page
 from leave.models import LeaveDetail
 
 
@@ -61,19 +61,10 @@ def leave_applying(request):
     """
     user = request.user
     page = int(request.GET.get('page',1))
-    objs = LeaveDetail.objects.filter(user_id=user.id).all().order_by('-id')
+    objs = LeaveDetail.objects.filter(user_id=user.id).all().order_by('status','-id')
     if not objs:
         return render(request, 'leave/leave_applying.html', context={"message":1})
-    paginator = Paginator(objs, 1)  # 实例化分页对象，每页展示1条记录 **耗时一秒左右**
-    total_page = paginator.num_pages  # 总页数
-    try:
-        obj = paginator.page(page).object_list  # 获取某页对应的记录
-    except PageNotAnInteger:
-        page = 1
-        obj = paginator.page(page).object_list  # 如果页面不是整数，取第一页的记录
-    except EmptyPage:
-        page = paginator.num_pages
-        obj = paginator.page(paginator.num_pages).object_list  # 如果页码太大， 取最后一页记录
+    obj, page, total_page = get_page(objs, page)
     shenpi = User.objects.filter(id=obj[0].sp_id).last().first_name
     time1, time2 = time_(obj[0],False)
     data = dict(name=obj[0].user.first_name,

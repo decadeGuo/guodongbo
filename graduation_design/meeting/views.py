@@ -7,7 +7,7 @@ from django.db.models import Q
 from django.shortcuts import render, redirect
 
 from django.views.decorators.csrf import csrf_exempt
-from comment.ajax import time_,get_shenpi
+from comment.ajax import time_, get_shenpi, get_page
 from auth_log.models import User
 from meeting.models import MeetingRoom,UserMeetRoom
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
@@ -98,19 +98,12 @@ def meeting_applying(request):
     """
     user = request.user
     page = int(request.GET.get('page',1))
-    objs = UserMeetRoom.objects.filter(user_id=user.id).all().order_by('-id')
+    objs = UserMeetRoom.objects.filter(user_id=user.id).all().order_by('status','-id')
+
     if not objs:
         return render(request, 'meeting/meeting_applying.html', context={"message":1})
-    paginator = Paginator(objs, 1)  # 实例化分页对象，每页展示1条记录 **耗时一秒左右**
-    total_page = paginator.num_pages  # 总页数
-    try:
-        obj = paginator.page(page).object_list  # 获取某页对应的记录
-    except PageNotAnInteger:
-        page = 1
-        obj = paginator.page(page).object_list  # 如果页面不是整数，取第一页的记录
-    except EmptyPage:
-        page = paginator.num_pages
-        obj = paginator.page(paginator.num_pages).object_list  # 如果页码太大， 取最后一页记录
+    obj,page,total_page = get_page(objs,page)   # 实例化分页对象
+
     shenpi = User.objects.filter(id=obj[0].shenpi_id).last().first_name
     time1, time2 = time_(obj[0],False)
 

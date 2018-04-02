@@ -11,6 +11,7 @@ class MeetingRoom(models.Model):
     """
     name = models.CharField(max_length=100, default='', verbose_name=u'会议室')
     num = models.IntegerField(default=0, verbose_name=u'容纳人数')
+    type = models.IntegerField(default=0, verbose_name=u'类型')  # 1 会议　2 讲座
     status = models.IntegerField(default=1, verbose_name=u'状态')  # -1 删除 0 不可用 1 可用 2已被占用
     add_time = models.IntegerField(default=0)
 

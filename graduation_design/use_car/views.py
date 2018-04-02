@@ -7,7 +7,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from auth_log.models import User
-from comment.ajax import time_
+from comment.ajax import time_,get_shenpi
 from use_car.models import CarInfo, UserCarDetail
 import time
 
@@ -34,7 +34,7 @@ def car_apply(request):
     # all_tongyi = UserCarDetail.objects.filter(status=1).all() # 所有已同意的审批
     cars = CarInfo.objects.filter(status=1).all()   # 所有可用车辆
     users = User.objects.filter(user_type__lt=4,status=1).all()  # 司机
-    shenpi = User.objects.filter(user_type=3,status=1).all()     # 审批人  组长
+    shenpi = get_shenpi(user.d_id)     # 审批人  组长
     return render(request,'car/car_apply.html',context={"user":user,"cars":cars,"users":users,"shenpi":shenpi,"error":error})
 def car_apply_res(request):
     """

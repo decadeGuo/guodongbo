@@ -39,10 +39,10 @@
             </div>
             <div class="a list">
               <label >● 可用会议室：</label>
-              <select name="shenpi">
+              <select name="room">
 						<option value="0">请选择</option>
                         {% for i in rooms %}
-                        <option value="{{ i.id }}">{{ i.name }}({{ i.num }}组长)</option>
+                        <option value="{{ i.id }}">{{ i.name }}({{ i.num }}人)</option>
                         {% endfor %}
               </select>
                 <span class="xing">*</span>
@@ -58,7 +58,7 @@
               <select name="shenpi">
 						<option value="0">请选择</option>
                         {% for i in shenpi %}
-                        <option value="{{ i.id }}">{{ i.first_name }}({{ i.depart }}组长)</option>
+                        <option value="{{ i.id }}">{{ i.first_name }}({{ i.depart }}{{ i.position }})</option>
                         {% endfor %}
               </select>
                 <span class="xing">*</span>

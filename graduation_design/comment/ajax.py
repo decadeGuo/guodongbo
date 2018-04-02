@@ -3,6 +3,10 @@ import json
 
 from django.http import HttpResponse
 import time
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+
+from auth_log.models import User
+
 
 def ajax_ok(data='',message='',status='ok'):
     """
@@ -61,3 +65,6 @@ def time_(i,time_3=False):
         return time1,time2,time3
     else:
         return time1,time2
+def get_shenpi(d_id):
+    """获取审批人"""
+    return  User.objects.filter(user_type__gte=3, status=1, d_id=d_id).all()  # 审批人  组长

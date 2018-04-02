@@ -10,7 +10,7 @@ from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 
 from auth_log.models import User, Depatment, Position
-from comment.ajax import time_, Struct, ajax_ok
+from comment.ajax import time_, Struct, ajax_ok, get_shenpi
 from leave.models import LeaveDetail
 
 
@@ -40,7 +40,7 @@ def leave_apply(request):
     user = request.user
     # all_tongyi = UserleaveDetail.objects.filter(status=1).all() # 所有已同意的审批
 
-    shenpi = User.objects.filter(user_type=3,status=1,d_id=user.d_id).all()     # 审批人  组长
+    shenpi = get_shenpi(user.d_id)    # 审批人  组长
     return render(request,'leave/leave_apply.html',context={"user":user,"shenpi":shenpi,"error":error})
 def leave_apply_res(request):
     """

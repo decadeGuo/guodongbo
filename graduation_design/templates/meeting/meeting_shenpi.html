@@ -16,17 +16,16 @@
     <a href="/meeting/index/"><button  style="margin-left: 1%;margin-top: 10%" type="button" class="btn btn-default btn-lg">返回上一级</button></a>
 {% else %}
 <div id="message" class="a">
-        请假申请资料卡<br>
+        房间申请资料卡<br>
         姓名：{{ name }} <br>
         部门：{{ depart }} <br>
         时间：{{ time1 }}—{{ time2 }} <br>
         原因：{{ resign }} <br>
-
-
-        审批人/组长：{{ shenpi }}
+        审批人：{{ shenpi }}
     </div>
 <div id="message" class="a">
-    <form action="/meeting/apply/res/?id={{ id }}" method="post">
+    <form action="/meeting/meeting/apply_res/?id={{ id }}" method="post">
+        {% csrf_token %}
         意见：<input id="yijian" type="text" name="yijian"><br>
         审核结果：
         <button type="submit" name="but" value="1" class="btn btn-primary btn-lg">同意</button>

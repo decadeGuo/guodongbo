@@ -4,12 +4,11 @@ from __future__ import unicode_literals
 import time
 from django.shortcuts import render, redirect
 
-# Create your views here.
 from django.views.decorators.csrf import csrf_exempt
-
+from comment.ajax import time_,get_shenpi
 from auth_log.models import User
 from meeting.models import MeetingRoom,UserMeetRoom
-
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 def index(request):
     """
@@ -32,8 +31,9 @@ def meeting_apply(request):
     user = request.user
     # all_tongyi = UserleaveDetail.objects.filter(status=1).all() # 所有已同意的审批
     rooms = MeetingRoom.objects.filter(status=1).all()
-    shenpi = User.objects.filter(user_type=3,status=1,d_id=user.d_id).all()     # 审批人  组长
+    shenpi = get_shenpi(user.d_id)     # 获取审批人
     return render(request,'meeting/meeting_apply.html',context={"user":user,"shenpi":shenpi,"error":error,"rooms":rooms})
+@csrf_exempt
 def meeting_apply_res(request):
     """
     教师申请结果页面
@@ -59,7 +59,7 @@ def user_meeting_apply(request):
 
     room = post.get('room','')
     if not room:
-        request.session['error'] = u'请选择教室，如无可用教室请耐心等待'
+        request.session['error'] = u'请选择教室，如无可用教室请耐心等待或联系管理员'
         return redirect('/meeting/meeting/apply/')
 
     shenpi = int(post.get('shenpi',''))
@@ -104,9 +104,10 @@ def meeting_applying(request):
     except EmptyPage:
         page = paginator.num_pages
         obj = paginator.page(paginator.num_pages).object_list  # 如果页码太大， 取最后一页记录
-    shenpi = User.objects.filter(id=obj[0].sp_id).last().first_name
+    shenpi = User.objects.filter(id=obj[0].shenpi_id).last().first_name
     time1, time2 = time_(obj[0],False)
-    data = dict(name=obj[0].user.first_name,depart = user.depart,room=obj.room.name,
+
+    data = dict(name=obj[0].user.first_name,depart = user.depart,room=obj[0].room.name,
                 resign=obj[0].resign,all_num=total_page
                 ,shenpi=shenpi, status=int(obj[0].status),id=obj[0].id,page=page,total_page=total_page,time1=time1,time2=time2)
     return render(request,'meeting/meeting_applying.html',context=data)
@@ -121,9 +122,9 @@ def meeting_logs(request):
     all = UserMeetRoom.objects.filter(user_id=uid).exclude(status=0).all().order_by('-id')
     data = []
     for i in all:
-        shenpi = User.objects.filter(id=i.sp_id).last().first_name
+        shenpi = User.objects.filter(id=i.shenpi_id).last().first_name
         time1,time2,time3 = time_(i,True)
-        yijian = i.remark if i.remark else ''
+        yijian = i.yijian if i.yijian else ''
         data.append(dict(name=i.user.first_name,time1=time1,time2=time2,time=time3,
                          status=int(i.status),shenpi=shenpi,yijian=yijian,
                          resign=i.resign
@@ -142,7 +143,7 @@ def shenpi(request):
         if not my_sp:
             return render(request, 'meeting/meeting_shenpi.html',context={"error":1})
 
-    shenpi = User.objects.filter(id=my_sp.sp_id).last().first_name
+    shenpi = User.objects.filter(id=my_sp.shenpi_id).last().first_name
     depart = my_sp.user.depart
     time1, time2, time3 = time_(my_sp,True)
     data=dict(id=my_sp.id,name=my_sp.user.first_name,time1=time1,time2=time2,shenpi=shenpi,depart=depart,
@@ -160,5 +161,5 @@ def apply_res(request):
     id = int(request.GET.get('id','0'))
     yijian = post.get('yijian','')
     status = post.get('but')
-    LeaveDetail.objects.filter(pk=id).update(status=status,remark=yijian,update_time=int(time.time()))
-    return redirect('/meeting/meeting_apply/shenpi/')
+    UserMeetRoom.objects.filter(pk=id).update(status=status,yijian=yijian,update_time=int(time.time()))
+    return redirect('/meeting/meeting/apply/shenpi/')

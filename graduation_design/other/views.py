@@ -254,14 +254,14 @@ def car_manage(request):
             except:
                 request.session['error'] = '错误'
                 return redirect('/other/car/manage/')  # 搜索错误返回首页
-            data = get_cars(res)
+            data = get_rooms(res)
             return render(request, 'others/user_info/car_manage.html',
                           context={"data": data, "car_num": len(data),"value":search,"content":search_text})
         else:
             error = request.session['error']
             request.session['error'] = ''
             cars = CarInfo.objects.filter(status__gte=0).values('id','name','card','num','status','add_time').order_by('-status')
-            data = get_cars(cars)
+            data = get_rooms(cars)
             return render(request,'others/user_info/car_manage.html',context={"data":data,"car_num":len(data),"error":error})
     if type == 1:
 
@@ -290,10 +290,10 @@ def get_rooms(res):
         row = Struct()
         row.id = i.get('id')
         row.name = i.get('name')
-
+        row.type = '会议' if int(i.get('type')) == 1 else '讲座'
         row.status = '可用' if i.get('status') == 1 else '已被占用' if i.get('status') == 2 else '不可用'
         row.num = i.get('num')
-        row.use_num = UserMeetRoom.objects.filter(car_id=row.id).count()
+        row.use_num = UserMeetRoom.objects.filter(room_id=row.id).count()
         row.add_time = time.strftime("%Y/%m/%d", time.gmtime(i.get('add_time') + 60 * 60 * 8))
         data.append(row)
     return data
@@ -301,7 +301,7 @@ def get_rooms(res):
 @csrf_exempt
 def room_manage(request):
     """
-    用车管理页面
+    教室管理页面
     多功能合一
     ｔｙｐｅ 1　删除　２　禁用　３启用　４新增　０　首页 5搜索
     """
@@ -314,33 +314,35 @@ def room_manage(request):
 
             search_text = post.get('search_txt')
             try:
+
                 if search == 1:
-                    res = MeetingRoom.objects.filter(pk=int(search_text), status__gte=0).values('id', 'name', 'num',
-                                                                                            'status',
+                    res = MeetingRoom.objects.filter(pk=int(search_text), status__gte=0).values('id', 'name', 'type',
+                                                                                            'status','num',
                                                                                             'add_time').order_by(
                         '-status')
                 elif search == 2:
                     res = MeetingRoom.objects.filter(name__icontains=search_text, status__gte=0).values('id', 'name',
-                                                                                                    'num',
+                                                                                                    'type','num',
                                                                                                     'status',
                                                                                                     'add_time').order_by(
                         '-status')
                 elif search == 3:
-                    res = MeetingRoom.objects.filter(card__contains=search_text, status__gte=0).values('id', 'name',
-                                                                                                   'num', 'status',
+                    content = 1 if '会议' in search_text else 2
+                    res = MeetingRoom.objects.filter(type=content, status__gte=0).values('id', 'name','num',
+                                                                                                   'type', 'status',
                                                                                                    'add_time').order_by(
                         '-status')
             except:
                 request.session['error'] = '错误'
-                return redirect('/other/car/manage/')  # 搜索错误返回首页
+                return redirect('/other/room/manage/')  # 搜索错误返回首页
             data = get_rooms(res)
             return render(request, 'others/user_info/room_manage.html',
                           context={"data": data, "room_num": len(data),"value":search,"content":search_text})
         else:
             error = request.session['error']
             request.session['error'] = ''
-            cars = MeetingRoom.objects.filter(status__gte=0).values('id','name','num','status','add_time').order_by('-status')
-            data = get_rooms(cars)
+            res = MeetingRoom.objects.filter(status__gte=0).values('id','name','type','num','status','add_time').order_by('-status')
+            data = get_rooms(res)
             return render(request,'others/user_info/room_manage.html',context={"data":data,"room_num":len(data),"error":error})
     if type == 1:
 
@@ -358,9 +360,10 @@ def room_manage(request):
     if type == 4:
         post = request.POST
         name = post.get('name')
-        zaizhong = post.get('zaizhong')
+        type = post.get('type')
+        zaizhong = post.get('zaizhong') # 容纳人数
         status = post.get('status')
-        MeetingRoom.objects.create(name=name,num=zaizhong,status=status,add_time=int(time.time()))
-        return redirect('/other/car/manage/')
+        MeetingRoom.objects.create(name=name,num=zaizhong,type=type,status=status,add_time=int(time.time()))
+        return redirect('/other/room/manage/')
 
 

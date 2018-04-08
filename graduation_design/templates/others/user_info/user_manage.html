@@ -47,9 +47,9 @@
         .table-bordered td {
             border: 1px solid grey !important;
         }
-        #myModal2 input{background-color: ghostwhite;border: 1px solid lightskyblue;border-radius: 6px;margin-top: 1%}
+        #myModal2 input{background-color: ghostwhite;border: 1px solid lightskyblue;border-radius: 6px;}
         #myModal2 input:hover{border: 1px solid blue}
-        #myModal2 select{background-color:ghostwhite;border: 1px solid lightskyblue;border-radius: 6px;text-align: center;margin-top: 1% }
+        #myModal2 select{background-color:ghostwhite;border: 1px solid lightskyblue;border-radius: 6px;text-align: center; }
         #myModal2 select:hover{border: 1px solid blue}
     .list{margin-top: 10px;margin-left:25%;font-size: 2rem;}
     </style>
@@ -179,7 +179,8 @@
             </div>
             <div class="a list">
               <label for="depart" >部门：</label>
-              <select name="depart" onmousedown="if(this.options.length>6){this.size=6}">
+              <select name="depart" style="position: absolute;z-index: 3;"
+        onmousedown="if(this.options.length>6){this.size=7}" onblur="this.size=0" onchange="this.size=0">
 						<option value="0" id="d"></option>
                         {% for i in all_d %}
                         <option value="{{ i.id }}">{{ i.name }}</option>
@@ -188,7 +189,8 @@
             </div>
                 <div class="a list">
               <label for="position" >职位：</label>
-              <select name="position" onmousedown="if(this.options.length>6){this.size=6}">
+              <select name="position" style="position: absolute;z-index: 2;"
+        onmousedown="if(this.options.length>6){this.size=7}" onblur="this.size=0" onchange="this.size=0">
 						<option value="0" id="p"></option>
                         {% for i in all_p %}
                         <option value="{{ i.id }}">{{ i.name }}</option>
@@ -197,7 +199,8 @@
             </div>
                 <div class="a list">
               <label for="level" >级别：</label>
-              <select name="level" style="overflow: auto" onmousedown="if(this.options.length>6){this.size=6}">
+              <select name="level" style="position: absolute;z-index: 1;"
+        onmousedown="if(this.options.length>6){this.size=7}" onblur="this.size=0" onchange="this.size=0">
                   <option id="level"></option>
                   <option value="1">1</option>
                   <option value="2">2</option>

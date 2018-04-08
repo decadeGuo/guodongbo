@@ -39,7 +39,7 @@
             </div>
             <div class="a list">
               <label >● 可用会议室：</label>
-              <select name="room" onmousedown="if(this.options.length>6){this.size=6}">
+              <select name="room" >
 						<option value="0">请选择</option>
                         {% for i in rooms %}
                         <option value="{{ i.id }}">{{ i.name }}({{ i.num }}人)</option>
@@ -55,7 +55,7 @@
 
             <div class="a list">
               <label >● 审批人：</label>
-              <select name="shenpi" onmousedown="if(this.options.length>6){this.size=6}">
+              <select name="shenpi" >
 						<option value="0">请选择</option>
                         {% for i in shenpi %}
                         <option value="{{ i.id }}">{{ i.first_name }}({{ i.depart }}{{ i.position }})</option>

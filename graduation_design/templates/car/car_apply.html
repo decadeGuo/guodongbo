@@ -51,9 +51,10 @@
 
               <input type="text" name="apply_peo" disabled required id="apply_peo" value="{{ user.first_name }}" >
             </div>
-            <div class="a list" onmousedown="if(this.options.length>6){this.size=6}">
+            <div class="a list" >
               <label >● 开车人</label>
-              <select name="siji">
+              <select name="siji" style="position: absolute;z-index: 3;"
+        onmousedown="if(this.options.length>6){this.size=7}" onblur="this.size=0" onchange="this.size=0" >
 						<option value="0">请选择</option>
                         {% for i in users %}
                         <option value="{{ i.id }}">{{ i.first_name }}({{ i.depart }})</option>
@@ -63,7 +64,8 @@
             </div>
             <div class="a list">
               <label >● 可用车辆</label>
-              <select name="car_type" onmousedown="if(this.options.length>6){this.size=6}">
+              <select name="car_type" style="position: absolute;z-index: 2;font-size: 0.9em"
+        onmousedown="if(this.options.length>6){this.size=7}" onblur="this.size=0" onchange="this.size=0">
 						<option value="0">请选择</option>
                         {% for i in cars %}
                         <option value="{{ i.id }}">{{ i.name }} ({{ i.card }})</option>
@@ -73,7 +75,8 @@
             </div>
             <div class="a list">
               <label >● 审批人</label>
-              <select name="shenpi" onmousedown="if(this.options.length>6){this.size=6}">
+              <select name="shenpi" style="position: absolute;z-index: 1;"
+        onmousedown="if(this.options.length>6){this.size=7}" onblur="this.size=0" onchange="this.size=0">
 						<option value="0">请选择</option>
                         {% for i in shenpi %}
                         <option value="{{ i.id }}">{{ i.first_name }}({{ i.depart }}组长)</option>

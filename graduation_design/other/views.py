@@ -117,6 +117,7 @@ def user_manage_update(request):
         position = post.get('position')
         depart = post.get('depart')
         level = post.get('level').split('：')[-1]
+        print position,depart
         p_id = int(position)
         d_id = int(depart)
         adress = post.get('adress')

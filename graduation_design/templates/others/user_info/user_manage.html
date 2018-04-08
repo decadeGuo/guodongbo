@@ -179,7 +179,7 @@
             </div>
             <div class="a list">
               <label for="depart" >部门：</label>
-              <select name="depart">
+              <select name="depart" onmousedown="if(this.options.length>6){this.size=6}">
 						<option value="0" id="d"></option>
                         {% for i in all_d %}
                         <option value="{{ i.id }}">{{ i.name }}</option>
@@ -188,7 +188,7 @@
             </div>
                 <div class="a list">
               <label for="position" >职位：</label>
-              <select name="position">
+              <select name="position" onmousedown="if(this.options.length>6){this.size=6}">
 						<option value="0" id="p"></option>
                         {% for i in all_p %}
                         <option value="{{ i.id }}">{{ i.name }}</option>
@@ -197,7 +197,7 @@
             </div>
                 <div class="a list">
               <label for="level" >级别：</label>
-              <select name="level" style="overflow: auto">
+              <select name="level" style="overflow: auto" onmousedown="if(this.options.length>6){this.size=6}">
                   <option id="level"></option>
                   <option value="1">1</option>
                   <option value="2">2</option>

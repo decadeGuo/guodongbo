@@ -256,14 +256,14 @@ def car_manage(request):
             except:
                 request.session['error'] = '错误'
                 return redirect('/other/car/manage/')  # 搜索错误返回首页
-            data = get_rooms(res)
+            data = get_cars(res)
             return render(request, 'others/user_info/car_manage.html',
                           context={"data": data, "car_num": len(data),"value":search,"content":search_text})
         else:
             error = request.session['error']
             request.session['error'] = ''
             cars = CarInfo.objects.filter(status__gte=0).values('id','name','card','num','status','add_time').order_by('-status')
-            data = get_rooms(cars)
+            data = get_cars(cars)
             return render(request,'others/user_info/car_manage.html',context={"data":data,"car_num":len(data),"error":error})
     if type == 1:
 

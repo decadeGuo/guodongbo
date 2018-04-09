@@ -24,7 +24,7 @@ def index(request):
         # 获取签到情况
         sign = UserSign.objects.filter(uid=request.user.id,addtime__gt=today_time).last()
         status = 1 if sign else 0
-        message='已签到' if sign and sign.status == 1 else '迟到' if sign and sign.status == 2 else '签到'
+        message='已签到' if sign and sign.status == 1 else '已签到/迟到' if sign and sign.status == 2 else '签到'
         sessionid = request.session.session_key
         return render(request, 'index.html',context={"sessionid":sessionid,"message":message,"status":status})
 @csrf_exempt

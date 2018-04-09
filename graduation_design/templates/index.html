@@ -155,7 +155,11 @@
             五：加班模式为模式调休，当月内没有调休的加班清零。 <br>
             六：依着得体大方，注重公司形象<br><br>
             <p style="text-align: center">
-                <button id="but" type="button" class="btn btn-default btn-lg">我已完成阅读/签到</button>
+                {% if status %}
+                <button id="but" type="button" disabled class="btn btn-default btn-lg">{{ message }}</button>
+                {% else %}
+                <button id="but" type="button"  class="btn btn-default btn-lg">{{ message }}</button>
+                {% endif %}
             </p>
 
         </div>
@@ -174,7 +178,7 @@
     settings = {
         url: "/user/info/",
         type: "POST",
-        {#                data:{"sessionid":sessionid},#}
+        {# data:{"sessionid":sessionid},#}
         success: function (data) {
             $('#caozuo').html('安全退出');
             $('#name').html(data.data.name);
@@ -184,6 +188,14 @@
         }
     };
     $.ajax(settings);
+    $('#but').click(function () {
+        $.ajax({
+            url:"/sign/",
+            success:function () {
+                window.location.reload()
+            }
+        })
+    });
     {#            $('#but').click(function () {#}
     {#                $.get(#}
     {#                  '/user/info/',#}

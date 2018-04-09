@@ -1,17 +1,68 @@
 {% extends "index.html" %}
 {% load staticfiles %}
 {% block right %}
-论坛首页
+    <style>
+        #logo {
+            height: 60px;
+            width: 60px;
+            display: inline-block;
+        }
+
+        #l_content {
+            margin-top: 8px;
+            width: 96%;
+            margin-left: 2%;
+            margin-bottom: 3%
+        }
+
+        .l_neirong {
+            background-color: white;
+        }
+    </style>
+    <script src="{% static 'js/jquery.js' %}"></script>
+
+
+    <div style="position: absolute;top: 0;left: 0">此功能正在完善，敬请期待！</div>
+
+    <header>
+        <img id="logo" src="{% static 'images/lysf.jpg' %}" alt="">
+        <p id="title" style="font-size: 2rem;line-height: 60px;">DB智能管理系统论坛</p>
+    </header>
+    <section id="l_content">
+        <ul class="nav nav-tabs nav-justified">
+            <li id="1" class="active l_li"><a href="/forum/index/">广场</a></li>
+            <li id="2" class="l_li"><a href="/forum/dongtai/">发表动态</a></li>
+            <li id="3" class="l_li"><a href="/forum/me">与我相关</a></li>
+            <li id="4" class="l_li"><a href="/forum/liuyan">留言</a></li>
+            <li id="5" class="l_li"><a href="/forum/zone">个人中心</a></li>
+
+        </ul>
+
+        <div class="l_neirong" id="l1">
+            {% block l_content %}
+                广场
 
 
 
 
 
+                <script>
+                    $('.l_li').removeClass('active');
+                    $('#1').addClass('active');
+                </script>
+            {% endblock %}
+        </div>
 
+    </section>
+    <script>
+        $('.left_c').removeClass('active');
+        $('#forum').addClass('active');
+        $('.l_li').each(function () {
+            $(this).click(function () {
+                $('.l_li').removeClass('active');
+                $(this).addClass('active');
+            })
+        })
+    </script>
 
-<script src="{% static 'js/jquery.js' %}"></script>
-<script>
-    $('.left_c').removeClass('active');
-    $('#forum').addClass('active');
-</script>
 {% endblock %}

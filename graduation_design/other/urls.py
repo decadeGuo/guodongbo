@@ -11,7 +11,7 @@ urlpatterns = [
     url(r'^ziyuan/$',views.ziyuan),     # 资源管理页面
     url(r'^car/manage/$',views.car_manage),     # 资源管理页面
     url(r'^room/manage/$',views.room_manage),     # 教室管理
-
+    url(r'^sign/$',views.qiandao),     # 教室管理
 ]
 urlpatterns += [
     url(r'^ziyuan/add/$',views.add_d_p),     # 新增职位部门

@@ -1,0 +1,54 @@
+{% extends "others/other_index.html" %}
+{% load staticfiles %}
+{% block content %}
+    <style>
+    #sign{font-size: 2rem;text-align: center;margin: 10px 0;position: relative}
+    th, td {
+            text-align: center;
+        }
+        th{text-align: center;background-color: deepskyblue;color: white}
+        .table-bordered th,
+        .table-bordered td {
+            border: 1px solid grey !important;
+        }
+    </style>
+<section style="width: 94%;margin: auto;margin-bottom: 3%">
+<header id="sign">
+签到详情（本月）
+<a href="/other/user/manage/"><button class="btn btn-primary" style="position: absolute;left: 0;">返回上一级</button></a>
+<a href="/other/index/"><button class="btn btn-primary" style="position: absolute;right: 0;">返回首页</button></a>
+</header>
+
+
+<div id="neirong">
+            <table class="table table-bordered table-striped table-hover a">
+
+                <thead>
+                <tr>
+                    <th>姓名</th>
+                    <th>部门</th>
+                    <th>签到时间</th>
+                    <th>是否迟到</th>
+                    <th>本月请假次数</th>
+                    <th>备注</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for i in data %}
+                    <tr>
+                        <td>{{ i.name }}</td>
+                        <td>{{ i.depart }}</td>
+                        <td>{{ i.time }}</td>
+                        <td>{{ i.is_late }}</td>
+                        <td>{{ i.num }}</td>
+                        <td>--</td>
+
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+</div>
+</section>
+
+{% endblock %}

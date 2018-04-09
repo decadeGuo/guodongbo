@@ -35,4 +35,5 @@ urlpatterns = [
     url(r'^leave/',include('leave.urls')),
     url(r'^meeting/',include('meeting.urls')),
     url(r'^forum/',include('forum.urls')),
+    url(r'^sign/',index.sign)
 ]+ static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)

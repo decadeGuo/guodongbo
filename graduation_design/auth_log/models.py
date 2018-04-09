@@ -50,3 +50,11 @@ class User(AbstractUser):
     class Meta:
         db_table = 'auth_user'
         verbose_name = u'用户表'
+class UserSign(models.Model):
+    """签到详情表"""
+    uid = models.IntegerField(default=0)    # 用户ｉｄ
+    status = models.IntegerField(default=0) # 0默认　１以签到　２迟到　
+    addtime = models.IntegerField(default=0)    #时间
+    class Meta:
+        db_table = 'user_sign'
+        verbose_name = u'签到表'

@@ -6,6 +6,7 @@
             margin-top: 10px;
             {#padding-left: 5%#}
             position: relative;
+            {#top:10px;#}
         }
 
         .lab {
@@ -52,6 +53,7 @@
         #myModal2 select{background-color:ghostwhite;border: 1px solid lightskyblue;border-radius: 6px;text-align: center; }
         #myModal2 select:hover{border: 1px solid blue}
     .list{margin-top: 10px;margin-left:25%;font-size: 2rem;}
+
     </style>
 
     <section style="width: 94%;margin: auto;margin-bottom: 3%">
@@ -124,7 +126,7 @@
 {#                            <button name="{{ i.id }}" class="update lab">加好友</button>#}
                             <button name="{{ i.id }}" data-toggle="modal" data-target="#myModal2" class="update lab">修改</button>
                             <button name="{{ i.id }}" data-toggle="modal" data-target="#myModal" class="del lab">删除</button>
-                            <button href="" name="{{ i.id }}" data-toggle="modal" data-target="#myModal3" class="qiandao lab">签到详情</button>
+                            <button  data-toggle="modal" class="qiandao lab"><a href="/other/sign/?uid={{ i.id }}">签到详情</a></button>
                         </td>
                          {% else %}
                             <td>

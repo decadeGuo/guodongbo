@@ -23,13 +23,13 @@ import datetime
 a = "2018/1/20 14:48:27"
 b = 1516430907+(60*60*8)
 c = time.gmtime(b)
-# d=int(time.mktime(time.strptime(a,'%Y/%m/%d %H:%M:%S')))
-# print c
+# d=int(time.mktime(time.strptime(c,'%Y/%m/%d %H:%M:%S')))
+# # print c
 # print d
 # print time.strptime(a,'%Y/%m/%d %H:%M:%S')
-# print time.strftime("%Y/%m/%d %H:%M", time.gmtime(b))
+print time.strftime("%Y/%m/%d %H:%M", time.gmtime(1523257767))
 
-
-
-
-print int(397/60.0)
+month_first_day = datetime.datetime.combine(datetime.date.today().replace(day=1), datetime.time.min)  # 本月第一天
+month_first_day = time.strptime(str(month_first_day), '%Y-%m-%d %H:%M:%S')
+timestamp = int(time.mktime(month_first_day))
+print timestamp

@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-import time
+import time,datetime
 from django.contrib.auth.hashers import check_password
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
-from auth_log.models import User, Depatment, Position
+from auth_log.models import User, Depatment, Position, UserSign
 from comment.ajax import time_, Struct, ajax_ok
+from leave.models import LeaveDetail
 from use_car.models import CarInfo, UserCarDetail
 from meeting.models import MeetingRoom,UserMeetRoom
 
@@ -367,4 +368,23 @@ def room_manage(request):
         MeetingRoom.objects.create(name=name,num=zaizhong,type=type,status=status,add_time=int(time.time()))
         return redirect('/other/room/manage/')
 
-
+def qiandao(request):
+    """签到详情接口"""
+    uid = request.GET.get('uid')
+    #获取当月第一天的时间戳
+    month_first_day = datetime.datetime.combine(datetime.date.today().replace(day=1), datetime.time.min)  # 本月第一天
+    month_first_day = time.strptime(str(month_first_day), '%Y-%m-%d %H:%M:%S')
+    timestamp = int(time.mktime(month_first_day))
+    sign = UserSign.objects.filter(uid=uid,addtime__gt=timestamp).all()
+    user = User.objects.get(id=uid)
+    data_list = []
+    for o in sign:
+        if o:
+            row = {}
+            row['name'] = user.first_name
+            row['depart'] = user.depart
+            row['time'] = time.strftime("%Y/%m/%d %H:%M", time.gmtime(o.addtime + 3600*8))
+            row['is_late'] = '是' if o.status == 2 else '否'
+            row['num'] = LeaveDetail.objects.filter(user_id=uid,add_time__gt=timestamp).count()
+            data_list.append(row)
+    return render(request,'others/user_info/sign_detail.html',context=dict(data=data_list))

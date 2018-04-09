@@ -1,10 +1,14 @@
 #coding:utf-8
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-from auth_log.models import User
+from auth_log.models import User, UserSign
 from comment.ajax import ajax_ok
 import time
 import datetime
+
+import datetime
+today = datetime.date.today()
+today_time = int(time.mktime(today.timetuple())) # 当天；零点的时间错
 def index(request):
     """
     首页
@@ -17,8 +21,12 @@ def index(request):
         request.session['error'] = ''
         return render(request,'auth_log/login.html',context={"error":error})
     else:
+        # 获取签到情况
+        sign = UserSign.objects.filter(uid=request.user.id,addtime__gt=today_time).last()
+        status = 1 if sign else 0
+        message='已签到' if sign and sign.status == 1 else '迟到' if sign and sign.status == 2 else '签到'
         sessionid = request.session.session_key
-        return render(request, 'index.html',context={"sessionid":sessionid})
+        return render(request, 'index.html',context={"sessionid":sessionid,"message":message,"status":status})
 @csrf_exempt
 def info(request):
     user = request.user
@@ -44,3 +52,28 @@ def info_2(request):
 @csrf_exempt
 def not_fond(request):
     return render(request,'404.html')
+
+def sign(request):
+    """签到"""
+
+    uid = request.user.id
+
+    begain_time = today_time + 86400*9 # 当前九点的时间错
+    end_time = today_time + 86400*9 + 86400/2 # 九点半的时间错
+    now = int(time.time())
+    if UserSign.objects.filter(uid=request.user.id,addtime__gt=today_time).exists():    # 当天已签到的不能再签到
+        status=-1
+        return ajax_ok(dict(status=status))
+    if now>=end_time:
+        status = 1
+    else:
+        status = 2
+
+    UserSign.objects.create(uid=uid,status=status,addtime=now)
+
+    return ajax_ok(dict(status=status))
+
+
+
+
+

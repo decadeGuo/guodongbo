@@ -10,6 +10,8 @@
     <link rel="stylesheet" type="text/css" href="{% static 'style/public.css' %}"/>
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
     {#        <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">#}
+    <script src="{% static 'js/jquery.js' %}" type="text/javascript" charset="utf-8"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <style>
         a {
             color: dodgerblue
@@ -124,7 +126,7 @@
 <section id="left">
     {% block left %}
         <div class="a tip"><a href="/?type=1">
-            <p class="left_c active" id="index" style="width: 95%;margin-left:5%;"><b>首&#x3000;页</b></p></a>
+            <p class="left_c" id="index" style="width: 95%;margin-left:5%;"><b>首&#x3000;页</b></p></a>
         </div>
         <div class="a tip"><a href="/car/index/">
             <p class="left_c" id="car" style="width: 95%;margin-left:5%;"><b>用&#x3000;车</b></p>
@@ -163,15 +165,17 @@
             </p>
 
         </div>
-
+        <script>
+        $('.left_c').removeClass('active');
+        $('#index').addClass('active');
+        </script>
     {% endblock %}
     <div id="dibu" > <span style="margin-left: 10%">如果您有好的意见或建议，请在评论区留言并@超级管理员
             。意见采纳后奖励绩效五分。郭总电话：17737465627。系统持续升级中...</span></div>
 </section>
 
 
-<script src="{% static 'js/jquery.js' %}" type="text/javascript" charset="utf-8"></script>
-<script src="{% static 'js/bootstrap.min.js' %}"></script>
+
 <script>
     {#            var sessionid = {{ sessionid }}#}
     {#                alert(sessionid);#}

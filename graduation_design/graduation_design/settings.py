@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'auth_log',
     'use_car',
     'leave',
-    'meeting'
+    'meeting',
+    'forum'
 ]
 AUTH_USER_MODEL = "auth_log.User"
 # AUTH_PROFILE_MODULE = 'one.Profile'

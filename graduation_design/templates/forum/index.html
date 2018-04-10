@@ -9,43 +9,169 @@
         }
 
         #l_content {
-            margin-top: 8px;
+            margin-top: 110px;
             width: 96%;
             margin-left: 2%;
-            margin-bottom: 3%
+            margin-bottom: 3%;
+            position: relative;
+            {#height: calc(100% - 160px)#}
         }
 
         .l_neirong {
             background-color: white;
+            {#padding-top: 100px;#}
+            position: relative;
+            padding-bottom: 3%;
+            overflow: auto;
+            {#height: 530px;#}
         }
+
+        .fenlei {
+            display: inline-block;
+            margin-top: 2%;
+            margin-left: 2%;
+            text-align: center
+        }
+
+        .zan {
+            background-color: green;
+            color: white;
+            border-radius: 2px;
+            padding: 2px;
+            cursor: pointer
+        }
+
+        .pl {
+            border: 1px grey solid;
+            border-radius: 2px;
+            cursor: pointer;
+            padding: 2px;
+        }
+        .label{cursor: pointer}
+        .bt {
+                        font-size: 2rem
+                    }
+
+                    .auther {
+                        font-size: 0.8rem;
+                        color: #39b3d7;
+                    }
+
+                    .f_one {
+                        margin: 10px;
+                        width: 70%
+                    }
+
+                    .wei {
+                        margin-top: 8px
+                    }
+
+                    .margin_left {
+                        margin-left: 15px;
+                    }
+
+                    #search {
+                        position: fixed;
+
+                        top: 36%;
+                        right: 3%;
+                        z-index: 11;
+                    {#border: 1px red solid;#} width: 20%;
+                    }
+                    .nice-pinglun{margin-top: 8px;margin-left: 5%}
+                    .black{color: black}
+
     </style>
     <script src="{% static 'js/jquery.js' %}"></script>
 
 
-    <div style="position: absolute;top: 0;left: 0">此功能正在完善，敬请期待！</div>
 
-    <header>
+
+    <header style="position: fixed;top:100px;height: 70px;width:100%;z-index: 10;background-color: ghostwhite">
+    <div style="position: absolute;top: 0;left: 0;z-index: 11">此功能正在完善，敬请期待！</div>
         <img id="logo" src="{% static 'images/lysf.jpg' %}" alt="">
         <p id="title" style="font-size: 2rem;line-height: 60px;">DB智能管理系统论坛</p>
     </header>
     <section id="l_content">
-        <ul class="nav nav-tabs nav-justified">
+        <ul class="nav nav-tabs nav-justified" style="position: fixed;top:170px;height: 40px;width:76.8%;z-index: 10;background-color: ghostwhite">
             <li id="1" class="active l_li"><a href="/forum/index/">广场</a></li>
             <li id="2" class="l_li"><a href="/forum/dongtai/">发表动态</a></li>
-            <li id="3" class="l_li"><a href="/forum/me">与我相关</a></li>
-            <li id="4" class="l_li"><a href="/forum/liuyan">留言</a></li>
-            <li id="5" class="l_li"><a href="/forum/zone">个人中心</a></li>
-
+            <li id="3" class="l_li"><a href="/forum/me/">与我相关</a></li>
+            <li id="4" class="l_li"><a href="/forum/liuyan/">留言</a></li>
+            <li id="5" class="l_li"><a href="/forum/zone/">个人中心</a></li>
         </ul>
 
         <div class="l_neirong" id="l1">
             {% block l_content %}
-                广场
+                <style>
 
+                </style>
+                <div id="search">
+                    <form class="form-horizontal" role="form">
+                        <div style="position: absolute;right: 15px;z-index: 1">
+                            <button type="submit" class="btn btn-primary">搜索</button>
+                        </div>
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control" id="firstname" placeholder="输入搜索内容">
+                        </div>
+                    </form>
+                    <div class="col-sm-12">
+                        <p style="font-size: 2rem;margin-top: 5%;color: dodgerblue">分类列表</p>
+                        <p class="fenlei"><span class="label label-info">点赞最多</span></p>
+                        <p class="fenlei"><span class="label label-success">默认</span></p>
+                        <p class="fenlei"><span class="label label-default">默认标签</span></p>
+                        <p class="fenlei"><span class="label label-default">默认标签个地方官</span></p>
+                        <p class="fenlei"><span class="label label-default">默认标签</span></p>
+                        <p class="fenlei"><span class="label label-default">默认标签</span></p>
+                    </div>
+                </div>
+                <div class="f_one">
+                    <div>
+                        <a href="#" class="black"><p class="bt">我是标题</p></a>
+                        <p class="auther">
+                            <span>我是作者</span><span class="margin_left">我是部门</span><span
+                                class="margin_left">我是分类</span><span class="margin_left">2017/8/23</span>
+                        </p>
+                        <a href="#" class="black"><p class="theme">
+                            火影忍者动漫中，不少忍术还是进攻为主，最常见的比如鸣人的影分身之术，螺旋丸，卡卡西老师的雷切，佐助的千鸟、家族忍术火遁等。辅助类型也非常多，猪鹿蝶组合中井野的心转身之术、鹿丸的影缚术等。
+                            花样百出的忍术，大都重在进攻，反而防御类型的忍术确实不多。今天就来盘点为数不多，而且比较强悍的纯防御忍术，这里罗列的5个非常特殊的防御忍术。
+                        </p></a>
+                        <p class="wei">
+                            <span class="pl" style="background-color: orange">收藏</span>
+                            <span class="margin_left pl">讨论48</span>
+                            <span class="margin_left zan">点赞0</span>
+                            <span class="margin_left pl">转发</span>
+                        </p>
 
+                    </div>
+                    <div class="nice-pinglun">
+                        <p>
+                        <span style="color: orangered">经典评论</span><span style="color: blue" class="pl">郭东波(办公室)</span>:
+                            <span style="color: grey;opacity: 0.5">下面是点赞最多的评论哦</span>
+                            <br>
+                        <span>火影忍者动漫中，不少忍术还是进攻为主，最常见的比如鸣人的影分身之术</span><span class="zan margin_left">赞55</span>
+                        </p>
+                    </div>
+                </div>
+                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                <div class="f_one">
+                    <div>
+                        <p class="bt">我是标题</p>
+                        <p class="auther"><span>我是作者</span><span class="margin_left">我是部门</span><span
+                                class="margin_left">我是分类</span></p>
+                        <p class="theme">
+                            火影忍者动漫中，不少忍术还是进攻为主，最常见的比如鸣人的影分身之术，螺旋丸，卡卡西老师的雷切，佐助的千鸟、家族忍术火遁等。辅助类型也非常多，猪鹿蝶组合中井野的心转身之术、鹿丸的影缚术等。
+                            花样百出的忍术，大都重在进攻，反而防御类型的忍术确实不多。今天就来盘点为数不多，而且比较强悍的纯防御忍术，这里罗列的5个非常特殊的防御忍术。
+                        </p>
+                        <p class="wei">
+                            <span class="pl">收藏</span>
+                            <span class="margin_left">评论</span>
+                            <span class="margin_left">点赞</span>
+                            <span class="margin_left">转发</span>
+                        </p>
+                    </div>
 
-
-
+                </div>
                 <script>
                     $('.l_li').removeClass('active');
                     $('#1').addClass('active');

@@ -64,7 +64,7 @@ def sign(request):
     if UserSign.objects.filter(uid=request.user.id,addtime__gt=today_time).exists():    # 当天已签到的不能再签到
         status=-1
         return ajax_ok(dict(status=status))
-    if now>=end_time:
+    if now<=end_time:
         status = 1
     else:
         status = 2

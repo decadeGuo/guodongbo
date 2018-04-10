@@ -1,6 +1,101 @@
 {% extends 'forum/index.html' %}
+{#{% load staticfiles %}#}
 {% block l_content %}
-    与我相关
+    <style>
+        .bq_1 {
+            margin-left: 2%;
+            background-color: deepskyblue;
+            font-size: 1.5rem;
+            border-radius: 3px;
+            padding: 3px;
+            color: white
+        }
+
+        .bq_2 {
+            margin-left: 2%;
+            background-color: cornflowerblue;
+            font-size: 1.5rem;
+            border-radius: 3px;
+            padding: 3px;
+            color: white
+        }
+    </style>
+    <div id="search">
+        <form class="form-horizontal" role="form">
+            <div style="position: absolute;right: 15px;z-index: 1">
+                <button type="submit" class="btn btn-primary">搜索</button>
+            </div>
+            <div class="col-sm-12">
+                <input type="text" class="form-control" id="firstname" placeholder="输入搜索内容">
+            </div>
+        </form>
+        <div class="col-sm-12">
+            <p style="font-size: 2rem;margin-top: 5%;color: dodgerblue">分类列表</p>
+            <p class="fenlei"><span class="label label-info">点赞最多</span></p>
+            <p class="fenlei"><span class="label label-info">我发布的</span></p>
+            <p class="fenlei"><span class="label label-info">我评论的</span></p>
+            <p class="fenlei"><span class="label label-default">默认标签个地方官</span></p>
+            <p class="fenlei"><span class="label label-default">默认标签</span></p>
+            <p class="fenlei"><span class="label label-default">默认标签</span></p>
+            <p class="fenlei"><span class="label label-info">增加分类＋</span></p>
+
+        </div>
+    </div>
+    <div class="f_one">
+        <div>
+            <p class="bt"><a href="#" class="black">我是标题</a>
+                <span class="bq_1">我发布的</span>
+            </p>
+            <p class="auther"><span>我是作者</span><span class="margin_left">我是部门</span><span
+                    class="margin_left">我是分类</span><span class="margin_left">2017/8/23</span></p>
+            <a href="#" class="black"><p class="theme">
+                火影忍者动漫中，不少忍术还是进攻为主，最常见的比如鸣人的影分身之术，螺旋丸，卡卡西老师的雷切，佐助的千鸟、家族忍术火遁等。辅助类型也非常多，猪鹿蝶组合中井野的心转身之术、鹿丸的影缚术等。
+                花样百出的忍术，大都重在进攻，反而防御类型的忍术确实不多。今天就来盘点为数不多，而且比较强悍的纯防御忍术，这里罗列的5个非常特殊的防御忍术。
+            </p></a>
+            <p class="wei">
+                <span class="pl" style="background-color: orange">收藏</span>
+                <span class="margin_left pl">讨论48</span>
+                <span class="margin_left zan">点赞0</span>
+                <span class="margin_left pl">转发</span>
+            </p>
+
+        </div>
+        <div class="nice-pinglun">
+            <p>
+                <span style="color: orangered">经典评论</span><span style="color: blue" class="pl">郭东波(办公室)</span>:
+                <span style="color: grey;opacity: 0.5">下面是点赞最多的评论哦</span>
+                <br>
+                <span>火影忍者动漫中，不少忍术还是进攻为主，最常见的比如鸣人的影分身之术</span><span class="zan margin_left">赞55</span>
+            </p>
+        </div>
+    </div>
+    <div class="f_one">
+        <div>
+            <p class="bt"><a href="#" class="black">我是标题</a>
+                <span class="bq_2">我评论的</span></p>
+            <p class="auther"><span>我是作者</span><span class="margin_left">我是部门</span><span
+                    class="margin_left">我是分类</span></p>
+            <a href="#" class="black"><p class="theme">
+                火影忍者动漫中，不少忍术还是进攻为主，最常见的比如鸣人的影分身之术，螺旋丸，卡卡西老师的雷切，佐助的千鸟、家族忍术火遁等。辅助类型也非常多，猪鹿蝶组合中井野的心转身之术、鹿丸的影缚术等。
+                花样百出的忍术，大都重在进攻，反而防御类型的忍术确实不多。今天就来盘点为数不多，而且比较强悍的纯防御忍术，这里罗列的5个非常特殊的防御忍术。
+            </p></a>
+            <p class="wei">
+                <span class="pl" style="background-color: orange">收藏</span>
+                <span class="margin_left pl">讨论48</span>
+                <span class="margin_left zan">点赞0</span>
+                <span class="margin_left pl">转发</span>
+            </p>
+
+        </div>
+        <div class="nice-pinglun">
+            <p>
+                <span style="color: orangered">经典评论</span><span style="color: blue" class="pl">郭东波(办公室)</span>:
+                <span style="color: grey;opacity: 0.5">下面是点赞最多的评论哦</span>
+                <br>
+                <span>火影忍者动漫中，不少忍术还是进攻为主，最常见的比如鸣人的影分身之术</span>
+            </p>
+        </div>
+    </div>
     <script>
         $('.l_li').removeClass('active');
         $('#3').addClass('active');

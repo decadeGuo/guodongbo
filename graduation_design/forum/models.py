@@ -9,6 +9,7 @@ class Tags(models.Model):
     """分类表"""
     type=models.CharField(max_length=20)    # 标签内容
     addtime=models.IntegerField(default=0) # 添加时间
+    status = models.IntegerField(default=1)  # 1 正常 0 删除
     class Meta:
         db_table = 'forum_tags'
         verbose_name = u'分类表'
@@ -26,6 +27,7 @@ class Article(models.Model):
     zf_num = models.IntegerField(default=0) # 转发数量
     pl_num = models.IntegerField(default=0) # 讨论数量
     add_time = models.IntegerField(default=0)   # 发布时间
+    status = models.IntegerField(default=1) # 1 正常 0 删除
     class Meta:
         db_table = 'forum_article'
         verbose_name = u'文章主表'
@@ -59,7 +61,14 @@ class LiuYan(models.Model):
     class Meta:
         db_table = 'forum_ly'
         verbose_name = u'留言表'
-
+class Coll(models.Model):
+    """收藏表"""
+    uid = models.IntegerField(default=0)
+    aid = models.IntegerField(default=0)
+    add_time = models.IntegerField(default=0)
+    class Meta:
+        db_table = 'forum_coll'
+        verbose_name = u'留言表'
 
 
 

@@ -1,6 +1,138 @@
 {% extends 'forum/index.html' %}
+{% load staticfiles %}
 {% block l_content %}
-    动态
+
+    <link rel="stylesheet" href="{% static 'libs/font-awesome/css/font-awesome.css' %}">
+    <link rel="stylesheet" href="{% static 'libs/simditor/styles/simditor.css' %}">
+
+    <style>
+        #dt-content {
+            margin: 12px auto;
+            width: 70%
+        }
+
+        #dt-fb {
+            font-size: 2.5rem;
+
+        }
+
+        .dt-tags {
+            margin-left: 10%;
+            margin-top: 15px;
+            font-size: 1.5rem
+        }
+
+        #dt-title {
+            width: 80%;
+            display: inline;
+            margin-left: 2.5%;
+            position: relative;
+            top: -5px;
+
+        }
+    #dt-tag{display: inline;margin-left: 2.5%}
+    #dt-neirong{width: 88%;display: inline}
+    #dt-bt{width: 50%}
+    .error{color: red;display: inline}
+    </style>
+
+
+    <div id="dt-content">
+        <div id="dt-fb">
+            <b>发布文章</b>
+              {% if message %}
+                <div class="error">{{ message }}</div>
+            {% endif %}
+        </div>
+        <form action="/forum/article/submit/" method="post">
+            <div class="dt-tags">
+                <label for=""> 分类列表</label>
+                <div id="dt-tag">
+                    {% for i in tags %}
+                    <label class="radio-inline">
+                        <input type="radio" name="tag" value="{{ i.id }}"> {{ i.type }}
+                    </label>
+                    {% endfor %}
+                    <span class="label label-info" id="add" data-toggle="modal" data-target="#myModal">添加分类</span>
+                </div>
+
+            </div>
+            <div class="dt-tags">
+                <label for="">标&#x3000;&#x3000;题</label>
+                {% if title %}
+                    <input type="text" placeholder="输入标题" name="title" required class="form-control" id="dt-title" value="{{ title }}">
+                {% else %}
+                <input type="text" placeholder="输入标题" name="title" required class="form-control" id="dt-title">
+                {% endif %}
+            </div>
+            <div class="dt-tags">
+                <label for="">内&#x3000;&#x3000;容</label>
+                <div id="dt-neirong">
+                    {% if content %}
+                        <textarea class="form-control" required name="content" rows="6" id="post" >{{ content }}</textarea>
+                    {% else %}
+                  <textarea class="form-control" required name="content" rows="6" id="post"></textarea>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="dt-tags">
+                  <button type="submit" id="dt-bt" class="btn btn-success btn-block">发&#x3000;表</button>
+              </div>
+
+        </form>
+
+
+    </div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+            style="margin-top: 15%">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">添加分类</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form" method="post" action="/forum/add/tag/">
+                        {% csrf_token %}
+                        <span style="color: grey;margin-left: 8%">提示：增加分类后当前页面会刷新，已输入的内容暂时不会保留，谨慎操作</span>
+                        <div class="form-group">
+
+                            <label for="firstname" class="col-sm-2 control-label">类型</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control"  name="type" id="firstname" placeholder="请输入类型"
+                                       required>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                            <button type="submit" class="btn btn-primary">确认</button>
+                        </div>
+                    </form>
+
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+    </div>
+    <script src="{% static 'libs/simditor/scripts/module.min.js' %}"></script>
+    <script src="{% static 'libs/simditor/scripts/hotkeys.min.js' %}"></script>
+    <script src="{% static 'libs/simditor/scripts/simditor.min.js' %}"></script>
+    <script>
+
+        $(function () {
+            // 创建编辑器
+            new Simditor({
+                // 必选项，选定元素
+                textarea: $('#post'),
+                // 设定工具栏功能
+                toolbar: ['title', 'bold', 'italic', 'underline', 'strikethrough', 'fontScale', 'color',
+                    '|', 'ol', 'ul', 'blockquote', 'code', 'table',
+                    '|', 'link', 'hr',
+                    '|', 'indent', 'outdent', 'alignment'
+                ]
+            })
+        })
+    </script>
+
     <script>
         $('.l_li').removeClass('active');
         $('#2').addClass('active');

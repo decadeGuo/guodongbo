@@ -61,7 +61,7 @@
         }
 
         .f_one {
-            margin: 10px;
+            margin: 20px;
             width: 70%
         }
 
@@ -76,7 +76,7 @@
         #search {
             position: fixed;
 
-            top: 36%;
+            top: 30%;
             right: 3%;
             z-index: 11;
         {#border: 1px red solid;#} width: 20%;
@@ -90,17 +90,17 @@
         .black {
             color: black
         }
-
+        .allready{background-color: grey;}
     </style>
     <script src="{% static 'js/jquery.js' %}"></script>
 
 
 
 
-    <header style="position: fixed;top:100px;height: 70px;width:100%;z-index: 10;background-color: ghostwhite">
+    <header style="position: fixed;top:100px;height: 70px;width:100%;z-index: 15;background-color: ghostwhite">
         <div style="position: absolute;top: 0;left: 0;z-index: 11">此功能正在完善，敬请期待！</div>
         <img id="logo" src="{% static 'images/lysf.jpg' %}" alt="">
-        <p id="title" style="font-size: 2rem;line-height: 60px;">DB智能管理系统论坛</p>
+        <p id="title" style="font-size: 2rem;line-height: 60px;margin-right: 10%">DB智能管理系统论坛</p>
     </header>
     <section id="l_content">
         <ul class="nav nav-tabs nav-justified"
@@ -118,60 +118,77 @@
 
                 </style>
                 <div id="search">
-                    <form class="form-horizontal" role="form">
+                    <form class="form-horizontal" role="form" action="/forum/index/?tag=0" method="get">
                         <div style="position: absolute;right: 15px;z-index: 1">
                             <button type="submit" class="btn btn-primary">搜索</button>
                         </div>
                         <div class="col-sm-12">
                             {% if text %}
-                            <input type="text" class="form-control" id="firstname" placeholder="输入搜索内容" value="{{ text }}">
+                            <input type="text" name="text" class="form-control" id="firstname" placeholder="输入搜索内容" value="{{ text }}">
                             {% else %}
-                            <input type="text" class="form-control" id="firstname" placeholder="输入搜索内容">
+                            <input type="text" name="text" class="form-control" id="firstname" placeholder="输入搜索内容">
                             {% endif %}
                         </div>
                     </form>
                     <div class="col-sm-12">
                         <p style="font-size: 2rem;margin-top: 5%;color: dodgerblue">分类列表</p>
-                        <p class="fenlei"><span class="label label-info">点赞最多</span></p>
+                        <a href="/forum/index/?tag=-1&text={{ text }}">
+                        <p class="fenlei"><span class="label label-info">点赞最多</span></p></a>
+                        <a href="/forum/index/?tag=0&text={{ text }}">
+                        <p class="fenlei"><span class="label label-info">全部</span></p></a>
                         {% for o in tags %}
                             {% if o.id == tag %}
-                                <p class="fenlei"><span class="label label-success">{{ o.type }}</span></p>
+                                <a href="/forum/index/?tag={{ o.id }}&text={{ text }}">
+                                <p class="fenlei"><span class="label label-success">{{ o.type }}</span></p></a>
                             {% else %}
-                                <p class="fenlei"><span class="label label-default">{{ o.type }}</span></p>
+                                <a href="/forum/index/?tag={{ o.id }}&text={{ text }}">
+                                <p class="fenlei"><span class="label label-default">{{ o.type }}</span></p></a>
                             {% endif %}
                         {% endfor %}
-                        <p class="fenlei"><span class="label label-info">新增分类</span></p>
                     </div>
                 </div>
+                {% for o in content %}
                 <div class="f_one">
                     <div>
-                        <a href="#" class="black"><p class="bt">我是标题</p></a>
+                        <a href="#" class="black"><p class="bt">{{ o.title }}</p></a>
                         <p class="auther">
-                            <span>我是作者</span><span class="margin_left">我是部门</span><span
-                                class="margin_left">我是分类</span><span class="margin_left">2017/8/23</span>
+                            <span>{{ o.auther }}({{ o.depart }})</span><span
+                                class="margin_left">{{ o.time }}</span><span class="margin_left">{{ o.tag }}</span>
                         </p>
                         <a href="#" class="black"><p class="theme">
-                            火影忍者动漫中，不少忍术还是进攻为主，最常见的比如鸣人的影分身之术，螺旋丸，卡卡西老师的雷切，佐助的千鸟、家族忍术火遁等。辅助类型也非常多，猪鹿蝶组合中井野的心转身之术、鹿丸的影缚术等。
-                            花样百出的忍术，大都重在进攻，反而防御类型的忍术确实不多。今天就来盘点为数不多，而且比较强悍的纯防御忍术，这里罗列的5个非常特殊的防御忍术。
+
+                       {{ o.content|safe }}
+
+
                         </p></a>
                         <p class="wei">
-                            <span class="pl" style="background-color: orange">收藏</span>
-                            <span class="margin_left pl">讨论48</span>
-                            <span class="margin_left zan">点赞0</span>
+                            {% if is_coll %}
+                            <span class="pl allready" disabled="true" style="background-color: orange">已收藏</span>
+                            {% else %}
+                            <span class="pl" style="background-color: orange">收藏{{ o.coll }}</span>
+                            {% endif %}
+                            <span class="margin_left pl">讨论{{ o.pl_num }}</span>
+                            {% if is_praise %}
+                                <span class="margin_left zan allready" disabled="true">已赞{{ o.praise }}</span>
+                            {% else %}
+                            <span class="margin_left zan">点赞{{ o.praise }}</span>
+                            {% endif %}
                             <span class="margin_left pl">转发</span>
                         </p>
                     </div>
+                    {% if o.dp %}
                     <div class="nice-pinglun">
                         <p>
                             <span style="color: orangered">经典评论</span><span style="color: blue"
-                                                                            class="pl">郭东波(办公室)</span>:
+                                                                            class="pl">{{ o.dp.user }}({{ o.dp.depart }})</span>:
                             <span style="color: grey;opacity: 0.5">下面是点赞最多的评论哦</span>
                             <br>
-                            <span>火影忍者动漫中，不少忍术还是进攻为主，最常见的比如鸣人的影分身之术</span><span class="zan margin_left">赞55</span>
+                            <span>{{ o.dp.content }}</span><span class="zan margin_left">赞{{ o.dp.praise }}</span>
                         </p>
                     </div>
+                    {% endif %}
                 </div>
-                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                {% endfor %}
                 <script>
                     $('.l_li').removeClass('active');
                     $('#1').addClass('active');

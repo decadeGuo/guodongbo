@@ -1,18 +1,25 @@
 # coding:utf-8
 from django.conf.urls import url, include
 
-from forum import views
+from forum import views, tests
 
 urlpatterns = [
     url(r'^index/$', views.index),  # 首页
     url(r'^dongtai/$', views.dongtai),  # 广场
     url(r'^me/$', views.me),  # 与我相关
     url(r'^liuyan/$', views.liuyan),  # 留言
-    url(r'^zone/$', views.zone)  # 个人中心
-    # url(r'^leave_apply/$', views.leave_apply),  # 请假申请页
-    # url(r'^leave_apply/res/$', views.leave_apply_res),  # 用车申请页
-    # url(r'^leave_apply/ing/$', views.leave_applying),  # 申请进度页
-    # url(r'^leave_apply/logs/$', views.leave_logs),  # 用车申请页
-    # url(r'^leave_apply/shenpi/$', views.shenpi),  # 用车审批页
+    url(r'^zone/$', views.zone),  # 个人中心
+    url(r'^article_deatil/$', views.article_deatil)  # 文章详情页
 
+]
+urlpatterns += [
+    url(r'^coll/$', tests.coll),  # 收藏接口
+    url(r'^praise/$', tests.praise),  # 点赞接口
+    url(r'^add/tag/$', tests.add_tag),  # 点赞接口
+]
+# 一下是功能路由
+urlpatterns += [
+    url(r'^article/submit/$', views.article_submit),  # 文章发布提交
+    url(r'^ly_submit/$', views.ly_submit),  # 留言提交
+    url(r'^pl_submit/$', views.pl_submit),  # 留言提交
 ]

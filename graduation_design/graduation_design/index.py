@@ -58,8 +58,9 @@ def sign(request):
 
     uid = request.user.id
 
-    begain_time = today_time + 86400*9 # 当前九点的时间错
-    end_time = today_time + 86400*9 + 86400/2 # 九点半的时间错
+    begain_time = today_time + 3600*9 # 当前九点的时间错
+    end_time = today_time + 3600*9 + 3600/2 # 九点半的时间错
+
     now = int(time.time())
     if UserSign.objects.filter(uid=request.user.id,addtime__gt=today_time).exists():    # 当天已签到的不能再签到
         status=-1

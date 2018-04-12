@@ -58,6 +58,7 @@ class LiuYan(models.Model):
     user = models.ForeignKey(User)
     content = models.CharField(max_length=500)
     add_time = models.IntegerField(default=0)
+    praise = models.IntegerField(default=0)  # 点赞数
     class Meta:
         db_table = 'forum_ly'
         verbose_name = u'留言表'

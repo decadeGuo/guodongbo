@@ -38,7 +38,7 @@ def login_in(request):
                 user = User.objects.get(pk=user_id)  # 获取用户
                 user.backend = 'django.contrib.auth.backends.ModelBackend'
                 login_manner = 1
-            except Exception, e:
+            except Exception as e:
                 log.error("%s:%s" % (inspect.stack()[0][3], e))
                 return render(request,'auth_log/login.html',context=dict(error=u'账号或者密码错误'))
         else:

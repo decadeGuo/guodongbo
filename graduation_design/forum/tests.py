@@ -2,13 +2,16 @@
 from __future__ import unicode_literals
 
 from django.db.models import F
+from django.shortcuts import redirect
 from django.test import TestCase
 
 # Create your tests here.
 import time
 
+from django.views.decorators.csrf import csrf_exempt
+
 from comment.ajax import ajax_ok,ajax_fail
-from forum.models import Coll, Praise, Article, ArticleTalk
+from forum.models import Coll, Praise, Article, ArticleTalk, Tags
 
 now = int(time.time())
 
@@ -43,3 +46,18 @@ def praise(request):
         ArticleTalk.objects.filter(pk=aid).update(praise=F('praise')+1)
         num = ArticleTalk.objects.filter(pk=aid).last().praise
     return ajax_ok(dict(status=status,num=num))
+@csrf_exempt
+def add_tag(request):
+
+    type = request.POST.get('type')
+    if Tags.objects.filter(type=type,status=1).exists():
+        request.session['message'] = u'该标签已存在'
+        return redirect('/forum/dongtai/')
+    else:
+        Tags.objects.create(type=type,status=1,addtime=now)
+
+        return redirect('/forum/dongtai/')
+
+
+
+

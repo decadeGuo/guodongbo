@@ -1,0 +1,80 @@
+{% extends 'forum/index.html' %}
+{% block title %}
+    <style>
+    #back{position: absolute;top:10px;left: 2%;z-index: 12}
+    </style>
+    <a href="{{ url }}">
+    <button id="back" class="btn btn-success">返回上一级</button></a>
+    <li id="1" class="active l_li"><a href="/forum/index/"><h4>{{ article.title }}</h4></a></li>
+
+{% endblock %}
+{% block l_content %}
+    <style>
+        {#.f_one_detail{width: 100%}#}
+        #auther {
+            text-align: center;
+            color: #39b3d7;
+        }
+
+        #detail-article {
+            font-size: 1.5rem;
+            margin-top: 10px;
+            text-indent: 2em;
+        }
+    .ly-ly{margin-top: 20px;}
+    </style>
+    <div class="f_one" style="margin: 20px auto">
+        <p id="auther">
+            <span>{{ article.auther }}({{ article.depart }})</span><span
+                class="margin_left">{{ article.time }}</span><span class="margin_left">{{ article.tag }}</span>
+        </p>
+        <div id="detail-article">
+            {{ article.content|safe }}
+        </div>
+        <p class="wei">
+            {% if is_coll %}
+                <span class="pl allready" disabled="true" style="background-color: orange">已收藏</span>
+            {% else %}
+                <span class="pl" style="background-color: orange">收藏{{ article.coll }}</span>
+            {% endif %}
+            <span class="margin_left pl">讨论{{ article.pl_num }}</span>
+            {% if is_praise %}
+                <span class="margin_left zan allready" disabled="true">已赞{{ article.praise }}</span>
+            {% else %}
+                <span class="margin_left zan">点赞{{ article.praise }}</span>
+            {% endif %}
+            <span class="margin_left pl">转发</span>
+        </p>
+        <div class="ly-ly">
+            <p style="font-size: 2rem"><b>评论区：</b></p>
+        <div style="margin-top: 1%;position: relative;width: 100%;">
+            <form class="form-horizontal" role="form" method="post" action="/forum/pl_submit/?aid={{ article.id }}&type={{ type }}">
+                {% csrf_token %}
+                <div style="position: absolute;right: 8%;bottom:0;z-index: 1;">
+                    <button type="submit" class="btn btn-default" style="width:80px;">评论</button>
+                </div>
+                <div class="form-group" style="width: 80%;margin-left: 1%">
+                    <textarea class="form-control" required name="article_talk" rows="3"></textarea>
+                </div>
+
+            </form>
+        </div>
+            {% if talk %}
+                {% for o in talk %}
+                    <p style="margin-left: 5%;margin-bottom: 5px">
+                        <span style="color: #39b3d7">{{ o.name }}({{ o.depart }})</span>:
+                        <span>{{ o.content }}</span>
+                        <span class="zan margin_left">赞{{ o.praise }}</span><span class="margin_left pl-time">{{ o.time }}</span>
+                    </p>
+                {% endfor %}
+            {% else %}
+                <p style="margin-left: 5%;margin-bottom: 5px">
+
+                    <span>暂时还没有评论</span>
+
+                </p>
+            {% endif %}
+
+        </div>
+    </div>
+{% endblock %}

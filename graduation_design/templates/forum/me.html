@@ -21,42 +21,54 @@
         }
     </style>
     <div id="search">
-        <form class="form-horizontal" role="form">
+        <form class="form-horizontal" role="form" action="/forum/me/?tag=0" method="get">
             <div style="position: absolute;right: 15px;z-index: 1">
                 <button type="submit" class="btn btn-primary">搜索</button>
             </div>
             <div class="col-sm-12">
-                <input type="text" class="form-control" id="firstname" placeholder="输入搜索内容">
+                {% if text %}
+                    <input type="text" name="text" class="form-control" id="firstname" placeholder="输入搜索内容"
+                           value="{{ text }}">
+                {% else %}
+                    <input type="text" name="text" class="form-control" id="firstname" placeholder="输入搜索内容">
+                {% endif %}
             </div>
         </form>
         <div class="col-sm-12">
             <p style="font-size: 2rem;margin-top: 5%;color: dodgerblue">分类列表</p>
-            <a href="/forum/index/?tag=-1&text={{ text }}">
+            <a href="/forum/me/?tag=-1&text={{ text }}">
                 <p class="fenlei"><span class="label label-info">点赞最多</span></p></a>
-            <a href="/forum/index/?tag=0&text={{ text }}">
+            <a href="/forum/me/?tag=0&text={{ text }}">
                 <p class="fenlei"><span class="label label-info">全部</span></p></a>
-            {% for o in tags %}
-                {% if o.id == tag %}
-                    <a href="/forum/index/?tag={{ o.id }}&text={{ text }}">
-                        <p class="fenlei"><span class="label label-success">{{ o.type }}</span></p></a>
-                {% else %}
-                    <a href="/forum/index/?tag={{ o.id }}&text={{ text }}">
-                        <p class="fenlei"><span class="label label-default">{{ o.type }}</span></p></a>
-                {% endif %}
-            {% endfor %}
+            <a href="/forum/me/?tag=-2&text={{ text }}">
+                <p class="fenlei"><span class="label label-info">只看发布</span></p></a>
+            <a href="/forum/me/?tag=0&text={{ text }}">
+                <a href="/forum/me/?tag=-3&text={{ text }}">
+                    <p class="fenlei"><span class="label label-info">只看评论</span></p></a>
+                <a href="/forum/me/?tag=0&text={{ text }}">
+                    {% for o in tags %}
+                        {% if o.id == tag %}
+                            <a href="/forum/me/?tag={{ o.id }}&text={{ text }}">
+                                <p class="fenlei"><span class="label label-success">{{ o.type }}</span></p></a>
+                        {% else %}
+                            <a href="/forum/me/?tag={{ o.id }}&text={{ text }}">
+                                <p class="fenlei"><span class="label label-default">{{ o.type }}</span></p></a>
+                        {% endif %}
+                    {% endfor %}
         </div>
     </div>
     {% for o in article %}
         <div class="f_one">
             <div>
-                <p class="bt"><a href="#" class="black">{{ o.title }}</a>
+                <p class="bt"><a href="/forum/article_deatil/?id={{ o.id }}&type=1" class="black">{{ o.title }}</a>
                     <span class="bq_1">我发布的</span>
                 </p>
+
                 <p class="auther">
                     <span>{{ o.auther }}({{ o.depart }})</span><span
                         class="margin_left">{{ o.time }}</span><span class="margin_left">{{ o.tag }}</span>
                 </p>
-                <a href="#" class="black"><p class="theme">
+                <a href="/forum/article_deatil/?id={{ o.id }}&type=1" class="black"><p class="theme">
 
                     {{ o.content|safe }}
 
@@ -68,7 +80,8 @@
                     {% else %}
                         <span class="pl" style="background-color: orange">收藏{{ o.coll }}</span>
                     {% endif %}
-                    <span class="margin_left pl">讨论{{ o.pl_num }}</span>
+                    <a href="/forum/article_deatil/?id={{ o.id }}&type=1">
+                        <span class="margin_left pl">讨论{{ o.pl_num }}</span></a>
                     {% if is_praise %}
                         <span class="margin_left zan allready" disabled="true">已赞{{ o.praise }}</span>
                     {% else %}
@@ -90,10 +103,10 @@
             {% endif %}
         </div>
     {% endfor %}
-    {% for i in pl %}
+    {% for o in pl %}
         <div class="f_one">
             <div>
-                <p class="bt"><a href="#" class="black">{{ i.title }}</a>
+                <p class="bt"><a href="#" class="black">{{ o.title }}</a>
                     <span class="bq_2">我评论的</span></p>
                 <p class="auther">
                     <span>{{ o.auther }}({{ o.depart }})</span><span

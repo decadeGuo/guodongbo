@@ -91,6 +91,8 @@
             color: black
         }
         .allready{background-color: grey;}
+    .theme{text-indent: 2em;}
+    .pl-time{color: grey}
     </style>
     <script src="{% static 'js/jquery.js' %}"></script>
 
@@ -105,11 +107,13 @@
     <section id="l_content">
         <ul class="nav nav-tabs nav-justified"
             style="position: fixed;top:170px;height: 40px;width:76.8%;z-index: 10;background-color: ghostwhite">
+            {% block title %}
             <li id="1" class="active l_li"><a href="/forum/index/">广场</a></li>
             <li id="2" class="l_li"><a href="/forum/dongtai/">发表动态</a></li>
             <li id="3" class="l_li"><a href="/forum/me/">与我相关</a></li>
             <li id="4" class="l_li"><a href="/forum/liuyan/">留言</a></li>
             <li id="5" class="l_li"><a href="/forum/zone/">个人中心</a></li>
+                {% endblock %}
         </ul>
 
         <div class="l_neirong" id="l1">
@@ -150,12 +154,12 @@
                 {% for o in content %}
                 <div class="f_one">
                     <div>
-                        <a href="#" class="black"><p class="bt">{{ o.title }}</p></a>
+                        <a href="/forum/article_deatil/?id={{ o.id }}&type=0" class="black"><p class="bt">{{ o.title }}</p></a>
                         <p class="auther">
                             <span>{{ o.auther }}({{ o.depart }})</span><span
                                 class="margin_left">{{ o.time }}</span><span class="margin_left">{{ o.tag }}</span>
                         </p>
-                        <a href="#" class="black"><p class="theme">
+                        <a href="/forum/article_deatil/?id={{ o.id }}&type=0" class="black"><p class="theme">
 
                        {{ o.content|safe }}
 
@@ -167,7 +171,8 @@
                             {% else %}
                             <span class="pl" style="background-color: orange">收藏{{ o.coll }}</span>
                             {% endif %}
-                            <span class="margin_left pl">讨论{{ o.pl_num }}</span>
+                            <a href="/forum/article_deatil/?id={{ o.id }}&type=0">
+                            <span class="margin_left pl">讨论{{ o.pl_num }}</span></a>
                             {% if is_praise %}
                                 <span class="margin_left zan allready" disabled="true">已赞{{ o.praise }}</span>
                             {% else %}

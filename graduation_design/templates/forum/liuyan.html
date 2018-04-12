@@ -10,30 +10,37 @@
             margin-top: 10px;
         }
     </style>
+
     <div id="ly">
         <p id="ly-title">请在此说出你对公司的意见或建议^_^</p>
         <div style="margin-top: 1%;position: relative;width: 100%">
-            <form class="form-horizontal" role="form">
+            <form class="form-horizontal" role="form" method="post" action="/forum/ly_submit/">
+                {% csrf_token %}
                 <div style="position: absolute;right: 13.5%;bottom:0;z-index: 1;">
                     <button type="submit" class="btn btn-default">提交</button>
                 </div>
                 <div class="form-group" style="width: 80%;margin-left: 1%">
-                    <textarea class="form-control" rows="3"></textarea>
+                    <textarea class="form-control" required name="content" rows="3"></textarea>
                 </div>
             </form>
         </div>
         <div class="ly-ly">
             <p>评论区：</p>
+            {% if data %}
+                {% for o in data %}
             <p style="margin-left: 5%;margin-bottom: 5px">
-                <span style="color: #39b3d7">郭东波(技术部)</span>:
-                <span>花样百出的忍术，大都重在进攻，反而防御类型的忍术确实不多。今天就来盘点为数不多</span>
-                <span class="zan margin_left">赞99</span><span class="margin_left">2017/8/23</span>
+                <span style="color: #39b3d7">{{ o.name }}({{ o.depart }})</span>:
+                <span>{{ o.content }}</span>
+                <span class="zan margin_left">赞{{ o.praise }}</span><span class="pl-time margin_left">{{ o.time }}</span>
             </p>
-            <p style="margin-left: 5%;margin-bottom: 5px">
-                <span style="color: #39b3d7">郭东波(技术部)</span>:
-                <span>花样百出的忍术，大都重在进攻，反而防御类型的忍术确实不多。今天就来盘点为数不多</span>
-                <span class="zan margin_left">赞99</span><span class="margin_left">2017/8/23</span>
-            </p>
+                {% endfor %}
+            {% else %}
+                <p style="margin-left: 5%;margin-bottom: 5px">
+
+                <span>暂时还没有人留言哦，赶紧说出你对本公司的建议吧！</span>
+
+                </p>
+            {% endif %}
 
         </div>
     </div>

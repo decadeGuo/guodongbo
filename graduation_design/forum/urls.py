@@ -8,7 +8,9 @@ urlpatterns = [
     url(r'^dongtai/$', views.dongtai),  # 广场
     url(r'^me/$', views.me),  # 与我相关
     url(r'^liuyan/$', views.liuyan),  # 留言
-    url(r'^zone/$', views.zone)  # 个人中心
+    url(r'^zone/$', views.zone),  # 个人中心
+    url(r'^article_deatil/$', views.article_deatil)  # 文章详情页
+
 ]
 urlpatterns += [
     url(r'^coll/$', tests.coll),  # 收藏接口
@@ -17,5 +19,7 @@ urlpatterns += [
 ]
 # 一下是功能路由
 urlpatterns += [
-    url(r'^article/submit/$',views.article_submit)  # 文章发布提交
+    url(r'^article/submit/$', views.article_submit),  # 文章发布提交
+    url(r'^ly_submit/$', views.ly_submit),  # 留言提交
+    url(r'^pl_submit/$', views.pl_submit),  # 留言提交
 ]

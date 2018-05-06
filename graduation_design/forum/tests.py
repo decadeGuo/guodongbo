@@ -22,9 +22,12 @@ def coll(request):
     aid = request.GET.get('aid')
     uid = request.user.id
     if Coll.objects.filter(uid=uid,aid=aid).exists():
-        return ajax_ok(dict(status=0))
+        return ajax_ok(data=dict(status=0))
+
+    num = Article.objects.filter(pk=aid).update(coll=F('coll')+1)
+
     Coll.objects.create(uid=uid,aid=aid,add_time=now)
-    return ajax_ok(dict(status=1))
+    return ajax_ok(data=dict(status=1,num=num))
 
 def praise(request):
     """"""

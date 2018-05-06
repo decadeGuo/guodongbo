@@ -166,19 +166,19 @@
 
                         </p></a>
                         <p class="wei">
-                            {% if is_coll %}
+                            {% if o.is_coll %}
                             <span class="pl allready" disabled="true" style="background-color: orange">已收藏</span>
                             {% else %}
-                            <span class="pl" style="background-color: orange">收藏{{ o.coll }}</span>
+                            <span class="pl coll" style="background-color: orange" name="{{ o.id }}">收藏{{ o.coll }}</span>
                             {% endif %}
                             <a href="/forum/article_deatil/?id={{ o.id }}&type=0">
                             <span class="margin_left pl">讨论{{ o.pl_num }}</span></a>
-                            {% if is_praise %}
+                            {% if o.is_praise %}
                                 <span class="margin_left zan allready" disabled="true">已赞{{ o.praise }}</span>
                             {% else %}
-                            <span class="margin_left zan">点赞{{ o.praise }}</span>
+                            <span class="margin_left zan remark">点赞{{ o.praise }}</span>
                             {% endif %}
-                            <span class="margin_left pl">转发</span>
+                            <span class="margin_left pl remark">转发</span>
                         </p>
                     </div>
                     {% if o.dp %}
@@ -188,7 +188,7 @@
                                                                             class="pl">{{ o.dp.user }}({{ o.dp.depart }})</span>:
                             <span style="color: grey;opacity: 0.5">下面是点赞最多的评论哦</span>
                             <br>
-                            <span>{{ o.dp.content }}</span><span class="zan margin_left">赞{{ o.dp.praise }}</span>
+                            <span>{{ o.dp.content }}</span><span class="zan margin_left remark">赞{{ o.dp.praise }}</span>
                         </p>
                     </div>
                     {% endif %}
@@ -209,6 +209,32 @@
             $(this).click(function () {
                 $('.l_li').removeClass('active');
                 $(this).addClass('active');
+            })
+        });
+        $('.remark').each(function () {
+            $(this).click(function () {
+                alert('暂未开放该功能')
+            })
+        });
+         $('.coll').each(function () {
+            $(this).click(function () {
+
+                var aid = $(this).attr('name');
+                settings = {
+                    url: "/forum/coll/",
+                    type: "GET",
+                    data:{"aid":aid},
+                    success: function (data) {
+                        if (data.data.status == 0){
+                            alert('你已收藏过该文章')
+                        }else{
+                            alert('收藏成功');
+                            window.location.reload()
+                        }
+
+                    }
+                };
+                $.ajax(settings);
             })
         })
     </script>

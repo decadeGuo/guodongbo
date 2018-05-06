@@ -46,9 +46,10 @@ def get_tags():
     """获取分类数据"""
     tags = Tags.objects.filter(status=1).all().order_by('-addtime')
     return tags
-def is_coll(id):
+def is_coll(id,uid):
     """是否收藏该文章"""
-    is_coll = Coll.objects.filter(pk=id).exists()
+    is_coll = Coll.objects.filter(aid=id,uid=uid).exists()
+
     return is_coll
 
 def is_praise(id,type):
@@ -58,7 +59,7 @@ def is_praise(id,type):
     return is_praise
 
 
-def get_article_info(res):
+def get_article_info(res,uid):
     """获取文章的基础信息"""
     data_list = []
     for i in res:
@@ -73,7 +74,7 @@ def get_article_info(res):
         row.coll = i.coll
         row.praise = i.praise
         row.pl_num = i.pl_num
-        row.is_coll = is_coll(i.id)     # 是否收藏
+        row.is_coll = is_coll(i.id,uid)     # 是否收藏
         row.is_praise = is_praise(i.id,1)     # 是否点赞
         row.dp = get_pl(i.id)
         data_list.append(row)
@@ -95,7 +96,7 @@ def index(request):
     objs = Article.objects.filter().all()
     res, text, tag = get_res(cs,objs)
     tags = get_tags()   # 所有的分类
-    data_list = get_article_info(res)
+    data_list = get_article_info(res,request.user.id)
     data = dict(text=text,tag=tag,content=data_list,tags=tags)
     # print data
     return render(request,'forum/index.html',context=data)
@@ -149,8 +150,8 @@ def me(request):
     # 我评论的id列表(去掉发布的)
     my_pl = list(ArticleTalk.objects.filter(uid=request.user.id).values_list('aid_id',flat=True).exclude(aid_id__in=a_ids))
     my_talk = Article.objects.filter(id__in=my_pl).all()
-    my_articles_list = get_article_info(my_articles)
-    my_talk_list = get_article_info(my_talk)
+    my_articles_list = get_article_info(my_articles,request.user.id)
+    my_talk_list = get_article_info(my_talk,request.user.id)
     tag = int(cs.get('tag', '0'))
 
     if tag and int(tag) == -2: # 查看我发布的
@@ -189,7 +190,7 @@ def zone(request):
     art_ids = list(Coll.objects.filter(uid=request.user.id).values_list('aid',flat=True).order_by('-add_time'))
     res = Article.objects.filter(pk__in=art_ids).all()
     res, text, tag = me_filter(cs, res)
-    data_list = get_article_info(res)
+    data_list = get_article_info(res,request.user.id)
     data = dict(tags=tags,data=data_list,text=text,tag=tag)
 
     return render(request,'forum/zone.html',context=data)

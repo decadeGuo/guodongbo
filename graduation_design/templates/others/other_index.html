@@ -36,9 +36,11 @@
                     <button class="other b a">车辆管理</button>
                 </a>
             {% endif %}
+            {% if user_type >= 3 %}
             <a href="/other/room/manage/">
                     <button class="other b a">教室管理</button>
                 </a>
+            {% endif %}
             <div class="other a">更多功能开发中。。。</div>
         </section>
     {% endblock %}

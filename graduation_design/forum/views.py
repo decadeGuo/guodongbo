@@ -252,7 +252,7 @@ def article_deatil(request):
     row.coll = i.coll
     row.praise = i.praise
     row.pl_num = i.pl_num
-    row.is_coll = is_coll(i.id)  # 是否收藏
+    row.is_coll = is_coll(i.id,request.user.id)  # 是否收藏
     row.is_praise = is_praise(i.id, 1)  # 是否点赞
 
     talk_list = []
